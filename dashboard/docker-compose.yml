@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  db:
+    image: moocs-ui:0.0.2
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1234
+      NUXT_PUBLIC_BASE_URL: https://12bf4622-7d55-4de8-94fa-38417367c1f6.mock.pstmn.io/
+    ports:
+      - 4000:1234
