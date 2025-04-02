@@ -1,8 +1,0 @@
-@media not (pointer: coarse) {
-  math-field::part(virtual-keyboard-toggle) {
-    display: none;
-  }
-}
-.ML__keyboard {
-  z-index: 999999 !important;
-}
