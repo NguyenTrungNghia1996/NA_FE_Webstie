@@ -5,7 +5,9 @@
 .obj-fit {
     object-fit: cover
 }
-
+a {
+    text-decoration: none;
+  }
 .d-grid {
     display: grid !important
 }
