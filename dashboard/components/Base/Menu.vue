@@ -120,8 +120,8 @@ const menuAdmin = computed(() => {
         { id: nuxtApp.$RANDOMID(), title: t("user-category"), url: "/manage/group", key: "/manage/group" },
         { id: nuxtApp.$RANDOMID(), title: t("organizational-setup"), url: "/manage/orgUser", key: "/manage/orgUser" },
         { id: nuxtApp.$RANDOMID(), title: t("job-role"), url: "/manage/jobRole", key: "/manage/jobRole" },
-      ],
-    },
+      ]
+    }
   ];
 });
 

@@ -13,6 +13,9 @@
             <a-menu-item>
               <FlagEn @click="handleSelectLang('en')" />
             </a-menu-item>
+            <!-- <a-menu-item>
+              <FlagLa @click="handleSelectLang('lo')" />
+            </a-menu-item> -->
           </a-menu>
         </template>
       </a-dropdown>

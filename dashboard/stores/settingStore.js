@@ -1,7 +1,10 @@
 import { defineStore } from "pinia";
 export const useSettingStore = defineStore("setting", {
   state: () => ({
-    breadcrumb:[],
+    breadcrumb: [
+      { url: "/dashboard", title: "Dashboard" },
+      { url: "/dashboard", title: "Dashboard" },
+    ],
   }),
   actions: {
     setBreadcrumb(value) {

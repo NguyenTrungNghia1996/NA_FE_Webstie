@@ -1,15 +1,14 @@
 <template>
-  <div class="h-full w-full flex justify-between items-center bg-headerColor px-5">
+  <div class="h-full w-full flex justify-between items-center bg-[#001529] px-5">
     <div class="flex space-x-3 items-center">
       <!-- <img src="/img/logo.png" class="h-10" /> -->
-      <span class="font-semibold text-white text-xl">Dashboard</span>
+      <span class="font-semibold text-white text-xl p-3">Dashboard</span>
     </div>
     <div class="flex space-x-3 items-center">
       <LangSwitcher />
       <a-dropdown>
         <div class="ant-dropdown-link" @click.prevent>
-          <a-avatar v-if="userStore.user.avatar" :src="userStore.user.avatar">
-          </a-avatar>
+          <a-avatar v-if="userStore.user.avatar" :src="userStore.user.avatar"/>
           <a-avatar v-else>
             <template #icon>
               <UserOutlined />
