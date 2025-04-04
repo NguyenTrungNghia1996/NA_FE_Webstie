@@ -1,6 +1,6 @@
 <template>
       <div class="relative h-[73px] w-full bg-white z-[10000] border-b border-gray-300">
-      <div class="container mx-auto h-full flex justify-between items-center px-4">
+      <div class="container mx-auto h-full flex justify-between items-center">
         <!-- Logo -->
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png?20171228163613" 
