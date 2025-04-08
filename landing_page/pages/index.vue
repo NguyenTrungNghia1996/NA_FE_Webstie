@@ -19,10 +19,9 @@
         <div>Video</div>
       </div>
     </div>
-
     <ItemPageSildesBg :bgImgae="slides2.bgImgae" :title="slides2.title" :slides="slides2.sildes" :id="slides2.id" />
     <ItemPageSildesBg :bgImgae="slides3.bgImgae" :title="slides3.title" :slides="slides3.slides" :id="slides3.id" />
-
+    <ItemPageSlides :title="silde4.title" :slides="silde4.slides"/>
   </div>
 </template>
 <script setup>
@@ -122,5 +121,91 @@ const slides3 = ref({
     }
   ],
   bgImgae: "",
+})
+
+const silde4 = ref({
+  title:'Khách hàng tiêu biểu',
+  slides: [
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+    {
+      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
+      url: "#",
+    },
+  ],
 })
 </script>

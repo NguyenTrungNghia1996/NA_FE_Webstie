@@ -1,10 +1,10 @@
 <template>
-  <NuxtLink :to="props.url" class="flex flex-col justify-between w-full h-[558px] rounded-xl bg-white overflow-hidden border border-gray-300 
+  <NuxtLink :to="props.url" class="flex flex-col justify-between w-full rounded-xl bg-white overflow-hidden border border-gray-300 
   transition-all duration-300 hover:shadow-xl hover:border-gray-200">
     <div>
       <img class="w-full h-70 object-cover" :src="props.image" alt="Product 1" />
       <div class="flex-grow p-6 ">
-        <h1 class="mb-3 text-xl font-bold text-gray-800">{{ props.title }}</h1>
+        <h1 class="mb-3 text-xl font-bold text-gray-800 line-clamp-2">{{ props.title }}</h1>
         <p class="text-gray-600 line-clamp-3">{{ props.description }}</p>
       </div>
     </div>

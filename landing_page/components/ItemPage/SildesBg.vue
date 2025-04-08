@@ -67,7 +67,7 @@ const props = defineProps({
     required: true
   }
 });
-const containerRef = ref(null);
+
 const paginationRef = ref(
   {
     el: "."+props.id ,
@@ -79,6 +79,7 @@ const paginationRef = ref(
     }
   }
 );
+const containerRef = ref(null);
 const swiper = useSwiper(containerRef, {
   effect: 'Pagination',
   loop: true,
