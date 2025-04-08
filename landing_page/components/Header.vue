@@ -1,11 +1,11 @@
 <template>
-      <div class="relative h-[73px] w-full bg-white z-[10000] border-b border-gray-300">
+      <div class="relative h-[80px] w-full bg-white z-[10000] border-b border-gray-300">
       <div class="container mx-auto h-full flex justify-between items-center">
         <!-- Logo -->
-        <div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png?20171228163613" 
+        <div class="m-3">
+          <img src="https://nguyenanh-est.com/img/Logo.png" 
                alt="Logo" 
-               class="h-8 w-auto" />
+               class="h-20 w-full" />
         </div>
 
         <!-- Mobile Menu Button -->

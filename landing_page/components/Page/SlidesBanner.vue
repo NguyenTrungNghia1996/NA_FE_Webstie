@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <swiper-container ref="containerRef" :init="false">
-      <swiper-slide v-for="(slide, idx) in props.slides" :key="idx">
+      <swiper-slide v-for="(slide, idx) in props.data.slides" :key="idx">
         <NuxtLink :to="slide.url" class="w-full h-full flex items-center justify-center">
           <img :src="slide.img" class="w-full h-full object-cover" :alt="slide.alt" />
         </NuxtLink>
@@ -11,8 +11,8 @@
 </template>
 <script setup>
 const props = defineProps({
-  slides: {
-    type: Array,
+  data: {
+    type: Object,
     required: true
     // default: () => [
     //   {
