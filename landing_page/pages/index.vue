@@ -1,27 +1,10 @@
 <template>
   <div>
-    <ItemPageSlidesFull :slides="slides" ref="containerRef" />
-    <div class="container mx-auto p-4">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <div class="p-3 flex flex-col gap-3">
-          <p class="font-roboto text-[28px] font-medium leading-[33.6px] text-[#212529] no-underline">Tập đoàn công nghệ Quảng Ích</p>
-          <p class="font-roboto">Tập đoàn Công nghệ Quảng Ích (QIGroup) là doanh nghiệp phần mềm chuyên cung cấp, xây dựng các giải pháp phần mềm trong lĩnh vực giáo dục hàng đầu tại Việt Nam. Sau hơn 20 năm hình thành và phát triển các sản phẩm và dịch vụ của chúng tôi đã triển khai tới hàng triệu khách hàng trên toàn quốc...Chi tiết</p>
-          <div class="relative">
-            <div class="w-full font-roboto text-lg italic font-medium leading-[1.42] text-gray-600 no-underline text-justify 
-              bg-gray-100 h-[139px] my-2.5 mx-0 py-4 px-6 pl-7 relative block 
-              box-border rounded-r-lg">
-              "Chúng tôi ưu tiên nghiên cứu phát triển các ứng dụng trong lĩnh vực giáo dục và đào tạo để giúp xây dựng trường học ở Việt Nam và trên thế giới ngày càng trở nên thân thiện hơn, lớp học ngày càng trở nên văn minh, thích thú và vui vẻ hơn."
-
-              <div class="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-teal-400 to-blue-500"></div>
-            </div>
-          </div>
-        </div>
-        <div>Video</div>
-      </div>
-    </div>
-    <ItemPageSildesBg :bgImgae="slides2.bgImgae" :title="slides2.title" :slides="slides2.sildes" :id="slides2.id" />
-    <ItemPageSildesBg :bgImgae="slides3.bgImgae" :title="slides3.title" :slides="slides3.slides" :id="slides3.id" />
-    <ItemPageSlides :title="silde4.title" :slides="silde4.slides"/>
+    <PageSlidesBanner :slides="slides"/>
+    <PageInfo/>
+    <PageSildesList :bgImgae="slides2.bgImgae" :title="slides2.title" :slides="slides2.sildes" />
+    <PageSildesList :bgImgae="slides3.bgImgae" :title="slides3.title" :slides="slides3.slides" />
+    <PageSlidesCustomer :title="sildes4.title" :slides="sildes4.slides"/>
   </div>
 </template>
 <script setup>
@@ -31,31 +14,30 @@ const slides = ref([
   {
     img: '/Slide/bannertet.png',
     alt: 'Slide 1',
-    url: '/Slide/bannertet.png',
+    url: '#',
   },
   {
     img: '/Slide/Congthongtin.png',
     alt: 'Slide 2',
-    url: '/Slide/Congthongtin.png',
+    url: '#',
   },
   {
     img: '/Slide/Hocvathitructuyen.png',
     alt: 'Slide 3',
-    url: '/Slide/Hocvathitructuyen.png',
+    url: '#',
   },
   {
     img: '/Slide/Thediemdanhthongminh.png',
     alt: 'Slide 4',
-    url: '/Slide/Thediemdanhthongminh.png',
+    url: '#',
   },
   {
     img: '/Slide/Thongtingiaoduc.png',
     alt: 'Slide 5',
-    url: '/Slide/Thongtingiaoduc.png',
+    url: '#',
   },
 ]);
 const slides2 = ref({
-  id: nuxtApp.$RANDOMID(),
   title: 'SẢN PHẨM DỊCH VỤ',
   sildes: [
     {
@@ -86,7 +68,6 @@ const slides2 = ref({
   bgImgae: "bg-[url('/Rectangle_2244.webp')]",
 })
 const slides3 = ref({
-  id: nuxtApp.$RANDOMID(),
   title: 'Tin giáo dục',
   slides: [
     {
@@ -122,8 +103,7 @@ const slides3 = ref({
   ],
   bgImgae: "",
 })
-
-const silde4 = ref({
+const sildes4 = ref({
   title:'Khách hàng tiêu biểu',
   slides: [
     {

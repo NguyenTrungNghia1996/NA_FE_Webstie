@@ -14,7 +14,6 @@
               <Card :title="n.title" :description="n.description" :url="n.url" :image="n.image" />
             </swiper-slide>
           </swiper-container>
-          <div class="news-pagination mt-8 flex justify-center gap-2" :class="props.id"></div>
         </ClientOnly>
       </div>
     </div>
@@ -62,23 +61,8 @@ const props = defineProps({
     required: true
     // default: "bg-[url('/Rectangle_2244.webp')]",
   },
-  id: {
-    type: String,
-    required: true
-  }
 });
 
-const paginationRef = ref(
-  {
-    el: "."+props.id ,
-    clickable: true,
-    bulletClass: 'w- h-4 rounded-full bg-blue-200 cursor-pointer transition-all',
-    bulletActiveClass: 'bg-gradient-to-r from-[#437ae7] to-[#3dc5b6] w-3',
-    renderBullet: (index, className) => {
-      return `<span class="${className}"></span>`
-    }
-  }
-);
 const containerRef = ref(null);
 const swiper = useSwiper(containerRef, {
   effect: 'Pagination',
@@ -102,26 +86,9 @@ const swiper = useSwiper(containerRef, {
       spaceBetween: 50,
     },
   },
-  // pagination: paginationRef.value,
 });
 
-onMounted(() => {
-  console.log(swiper.instance)
-})
+// onMounted(() => {
+//   console.log(swiper.instance)
+// })
 </script>
-
-<!-- <style>
-/* Custom pagination styles */
-.news-pagination {
-  position: static !important;
-  transform: none !important;
-}
-
-.swiper-pagination-bullet {
-  @apply w-3 h-3 rounded-full bg-gray-300 cursor-pointer transition-all;
-}
-
-.swiper-pagination-bullet-active {
-  @apply bg-blue-600 w-6;
-}
-</style> -->

@@ -214,29 +214,29 @@ const submenuLeave = (el, done) => {
 const mainMenuItems = ref([
   {
     label: 'Giới thiệu',
-    url: '/gioi-thieu',
+    url: '#',
     children: [
-      { label: 'Về chúng tôi', url: '/ve-chung-toi' },
-      { label: 'Lịch sử hình thành', url: '/lich-su' }
+      { label: 'Về chúng tôi', url: '#' },
+      { label: 'Lịch sử hình thành', url: '#' }
     ]
   },
   {
     label: 'Sản phẩm dịch vụ',
-    url: '/san-pham',
+    url: '#',
     children: [
-      { label: 'Sản phẩm 1', url: '/san-pham/1' },
-      { label: 'Sản phẩm 2', url: '/san-pham/2' },
-      { label: 'Sản phẩm 3', url: '/san-pham/3' }
+      { label: 'Sản phẩm 1', url: '#' },
+      { label: 'Sản phẩm 2', url: '#' },
+      { label: 'Sản phẩm 3', url: '#' }
     ]
   },
   {
     label: 'Tin tức',
-    url: '/tin-tuc',
+    url: '#',
     children: []
   },
   {
     label: 'Liên hệ',
-    url: '/lien-he',
+    url: '#',
     children: []
   }
 ])

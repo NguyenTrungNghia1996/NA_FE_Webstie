@@ -10,7 +10,7 @@
       <ClientOnly>
         <swiper-container ref="containerRef" :init="false">
           <swiper-slide v-for="n in props.slides" :key="n">
-            <Logo :image="n.image" class="w-full h-full object-cover" :alt="n.image" />
+            <Logo :image="n.image" class="w-full h-full object-cover" :url="n.url" />
           </swiper-slide>
         </swiper-container>
       </ClientOnly>
@@ -54,7 +54,7 @@ const swiper = useSwiper(containerRef, {
   // pagination: paginationRef.value,
 });
 
-onMounted(() => {
-  console.log(swiper.instance)
-})
+// onMounted(() => {
+//   console.log(swiper.instance)
+// })
 </script>
