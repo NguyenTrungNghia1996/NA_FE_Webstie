@@ -1,34 +1,6 @@
-<script setup lang="ts">
-const containerRef = ref(null)
-const slides = ref([
-  '/Slide/bannertet.png',
-  '/Slide/Congthongtin.png',
-  '/Slide/Hocvathitructuyen.png',
-  '/Slide/Thediemdanhthongminh.png',
-  '/Slide/Thongtingiaoduc.png',
-])
-const swiper = useSwiper(containerRef, {
-  effect: 'Pagination',
-  loop: true,
-  autoplay: {
-    delay: 5000,
-  },
-})
-
-onMounted(() => {
-  console.log(swiper.instance)
-})
-</script>
-
 <template>
   <div>
-    <ClientOnly>
-      <swiper-container ref="containerRef" :init="false">
-        <swiper-slide v-for="(slide, idx) in slides" :key="idx">
-          <img :src="slide" class="w-full h-full object-cover" alt="Slide Image" />
-        </swiper-slide>
-      </swiper-container>
-    </ClientOnly>
+    <ItemPageSlidesFull :slides="slides" ref="containerRef" />
     <div class="container mx-auto p-4">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <div class="p-3 flex flex-col gap-3">
@@ -43,45 +15,112 @@ onMounted(() => {
               <div class="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-teal-400 to-blue-500"></div>
             </div>
           </div>
-          <!-- <div>
-            <p>"Chúng tôi ưu tiên nghiên cứu phát triển các ứng dụng trong lĩnh vực giáo dục và đào tạo để giúp xây dựng trường học ở Việt Nam và trên thế giới ngày càng trở nên thân thiện hơn, lớp học ngày càng trở nên văn minh, thích thú và vui vẻ hơn."</p>
-          </div> -->
         </div>
-        <div>123</div>
+        <div>Video</div>
       </div>
     </div>
-    <div class="bg-[url('/Rectangle_2687.webp')]">
-      <div class="container mx-auto p-10 flex flex-col gap-6">
-        <div class="flex flex-col items-center">
-          <h2 class="font-roboto text-[36px] font-medium leading-[42px] text-white uppercase text-center">
-            SẢN PHẨM DỊCH VỤ
-          </h2>
-          <!-- Thanh ngang màu trắng -->
-          <div class="h-[3px] w-[200px] bg-white mt-4"></div>
-        </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class=" max-w-lg rounded-xl overflow-hidden shadow-lg bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 ">
-            <img class="w-full h-48 object-cover" src="/Sp/sanpham1.jpg" alt="Product 1" />
-            <div class="p-4">
-              <h3 class="font-roboto text-[20px] font-medium leading-[24px] text-[#212529]">Hệ thống thông tin quản lý giáo dục</h3>
-              <p class="font-roboto text-base leading-[20px] text-[#212529]">Giải pháp phần mềm quản lý giáo dục toàn diện cho các cơ sở giáo dục.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <ItemPageSildesBg :bgImgae="slides2.bgImgae" :title="slides2.title" :slides="slides2.sildes" :id="slides2.id" />
+    <ItemPageSildesBg :bgImgae="slides3.bgImgae" :title="slides3.title" :slides="slides3.slides" :id="slides3.id" />
 
   </div>
 </template>
+<script setup>
+const nuxtApp = useNuxtApp();
 
-<style lang="css">
-swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-size: 4rem;
-  font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-}
-</style>
+const slides = ref([
+  {
+    img: '/Slide/bannertet.png',
+    alt: 'Slide 1',
+    url: '/Slide/bannertet.png',
+  },
+  {
+    img: '/Slide/Congthongtin.png',
+    alt: 'Slide 2',
+    url: '/Slide/Congthongtin.png',
+  },
+  {
+    img: '/Slide/Hocvathitructuyen.png',
+    alt: 'Slide 3',
+    url: '/Slide/Hocvathitructuyen.png',
+  },
+  {
+    img: '/Slide/Thediemdanhthongminh.png',
+    alt: 'Slide 4',
+    url: '/Slide/Thediemdanhthongminh.png',
+  },
+  {
+    img: '/Slide/Thongtingiaoduc.png',
+    alt: 'Slide 5',
+    url: '/Slide/Thongtingiaoduc.png',
+  },
+]);
+const slides2 = ref({
+  id: nuxtApp.$RANDOMID(),
+  title: 'SẢN PHẨM DỊCH VỤ',
+  sildes: [
+    {
+      title: "Ứng dụng eNetViet",
+      description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg",
+    },
+    {
+      title: "Ứng dụng eNetViet",
+      description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg",
+    },
+    {
+      title: "Ứng dụng eNetViet",
+      description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg",
+    },
+    {
+      title: "Ứng dụng eNetViet",
+      description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg",
+    },
+  ],
+  bgImgae: "bg-[url('/Rectangle_2244.webp')]",
+})
+const slides3 = ref({
+  id: nuxtApp.$RANDOMID(),
+  title: 'Tin giáo dục',
+  slides: [
+    {
+      title: "Sở GDĐT Hòa Bình ký hợp tác với Tập đoàn Quảng lch về chuyển đổi số",
+      description: "Sáng ngày 16/04/2024, Sở Giáo dục và Đào tạo Hòa Bình đã tổ chức buổi lễ ký kết thỏa thuận hợp tác với Tập đoàn...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg"
+    },
+    {
+      title: "Lễ ký kết thỏa thuận hợp tác giữa Sở GD&ĐT Đồng Nai và Quảng lch",
+      description: "Sáng 28-3, Sở Giáo dục và đào tạo Đồng Nai phối hợp cùng Tập đoàn Quảng lch tổ chức lễ ký kết thỏa thuận hợp...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg"
+    },
+    {
+      title: "Sở GD&ĐT Bình Dương và Quảng lch ký kết thỏa thuận hợp tác",
+      description: "Ngày 12/3/2024, tại TP. Tân Uyên, đã diễn ra Lễ ký kết thỏa thuận hợp tác tăng cường ứng dụng công nghệ thông tin và...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg"
+    },
+    {
+      title: "Sở GD&ĐT Bình Dương và Quảng lch ký kết thỏa thuận hợp tác",
+      description: "Ngày 12/3/2024, tại TP. Tân Uyên, đã diễn ra Lễ ký kết thỏa thuận hợp tác tăng cường ứng dụng công nghệ thông tin và...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg"
+    },
+    {
+      title: "Sở GD&ĐT Bình Dương và Quảng lch ký kết thỏa thuận hợp tác",
+      description: "Ngày 12/3/2024, tại TP. Tân Uyên, đã diễn ra Lễ ký kết thỏa thuận hợp tác tăng cường ứng dụng công nghệ thông tin và...",
+      url: "#",
+      image: "/Sp/sanpham1.jpg"
+    }
+  ],
+  bgImgae: "",
+})
+</script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen flex flex-col bg-gray-200">
+  <div class="w-full h-screen flex flex-col bg-gray-100">
     <!-- Header -->
     <Header/>
     <!-- Content Area -->
