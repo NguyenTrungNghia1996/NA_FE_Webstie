@@ -1,5 +1,71 @@
 <template>
   <div>
-    page giới thiệu
+    <component class="py-6" v-for="(item, index) in data_view" :key="index" :is="$type2Component(item.type)" :data="item.data" />
+    <div class="container mx-auto">
+      <AboutSection v-for="(item, index) in introduce" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="item.reverse" />
+    </div>
   </div>
 </template>
+
+<script setup>
+const introduce = ref([])
+const { RestApi } = useApi();
+const { data, status, error } = await RestApi.view.info();
+if (status.value == "success") {
+  introduce.value = data.value.map((item, index) => ({
+    title: item.tentieude,
+    description: item.moTaNgan != null ? item.moTaNgan : "" + item.moTaChiTiet,
+    imageSrc: `https://nguyenanh-est.com/image/tulieuna/${item.urlImg}`,
+    reverse: index % 2 !== 0
+  }));
+} else {
+  console.log("error:", error);
+}
+const data_view = ref([
+  {
+    type: "SLIDES_BANNER",
+    data: {
+      slides: [
+        {
+          img: '/Slide/bannertet.png',
+          alt: 'Slide 1',
+          url: '#',
+        },
+        {
+          img: '/Slide/Congthongtin.png',
+          alt: 'Slide 2',
+          url: '#',
+        },
+        {
+          img: '/Slide/Hocvathitructuyen.png',
+          alt: 'Slide 3',
+          url: '#',
+        },
+        {
+          img: '/Slide/Thediemdanhthongminh.png',
+          alt: 'Slide 4',
+          url: '#',
+        },
+        {
+          img: '/Slide/Thongtingiaoduc.png',
+          alt: 'Slide 5',
+          url: '#',
+        },
+      ]
+    }
+  },
+  {
+    type: "BREADCRUMB",
+    data: [
+      {
+        url: "#",
+        label: "Trang chủ"
+      },
+      {
+        url: "/GioiThieu",
+        label: "Giới thiệu"
+      },
+    ]
+  },
+])
+</script>

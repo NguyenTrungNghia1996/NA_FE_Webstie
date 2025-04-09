@@ -1,69 +1,70 @@
 <template>
   <footer class="bg-[url('/bgfooter.png')] bg-center bg-cover bg-no-repeat">
-    <div class="container mx-auto px-[50px] py-10 text-white">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Sản phẩm trực tuyến -->
+    <div class="container mx-auto px-4 sm:px-[50px] py-6 sm:py-10 text-white">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-8">
+        <!-- Online Products -->
         <div>
-          <h3 class="font-roboto font-bold text-lg mb-4">SẢN PHẨM TRỰC TUYẾN</h3>
-          <ul class="space-y-2">
-            <li class="font-roboto" v-for="i in online_products" :key="i">
-              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white" />
-              {{ i }}
-            </li>
-          </ul>
-          <!-- <div>
-            <h3 class="font-bold text-lg mb-4">TỔNG ĐÀI HỖ TRỢ</h3>
-            <p class="font-semibold text-xl">1900 4740</p>
-            <p>(Từ 8h00 đến 17h30, thứ 2 đến thứ 7)</p>
-          </div> -->
-        </div>
-
-        <!-- Truy cập nhanh -->
-        <div>
-          <h3 class="font-bold text-lg mb-4 font-roboto">TRUY CẬP NHANH</h3>
-          <ul class="space-y-2">
-            <li class="font-roboto" v-for="i in quick_access" :key="i">
-              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white" />
-              {{ i }}
+          <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">SẢN PHẨM TRỰC TUYẾN</h3>
+          <ul class="space-y-1 sm:space-y-2">
+            <li v-for="(product, index) in online_products" :key="index" class="font-roboto flex items-start text-sm sm:text-base">
+              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
+              <span>{{ product }}</span>
             </li>
           </ul>
         </div>
 
-        <!-- Tập đoàn công nghệ Quảng Ich -->
+        <!-- Quick Access -->
+        <div>
+          <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">Dịch vụ của chúng tôi</h3>
+          <ul class="space-y-1 sm:space-y-2">
+            <li v-for="(service, index) in quick_access" :key="index" class="font-roboto flex items-start text-sm sm:text-base">
+              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
+              <span>{{ service }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Company Info -->
         <div class="col-span-1 md:col-span-2">
-          <h3 class="font-roboto font-bold text-lg mb-4">TẬP ĐOÀN CÔNG NGHỆ QUẢNG ICH</h3>
-          <ul class="space-y-2 ">
-            <li class="font-roboto">- Trụ sở chính: Z5-47 TTTM LePARC, KM 1,5 Pháp Vân, Công viên Yên Sở, P.Yên Sở, Q.Hoàng Mai, TP.Hà Nội</li>
-            <li>- Chi nhánh TP. HCM: Số 33 Đường D2, Khu dân cư Hưng Phú 2, P.Phước Long B, Tp Thủ Đức, TP.Hồ Chí Minh</li>
-            <li>- VPĐD Hải Phòng: Số 133 Lô 160 Lê Hồng Phong, P. Đằng Lâm, Q.Hải An, TP.Hải Phòng</li>
-            <li>- VPĐD Đà Nẵng: Tầng 1,2 số 129 Phạm Phú Tiết, P.Khuê Trung, Q.Cẩm Lệ, TP.Đà Nẵng</li>
-            <li>- VPĐD Cần Thơ: Số 15 Đường Nguyễn Thị Tĩnh, Khu vực 5, P.Bùi Hữu Nghĩa, Q.Bình Thủy, TP. Cần Thơ</li>
-            <li>- Điện thoại: 02473085858</li>
-            <li>- Email: info@qig.vn</li>
-            <li>- Website: https://qig.vn</li>
+          <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GIÁO DỤC NGUYÊN ANH</h3>
+          <ul class="space-y-1 sm:space-y-2 text-sm sm:text-base">
+            <li class="font-roboto flex flex-col sm:flex-row sm:items-start gap-1">
+              <div class="flex items-start">
+                <Icon name="mdi:map-marker" class="text-base mt-0.5 mr-1 flex-shrink-0" />
+                <span class="font-bold">Trụ sở chính: </span>
+              </div>
+              <span>Số 51, Ngách 562/59, Thụy Khuê, Tây Hồ, Hà Nội</span>
+            </li>
+            <li class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+              <div class="flex items-center">
+                <Icon name="mdi:phone" class="text-base mr-1 flex-shrink-0" />
+                <span>Điện thoại: 0973.052.270</span>
+              </div>
+              <div class="flex items-center">
+                <Icon name="mdi:email" class="text-base mr-1 flex-shrink-0" />
+                <span>Email: info.nguyenanhest@gmail.com</span>
+              </div>
+            </li>
+            <li class="flex items-center">
+              <Icon name="mdi:web" class="text-base mr-1 flex-shrink-0" />
+              <span>Website: https://nguyenanh-est.com</span>
+            </li>
           </ul>
         </div>
       </div>
-
-      <!-- Copyright/bottom bar can be added here if needed -->
     </div>
   </footer>
 </template>
 
 <script setup>
 const online_products = [
-  "Hệ thống thông tin quản lý giáo dục",
-  "Ứng dụng eNetViet",
-  "Cổng thông tin điện tử V-Portal",
-  "Thư viện điện tử VIELIB",
-  "Hệ thống Học và Thi trực tuyến V-Study",
-  "Thẻ thông minh E-Card"
+  "Phần mềm Xếp thời khóa biểu",
+  "Hệ thống Xuất bản tạp chí điện tử",
 ];
+
 const quick_access = [
-  "Hỗ trợ PM hệ thống",
-  "Hỗ trợ ứng dụng eNetViet",
-  "Hỗ trợ PM Thư viện",
-  "Truyền thông về chúng tôi",
-  "Download phần mềm tiện ích"
+  "Cung cấp thiết bị công nghệ thông tin",
+  "Thiết kế và phát triển hệ thống phần mềm",
+  "Bảo trì và vận hành hệ thống công nghệ thông tin",
 ];
 </script>

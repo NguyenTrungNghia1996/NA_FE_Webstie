@@ -1,6 +1,7 @@
 let ENDPOINTS = {
   MENU: "/api/frontend/Menu/Getlistmenu",
   GET_DETAIL: "/api/frontend/Sanpham/Getdetail_Sanpham",
+  GET_INFO:"/api/frontend/Gioithieu/Getlist_Thongtingioithieu"
 };
 class Request {
   constructor() {
@@ -19,9 +20,6 @@ class Request {
         // );
         // const userStore = useUserStore()
         // userStore.logout()
-        console.log("onRequestError request:", request);
-        console.log("onRequestError error:", error);
-        console.log("onRequestError options:",options);
       },
       onResponse({ request, response, options }) {
         // console.log(response._data.code, process.client)
@@ -127,6 +125,9 @@ class View {
   }
   async menu(data) {
     return this.requester.get(ENDPOINTS.MENU, data);
+  }
+  async info(data) {
+    return this.requester.get(ENDPOINTS.GET_INFO, data);
   }
 }
 class Product {
