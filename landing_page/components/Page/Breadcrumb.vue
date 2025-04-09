@@ -13,7 +13,7 @@
       <li v-for="(item, index) in props.data" :key="index" class="flex items-center">
         <NuxtLink 
           :to="item.url" 
-          class="inline-block font-semibold font-roboto text-xl transition-colors"
+          class="inline-block font-semibold font-roboto text-sm md:text-xl transition-colors"
           :class="[
             index === data.length - 1 
               ? 'text-blue-500 hover:text-blue-600' 

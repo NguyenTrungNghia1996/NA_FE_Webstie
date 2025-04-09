@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const isDev = process.env.NODE_ENV === "development";
 export default defineNuxtConfig({
   app: {
     head: {
@@ -14,4 +15,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/icon', '@nuxtjs/tailwindcss', 'nuxt-swiper', '@vueuse/nuxt'],
   css: ['~/assets/css/tailwind.css'],
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://api.nguyenanh-est.com",
+    },
+  },
 })

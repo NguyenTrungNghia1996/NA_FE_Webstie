@@ -38,7 +38,6 @@ const data_view = ref([
       ]
     }
   },
-  
   {
     type: "INFO",
     data: {
@@ -49,7 +48,6 @@ const data_view = ref([
       url: "#"
     }
   },
-
   {
     type: "SLIDES_LIST",
     data: {
