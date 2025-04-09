@@ -1,8 +1,11 @@
 import { customAlphabet } from "nanoid";
-import * as PageType from "../components/Page"
-export default defineNuxtPlugin(NuxtApp => {
-  const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
-  const typePage = computed(() => { 
+import * as PageType from "../components/Page";
+export default defineNuxtPlugin((NuxtApp) => {
+  const nanoid = customAlphabet(
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    10
+  );
+  const typePage = computed(() => {
     return {
       INFO: {
         TYPE: "INFO",
@@ -20,10 +23,18 @@ export default defineNuxtPlugin(NuxtApp => {
         TYPE: "SLIDES_CUSTOMER",
         LABEL: "Slides Customer",
       },
-    }
-  })
-  const type2Component = type => { 
-    switch (type) { 
+      BREADCRUMB: {
+        TYPE: "BREADCRUMB",
+        LABEL: "Breadcrumb",
+      },
+      DETAIL: {
+        TYPE: "DETAIL",
+        LABEL: "Detail",
+      },
+    };
+  });
+  const type2Component = (type) => {
+    switch (type) {
       case typePage.value.INFO.TYPE:
         return PageType.Info;
       case typePage.value.SLIDES_LIST.TYPE:
@@ -32,10 +43,14 @@ export default defineNuxtPlugin(NuxtApp => {
         return PageType.SlidesBanner;
       case typePage.value.SLIDES_CUSTOMER.TYPE:
         return PageType.SlidesCustomer;
+      case typePage.value.BREADCRUMB.TYPE:
+        return PageType.Breadcrumb;
+      case typePage.value.DETAIL.TYPE:
+        return PageType.Detail;
       default:
         return null;
     }
-  }
+  };
   return {
     provide: {
       RANDOMID: () => nanoid(),
