@@ -1,7 +1,14 @@
 let ENDPOINTS = {
   MENU: "/api/frontend/Menu/Getlistmenu",
-  GET_DETAIL: "/api/frontend/Sanpham/Getdetail_Sanpham",
-  GET_INFO:"/api/frontend/Gioithieu/Getlist_Thongtingioithieu"
+  GET_INFO: "/api/frontend/Gioithieu/Getlist_Thongtingioithieu",
+  //service
+  GET_SERVICE: "/api/frontend/Dichvu/Getlist_Dichvu",
+  GET_DETAIL_SERVICE: "/api/frontend/Dichvu/Getdetail_Dichvu",
+  GET_OUTSTANDING_SERVICE: "/api/frontend/Dichvu/Getlist_Dichvu_Noibat",
+  //proudct
+  GET_PROUDCT: "/api/frontend/Sanpham/Getlist_Sanpham",
+  GET_DETAIL_PROUDCT: "/api/frontend/Sanpham/Getdetail_Sanpham",
+  GET_OUTSTANDING_PROUDCT: "/api/frontend/Sanpham/Getlist_Sanpham_Noibat",
 };
 class Request {
   constructor() {
@@ -45,7 +52,6 @@ class Request {
         //   options
         // );
 
-        
         return response._data;
       },
     };
@@ -134,8 +140,25 @@ class Product {
   constructor(requester) {
     this.requester = requester;
   }
-  async get_detail(data) {
-    return this.requester.get(ENDPOINTS.GET_DETAIL, data);
+  //proudct
+  async get_proudct(data) {
+    return this.requester.get(ENDPOINTS.GET_PROUDCT, data);
+  }
+  async get_detail_proudct(data) {
+    return this.requester.get(ENDPOINTS.GET_DETAIL_PROUDCT, data);
+  }
+  async get_outstanding_proudct(data) {
+    return this.requester.get(ENDPOINTS.GET_OUTSTANDING_PROUDCT, data);
+  }
+  //service
+  async get_service(data) {
+    return this.requester.get(ENDPOINTS.GET_SERVICE, data);
+  }
+  async get_detail_service(data) {
+    return this.requester.get(ENDPOINTS.GET_DETAIL_SERVICE, data);
+  }
+  async get_outstanding_service(data) {
+    return this.requester.get(ENDPOINTS.GET_OUTSTANDING_SERVICE, data);
   }
 }
 

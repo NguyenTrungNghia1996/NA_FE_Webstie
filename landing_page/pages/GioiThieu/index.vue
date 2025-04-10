@@ -58,7 +58,7 @@ const data_view = ref([
     type: "BREADCRUMB",
     data: [
       {
-        url: "#",
+        url: "/",
         label: "Trang chủ"
       },
       {

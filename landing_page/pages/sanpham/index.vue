@@ -41,7 +41,7 @@ const data_view = ref([
     type: "BREADCRUMB",
     data: [
       {
-        url: "#",
+        url: "/",
         label: "Trang chủ"
       },
       {
@@ -50,38 +50,77 @@ const data_view = ref([
       },
     ]
   },
-  {
-    type: "SLIDES_LIST",
-    data: {
-      title: 'Sản phẩm',
-      slides: [
-        {
-          title: "Ứng dụng eNetViet",
-          description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-          url: "#",
-          image: "/Sp/sanpham1.jpg",
-        },
-        {
-          title: "Ứng dụng eNetViet",
-          description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-          url: "#",
-          image: "/Sp/sanpham1.jpg",
-        },
-        {
-          title: "Ứng dụng eNetViet",
-          description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-          url: "#",
-          image: "/Sp/sanpham1.jpg",
-        },
-        {
-          title: "Ứng dụng eNetViet",
-          description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-          url: "#",
-          image: "/Sp/sanpham1.jpg",
-        },
-      ],
-      image: "",
-    }
-  },
+  // {
+  //   type: "SLIDES_LIST",
+  //   data: {
+  //     title: 'Sản phẩm',
+  //     slides: [
+  //       {
+  //         title: "Ứng dụng eNetViet",
+  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+  //         url: "#",
+  //         image: "/Sp/sanpham1.jpg",
+  //       },
+  //       {
+  //         title: "Ứng dụng eNetViet",
+  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+  //         url: "#",
+  //         image: "/Sp/sanpham1.jpg",
+  //       },
+  //       {
+  //         title: "Ứng dụng eNetViet",
+  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+  //         url: "#",
+  //         image: "/Sp/sanpham1.jpg",
+  //       },
+  //       {
+  //         title: "Ứng dụng eNetViet",
+  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
+  //         url: "#",
+  //         image: "/Sp/sanpham1.jpg",
+  //       },
+  //     ],
+  //     image: "",
+  //   }
+  // },
 ])
+const processServicesData = (
+  originalArray,
+  servicesData,
+  baseUrl = "#",
+  sectionTitle = "Dịch vụ"
+) => {
+  const transformedServices = servicesData
+    .sort((a, b) => a.stt - b.stt)
+    .map((item) => ({
+      title: item.tieuDe,
+      description: item.moTaNgan,
+      image: item.urlImg,
+      url: `${baseUrl}${item.id}`,
+    }));
+  let productItem = originalArray.find((item) => item.type === "PRODUCT");
+  if (productItem) {
+    productItem.data = {
+      title: sectionTitle,
+      list: transformedServices,
+    };
+  } else {
+    originalArray.push({
+      type: "PRODUCT",
+      data: {
+        title: sectionTitle,
+        list: transformedServices,
+      },
+    });
+  }
+
+  // Không cần return vì đã thao tác trực tiếp trên originalArray
+};
+const { RestApi } = useApi();
+const { data, status, error } = await RestApi.product.get_proudct();
+if (status.value == "success") {
+  processServicesData(data_view.value, data.value, "/sanpham/", "Sản Phẩm");
+} else {
+  console.log("error:", error);
+}
 </script>

@@ -6,6 +6,8 @@
   </div>
 </template>
 <script setup>
+import { PageDetail } from '#components';
+
 const route = useRoute();
 // console.log(route.params); // { id: '123' }
 const data_banner = ref({
@@ -43,8 +45,8 @@ const data_breadcrumb = ref([
     label: "Trang chủ",
   },
   {
-    url: "/sanpham",
-    label: "Sản Phẩm",
+    url: "/dichvu",
+    label: "Dịch vụ",
   },
 ]);
 const data_detail = ref({
@@ -54,9 +56,6 @@ const data_detail = ref({
   create_date: "",
   image: "",
 });
-//   {
-//   type: "DETAIL",
-// },
 const transformData = (input) => {
   data_breadcrumb.value.push({
     url: "#",
@@ -68,11 +67,11 @@ const transformData = (input) => {
     short_description: input.moTaNgan || "",
     create_date: input.ngayTao || "",
     image: input.urlImg || "",
-    type:"PRODUCT"
+    type:"SERVICE"
   };
 };
 const { RestApi } = useApi();
-const { data, status, error } = await RestApi.product.get_detail_proudct({
+const { data, status, error } = await RestApi.product.get_detail_service({
   params: route.params,
 });
 if (status.value == "success") {

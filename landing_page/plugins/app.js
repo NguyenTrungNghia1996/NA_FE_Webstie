@@ -31,6 +31,10 @@ export default defineNuxtPlugin((NuxtApp) => {
         TYPE: "DETAIL",
         LABEL: "Detail",
       },
+      PRODUCT: {
+        TYPE: "PRODUCT",
+        LABEL: "Product",
+      }
     };
   });
   const type2Component = (type) => {
@@ -47,6 +51,8 @@ export default defineNuxtPlugin((NuxtApp) => {
         return PageType.Breadcrumb;
       case typePage.value.DETAIL.TYPE:
         return PageType.Detail;
+      case typePage.value.PRODUCT.TYPE:
+        return PageType.Product;
       default:
         return null;
     }
