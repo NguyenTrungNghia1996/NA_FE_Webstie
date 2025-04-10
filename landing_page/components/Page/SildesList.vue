@@ -7,7 +7,7 @@
         </h2>
         <div class="h-[3px] w-[200px]  mt-4" :class="props.data.image != '' ? 'bg-white' : 'bg-[#212529]'"></div>
       </div>
-      <div class=" w-full">
+      <div class="w-full">
         <ClientOnly>
           <swiper-container ref="containerRef" :init="false">
             <swiper-slide v-for="(item, index) in props.data.slides" :key="index" class="flex justify-center items-center">

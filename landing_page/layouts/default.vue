@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full h-screen flex flex-col">
+  <div class="w-full flex flex-col ">
     <!-- Header -->
     <Header/>
     <!-- Content Area -->
-    <div class="w-full flex-1 flex overflow-hidden">
-      <div class="flex-1 overflow-y-auto">
+    <div class="w-full flex overflow-hidden">
+      <div class=" overflow-y-auto">
         <slot/>
         <Footer/>
       </div>

@@ -8,7 +8,7 @@
       </h2>
       <div class="h-[3px] w-[100px] mt-4 bg-[#212529]"></div>
     </div>
-    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-13 mb-4">
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-13 mb-4">
       <div v-for="(item, index) in props.data.list" :key="index">
         <SimpleCard
           :title="item.title"
