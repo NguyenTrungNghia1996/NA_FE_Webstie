@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/icon', '@nuxtjs/tailwindcss', 'nuxt-swiper', '@vueuse/nuxt'],
+  modules: ['@nuxt/icon', 'nuxt-swiper', '@vueuse/nuxt','@nuxt/ui'],
   css: ['~/assets/css/tailwind.css'],
   runtimeConfig: {
     public: {

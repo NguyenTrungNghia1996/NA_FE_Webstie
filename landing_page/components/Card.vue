@@ -1,6 +1,6 @@
 <template>
   <NuxtLink :to="props.url" class="flex flex-col justify-between w-full rounded-xl bg-white overflow-hidden border border-gray-300 
-  transition-all duration-300 hover:shadow-xl hover:border-gray-200">
+  transition-all duration-300 hover:shadow-xl hover:border-gray-200 my-5">
     <div>
       <img class="w-full h-70 object-cover" :src="props.image" alt="Product 1" />
       <div class="flex-grow p-6 ">
