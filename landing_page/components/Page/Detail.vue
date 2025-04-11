@@ -25,7 +25,7 @@
           </div>
 
           <!-- Featured Image (optional) -->
-          <NuxtImg
+          <img
           v-if="props.data.image"
             :src="props.data.image"
             :alt="props.data.title"

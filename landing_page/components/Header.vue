@@ -3,7 +3,7 @@
     <div class="container mx-auto h-full flex justify-between items-center px-4">
       <!-- Logo -->
       <div class="m-3">
-        <NuxtImg
+        <img
           :src="settingStore.info.logo"
           :alt="settingStore.info.logo"
           placeholder="/placeholder.png"

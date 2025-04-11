@@ -15,7 +15,7 @@
             : 'opacity-0 scale-95 -translate-x-20'
       ]"
     >
-      <NuxtImg
+      <img
           :src="imageSrc"
           :alt="imageSrc"
           placeholder="/placeholder.png"

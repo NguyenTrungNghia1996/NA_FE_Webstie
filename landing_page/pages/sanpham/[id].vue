@@ -2,7 +2,7 @@
   <div>
     <PageSlidesBanner :data="data_banner" />
     <PageBreadcrumb :data="data_breadcrumb" />
-    <PageDetail :data="data_detail"/>
+    <PageDetail :data="data_detail" />
   </div>
 </template>
 <script setup>
@@ -68,7 +68,7 @@ const transformData = (input) => {
     short_description: input.moTaNgan || "",
     create_date: input.ngayTao || "",
     image: input.urlImg || "",
-    type:"PRODUCT"
+    type: "PRODUCT",
   };
 };
 const { RestApi } = useApi();
@@ -76,8 +76,19 @@ const { data, status, error } = await RestApi.product.get_detail_proudct({
   params: route.params,
 });
 if (status.value == "success") {
-  data_detail.value = transformData(data.value)
+  data_detail.value = transformData(data.value);
 } else {
   console.log("error:", error);
 }
+onMounted(async () => {
+  const { RestApi } = useApi();
+  const { data, status, error } = await RestApi.product.get_detail_proudct({
+    params: route.params,
+  });
+  if (status.value == "success") {
+    data_detail.value = transformData(data.value);
+  } else {
+    console.log("error:", error);
+  }
+});
 </script>

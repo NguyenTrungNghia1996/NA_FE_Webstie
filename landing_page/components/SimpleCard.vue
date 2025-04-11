@@ -4,7 +4,7 @@
       class="h-full max-w-sm mx-auto bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden transition duration-300 ease-in-out hover:shadow-xl flex flex-col"
     >
       <div class="flex-shrink-0">
-        <NuxtImg
+        <img
           :src="props.image"
           placeholder="/placeholder.png"
           class="w-full h-48 object-cover"

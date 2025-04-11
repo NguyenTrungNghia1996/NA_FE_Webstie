@@ -5,7 +5,7 @@
   >
     <div class="flex flex-col h-full min-h-[450px]">
       <div class="flex-shrink-0">
-        <NuxtImg
+        <img
           :src="props.image"
           :alt="props.image"
           placeholder="/placeholder.png"
