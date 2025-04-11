@@ -50,39 +50,6 @@ const data_view = ref([
       },
     ]
   },
-  // {
-  //   type: "SLIDES_LIST",
-  //   data: {
-  //     title: 'Sản phẩm',
-  //     slides: [
-  //       {
-  //         title: "Ứng dụng eNetViet",
-  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-  //         url: "#",
-  //         image: "/Sp/sanpham1.jpg",
-  //       },
-  //       {
-  //         title: "Ứng dụng eNetViet",
-  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-  //         url: "#",
-  //         image: "/Sp/sanpham1.jpg",
-  //       },
-  //       {
-  //         title: "Ứng dụng eNetViet",
-  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-  //         url: "#",
-  //         image: "/Sp/sanpham1.jpg",
-  //       },
-  //       {
-  //         title: "Ứng dụng eNetViet",
-  //         description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-  //         url: "#",
-  //         image: "/Sp/sanpham1.jpg",
-  //       },
-  //     ],
-  //     image: "",
-  //   }
-  // },
 ])
 const processServicesData = (
   originalArray,

@@ -11,10 +11,16 @@ export default defineNuxtConfig({
       ]
     }
   },
+  image: {
+    dir: 'public',
+  },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@nuxt/icon', 'nuxt-swiper', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', '@pinia/nuxt'],
   css: ['~/assets/css/tailwind.css'],
+  ui: {
+    colorMode: false
+  },
   runtimeConfig: {
     public: {
       baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://api.nguyenanh-est.com",

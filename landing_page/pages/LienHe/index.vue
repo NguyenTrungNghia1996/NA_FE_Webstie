@@ -50,7 +50,7 @@
     </div>
 
     <ClientOnly>
-      <div class="container mx-auto w-auto h-100 p-10">
+      <div class="container mx-auto w-auto h-100 p-5">
         <iframe
           style="top: 0; left: 0; width: 100%; height: 100%; border: 0"
           loading="lazy"

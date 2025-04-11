@@ -18,7 +18,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const { data, status, error } = await RestApi.view.info();
   if (status.value == "success") {
     settingStore.setInfo(convertCompanyData(data.value))
-    console.log(data);
   } else {
     console.log("error:", error);
   }
