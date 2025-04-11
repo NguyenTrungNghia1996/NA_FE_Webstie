@@ -15,7 +15,12 @@
             : 'opacity-0 scale-95 -translate-x-20'
       ]"
     >
-      <img :src="imageSrc" alt="About image" class="w-full h-auto rounded-xl shadow-lg" />
+      <NuxtImg
+          :src="imageSrc"
+          :alt="imageSrc"
+          placeholder="/placeholder.png"
+          class="w-full h-auto rounded-xl shadow-lg"
+        />
     </div>
 
     <!-- Text -->

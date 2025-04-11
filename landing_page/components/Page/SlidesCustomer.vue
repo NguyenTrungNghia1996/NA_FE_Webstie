@@ -1,7 +1,9 @@
 <template>
   <div class="container mx-auto flex flex-col gap-6 py-6 px-6">
     <div class="flex flex-col items-center">
-      <h2 class="font-roboto text-[36px] font-medium leading-[42px] uppercase text-center text-[#212529]">
+      <h2
+        class="font-roboto text-[36px] font-medium leading-[42px] uppercase text-center text-[#212529]"
+      >
         {{ props.data.title }}
       </h2>
       <div class="h-[3px] w-[200px] mt-4 bg-[#212529]"></div>
@@ -13,7 +15,12 @@
             <NuxtLink :to="n.url">
               <div class="transform transition-all duration-700 ease-in-out">
                 <div class="flex flex-col justify-center items-center">
-                  <img :src="n.image" alt="Khách hàng" class="w-full h-auto  border border-gray-300 rounded-xl bg-white shadow-md" />
+                  <NuxtImg
+                    :src="n.image"
+                    :alt="n.image"
+                    placeholder="/placeholder.png"
+                    class="w-full h-auto border border-gray-300 rounded-xl bg-white shadow-md"
+                  />
                 </div>
               </div>
             </NuxtLink>
@@ -35,12 +42,12 @@ const props = defineProps({
   // },
   data: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 const containerRef = ref(null);
 const swiper = useSwiper(containerRef, {
-  effect: 'Pagination',
+  effect: "Pagination",
   loop: true,
   autoplay: {
     delay: 5000,

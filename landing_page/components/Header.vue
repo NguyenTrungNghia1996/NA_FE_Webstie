@@ -3,7 +3,12 @@
     <div class="container mx-auto h-full flex justify-between items-center px-4">
       <!-- Logo -->
       <div class="m-3">
-        <img src="https://nguyenanh-est.com/img/Logo.png" alt="Logo" class="h-16 md:h-20 w-full" />
+        <NuxtImg
+          src="https://nguyenanh-est.com/img/Logo.png"
+          alt="https://nguyenanh-est.com/img/Logo.png"
+          placeholder="/placeholder.png"
+          class="h-16 md:h-20 w-full"
+        />
       </div>
       
       <!-- Mobile Menu Button -->
