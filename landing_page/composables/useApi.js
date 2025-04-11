@@ -1,6 +1,7 @@
 let ENDPOINTS = {
   MENU: "/api/frontend/Menu/Getlistmenu",
-  GET_INFO: "/api/frontend/Gioithieu/Getlist_Thongtingioithieu",
+  GET_ABOUT: "/api/frontend/Gioithieu/Getlist_Thongtingioithieu",
+  GET_INFO: "/api/frontend/Thontincongty/info",
   //service
   GET_SERVICE: "/api/frontend/Dichvu/Getlist_Dichvu",
   GET_DETAIL_SERVICE: "/api/frontend/Dichvu/Getdetail_Dichvu",
@@ -132,7 +133,10 @@ class View {
   async menu(data) {
     return this.requester.get(ENDPOINTS.MENU, data);
   }
-  async info(data) {
+  async about(data) {
+    return this.requester.get(ENDPOINTS.GET_ABOUT, data);
+  }
+  async info(data){
     return this.requester.get(ENDPOINTS.GET_INFO, data);
   }
 }

@@ -4,8 +4,8 @@
       <!-- Logo -->
       <div class="m-3">
         <NuxtImg
-          src="https://nguyenanh-est.com/img/Logo.png"
-          alt="https://nguyenanh-est.com/img/Logo.png"
+          :src="settingStore.info.logo"
+          :alt="settingStore.info.logo"
           placeholder="/placeholder.png"
           class="h-16 md:h-20 w-full"
         />
@@ -247,4 +247,7 @@ if (status.value == "success") {
 } else {
   console.log("error:", error);
 }
+
+import { useSettingStore } from "#imports"
+const settingStore = useSettingStore();
 </script>

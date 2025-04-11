@@ -10,7 +10,7 @@
 <script setup>
 const introduce = ref([])
 const { RestApi } = useApi();
-const { data, status, error } = await RestApi.view.info();
+const { data, status, error } = await RestApi.view.about();
 if (status.value == "success") {
   introduce.value = data.value.map((item, index) => ({
     title: item.tentieude,

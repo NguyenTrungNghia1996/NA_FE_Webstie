@@ -26,28 +26,28 @@
 
         <!-- Company Info -->
         <div class="col-span-1 md:col-span-2">
-          <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GIÁO DỤC NGUYÊN ANH</h3>
+          <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">{{ settingStore.info.name }}</h3>
           <ul class="space-y-1 sm:space-y-2 text-sm sm:text-base">
             <li class="font-roboto flex flex-col sm:flex-row sm:items-start gap-1">
               <div class="flex items-start">
                 <Icon name="mdi:map-marker" class="text-base mt-0.5 mr-1 flex-shrink-0" />
                 <span class="font-bold">Trụ sở chính: </span>
               </div>
-              <span>Số 51, Ngách 562/59, Thụy Khuê, Tây Hồ, Hà Nội</span>
+              <span>{{ settingStore.info.address }}</span>
             </li>
             <li class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
               <div class="flex items-center">
                 <Icon name="mdi:phone" class="text-base mr-1 flex-shrink-0" />
-                <span>Điện thoại: 0973.052.270</span>
+                <span>Điện thoại: {{ settingStore.info.phone }}</span>
               </div>
               <div class="flex items-center">
                 <Icon name="mdi:email" class="text-base mr-1 flex-shrink-0" />
-                <span>Email: info.nguyenanhest@gmail.com</span>
+                <span>Email: {{ settingStore.info.email }}</span>
               </div>
             </li>
             <li class="flex items-center">
               <Icon name="mdi:web" class="text-base mr-1 flex-shrink-0" />
-              <span>Website: https://nguyenanh-est.com</span>
+              <span>Website: {{ settingStore.info.website }}</span>
             </li>
           </ul>
         </div>
@@ -67,4 +67,6 @@ const quick_access = [
   "Thiết kế và phát triển hệ thống phần mềm",
   "Bảo trì và vận hành hệ thống công nghệ thông tin",
 ];
+import { useSettingStore } from "#imports"
+const settingStore = useSettingStore();
 </script>

@@ -6,7 +6,6 @@
           <NuxtImg
           :src="slide.img"
           :alt="slide.img"
-          placeholder="/placeholder.png"
           class="w-full h-full object-cover"
         />
         </NuxtLink>
