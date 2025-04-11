@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  fontend:
+    image: landing
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1234
+      NUXT_PUBLIC_BASE_URL: http://api.nguyenanh-est.com
+    ports:
+      - 3000:1234
