@@ -3,7 +3,7 @@
     <swiper-container ref="containerRef" :init="false">
       <swiper-slide v-for="(slide, idx) in props.data.slides" :key="idx">
         <NuxtLink :to="slide.url" class="w-full h-full flex items-center justify-center">
-          <img
+          <NuxtImg
           :src="slide.img"
           :alt="slide.img"
           class="w-full h-full object-cover"

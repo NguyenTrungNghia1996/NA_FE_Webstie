@@ -2,6 +2,7 @@ let ENDPOINTS = {
   MENU: "/api/frontend/Menu/Getlistmenu",
   GET_ABOUT: "/api/frontend/Gioithieu/Getlist_Thongtingioithieu",
   GET_INFO: "/api/frontend/Thontincongty/info",
+  SEND_CONTACT:"/api/frontend/Lienhe/Send_Thongtinlienhe",
   //service
   GET_SERVICE: "/api/frontend/Dichvu/Getlist_Dichvu",
   GET_DETAIL_SERVICE: "/api/frontend/Dichvu/Getdetail_Dichvu",
@@ -138,6 +139,9 @@ class View {
   }
   async info(data){
     return this.requester.get(ENDPOINTS.GET_INFO, data);
+  }
+  async send_contact(data) {
+    return this.requester.post(ENDPOINTS.SEND_CONTACT, data);
   }
 }
 class Product {

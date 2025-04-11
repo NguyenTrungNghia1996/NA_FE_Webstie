@@ -10,12 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@element-plus/icons-vue": ">=0.2.6",
+    "@element-plus/nuxt": "1.1.1",
     "@nuxt/icon": "1.11.0",
     "@nuxt/image": "1.10.0",
-    "@nuxt/ui": "^3.0.2",
+    "@nuxtjs/tailwindcss": "6.13.2",
     "@pinia/nuxt": "0.11.0",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@vueuse/nuxt": "13.1.0",
+    "element-plus": ">=2",
     "nanoid": "^5.1.5",
     "nuxt": "^3.16.2",
     "nuxt-swiper": "2.0.0",

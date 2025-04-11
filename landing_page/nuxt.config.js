@@ -16,7 +16,15 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/icon', 'nuxt-swiper', '@vueuse/nuxt', '@nuxt/ui', '@pinia/nuxt'],
+  modules: [
+    '@nuxt/icon',
+    'nuxt-swiper',
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+    '@nuxtjs/tailwindcss',
+    '@element-plus/nuxt',
+    '@nuxt/image',
+  ],
   css: ['~/assets/css/tailwind.css'],
   ui: {
     colorMode: false

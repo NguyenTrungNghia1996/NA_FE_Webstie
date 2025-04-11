@@ -14,7 +14,7 @@
         </div>
       </div>
       <div>
-        <img
+        <NuxtImg
           :src="props.data.image"
           :alt="props.data.image"
           placeholder="/placeholder.png"

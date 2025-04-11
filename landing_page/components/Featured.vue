@@ -15,7 +15,7 @@
       class="grid grid-cols-3 border-b-2 py-3 hover:bg-gray-50 transition-colors duration-200"
     >
       <div class="flex items-center justify-center p-2">
-        <img
+        <NuxtImg
           :src="item.image"
           :alt="item.image"
           placeholder="/placeholder.png"

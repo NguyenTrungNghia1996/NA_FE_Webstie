@@ -15,7 +15,7 @@
             <NuxtLink :to="n.url">
               <div class="transform transition-all duration-700 ease-in-out">
                 <div class="flex flex-col justify-center items-center">
-                  <img
+                  <NuxtImg
                     :src="n.image"
                     :alt="n.image"
                     placeholder="/placeholder.png"
