@@ -80,8 +80,6 @@ const processServicesData = (
       },
     });
   }
-
-  // Không cần return vì đã thao tác trực tiếp trên originalArray
 };
 const { RestApi } = useApi();
 const { data, status, error } = await RestApi.product.get_proudct();

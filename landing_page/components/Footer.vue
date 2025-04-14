@@ -1,14 +1,16 @@
 <template>
   <footer class="bg-[url('/bgfooter.png')] bg-center bg-cover bg-no-repeat">
     <div class="container mx-auto px-4 sm:px-[50px] py-6 sm:py-10 text-white">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-2 sm:gap-8">
         <!-- Online Products -->
         <div>
           <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">SẢN PHẨM TRỰC TUYẾN</h3>
           <ul class="space-y-1 sm:space-y-2">
             <li v-for="(product, index) in online_products" :key="index" class="font-roboto flex items-start text-sm sm:text-base">
-              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
-              <span>{{ product }}</span>
+              <nuxt-link :to="product.url">
+                <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
+                <span>{{ product.lable }}</span>
+              </nuxt-link>
             </li>
           </ul>
         </div>
@@ -18,8 +20,10 @@
           <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">Dịch vụ của chúng tôi</h3>
           <ul class="space-y-1 sm:space-y-2">
             <li v-for="(service, index) in quick_access" :key="index" class="font-roboto flex items-start text-sm sm:text-base">
-              <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
-              <span>{{ service }}</span>
+              <nuxt-link :to="service.url">
+                <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
+                <span>{{ service.lable }}</span>
+              </nuxt-link>
             </li>
           </ul>
         </div>
@@ -57,16 +61,11 @@
 </template>
 
 <script setup>
-const online_products = [
-  "Phần mềm Xếp thời khóa biểu",
-  "Hệ thống Xuất bản tạp chí điện tử",
-];
+const online_products = ref([]);
 
-const quick_access = [
-  "Cung cấp thiết bị công nghệ thông tin",
-  "Thiết kế và phát triển hệ thống phần mềm",
-  "Bảo trì và vận hành hệ thống công nghệ thông tin",
-];
-import { useSettingStore } from "#imports"
+const quick_access = ref([]);
+import { useSettingStore } from "#imports";
 const settingStore = useSettingStore();
+online_products.value = settingStore.products;
+quick_access.value = settingStore.service;
 </script>

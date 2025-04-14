@@ -14,13 +14,14 @@
           <swiper-slide v-for="n in props.data.slides" :key="n">
             <NuxtLink :to="n.url">
               <div class="transform transition-all duration-700 ease-in-out">
-                <div class="flex flex-col justify-center items-center">
+                <div class="flex flex-col justify-center items-center ">
                   <NuxtImg
                     :src="n.image"
                     :alt="n.image"
                     placeholder="/placeholder.png"
                     class="w-full h-auto border border-gray-300 rounded-xl bg-white shadow-md"
                   />
+                  <!-- <p>{{ n.name }}</p> -->
                 </div>
               </div>
             </NuxtLink>
@@ -74,7 +75,6 @@ const swiper = useSwiper(containerRef, {
   },
   // pagination: paginationRef.value,
 });
-
 // onMounted(() => {
 //   console.log(swiper.instance)
 // })
