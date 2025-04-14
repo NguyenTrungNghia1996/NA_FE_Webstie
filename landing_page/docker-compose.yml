@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   fontend:
-    image: landing
+    image: landing_page
     environment:
       HOST: 0.0.0.0
       PORT: 1234
