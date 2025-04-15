@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   fontend:
-    image: trungnghia1996/landing_page:deploy
+    image: trungnghia1996/landing_page:latest
     environment:
       HOST: 0.0.0.0
       PORT: 3000
