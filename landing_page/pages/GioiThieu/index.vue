@@ -15,7 +15,7 @@ if (status.value == "success") {
   introduce.value = data.value.map((item, index) => ({
     title: item.tentieude,
     description: item.moTaNgan != null ? item.moTaNgan : "" + item.moTaChiTiet,
-    imageSrc: `https://nguyenanh-est.com/image/tulieuna/${item.urlImg}`,
+    imageSrc: item.urlImg,
     reverse: index % 2 !== 0
   }));
 } else {
