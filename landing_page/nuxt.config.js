@@ -24,7 +24,12 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@element-plus/nuxt',
     '@nuxt/image',
+    'nuxt-google-translate'
   ],
+  googleTranslate: {
+    defaultLanguage: 'vi',
+    supportedLanguages: ['vi','en']
+  },
   css: ['~/assets/css/tailwind.css'],
   ui: {
     colorMode: false
