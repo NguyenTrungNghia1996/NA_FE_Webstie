@@ -5,6 +5,7 @@ on:
     branches: ["deploy"]
   pull_request:
     branches: ["deploy"]
+    types: [closed]
 
 env:
   REGISTRY: docker.io
@@ -14,6 +15,8 @@ env:
 
 jobs:
   build-and-push:
+    # Chỉ chạy khi pull request được merge (closed và merged)
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -42,7 +45,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
@@ -53,7 +55,7 @@ jobs:
         with:
           context: ${{ env.CONTEXT }}
           file: ${{ env.DOCKERFILE_PATH }}
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
