@@ -1,21 +1,15 @@
 <template>
   <div class="flex flex-col min-h-full">
-    <div class="bg-white">
-      <a-form :model="modelRef" ref="formRef" autocomplete="off" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }" class="!p-5" @finish="onSubmit">
-        <a-row :gutter="[8, 8]">
-          <a-col :xs="24" :md="10">
-            <a-form-item class="!mb-0" label="Tìm Kiếm" name="name">
-              <a-input v-model:value="modelRef.name" placeholder="Tìm kiếm menu" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :md="14">
-            <div class="text-right">
-              <a-button @click="resetForm" class="font-roboto">Đặt Lại</a-button>
-              <a-button class="ml-2 font-roboto" htmlType="submit" type="primary">Tìm Kiếm</a-button>
-            </div>
-          </a-col>
-        </a-row>
+    <div class="bg-white grid grid-cols-1 md:grid-cols-2 gap-2 p-3">
+      <a-form :model="modelRef" ref="formRef" autocomplete="off" layout="horizontal" @finish="onSubmit">
+        <a-form-item class="!mb-0" label="Tìm Kiếm" name="name">
+          <a-input v-model:value="modelRef.name" placeholder="Tìm kiếm menu" />
+        </a-form-item>
       </a-form>
+      <div class="flex justify-end">
+        <a-button @click="resetForm" class="font-roboto">Đặt Lại</a-button>
+        <a-button class="ml-2 font-roboto" htmlType="submit" type="primary">Tìm Kiếm</a-button>
+      </div>
     </div>
     <div class="bg-white flex-1 mt-2 p-3 overflow-auto">
       <div class="flex justify-end py-3">

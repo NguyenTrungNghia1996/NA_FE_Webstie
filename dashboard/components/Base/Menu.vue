@@ -122,7 +122,6 @@ const menuAdmin = computed(() => {
         { id: nuxtApp.$RANDOMID(), title: "Quản lý thông tin công ty", url: "/manage_site/information", key: "/manage_site/information" },
         { id: nuxtApp.$RANDOMID(), title: "Quản lý dịch vụ", url: "/manage_site/service", key: "/manage_site/service" },
         { id: nuxtApp.$RANDOMID(), title: "Quản lý sản phẩm", url: "/manage_site/product", key: "/manage_site/product" },
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý giới thiệu", url: "/manage_site/introduce", key: "/manage_site/introduce" },
       ],
     },
 
