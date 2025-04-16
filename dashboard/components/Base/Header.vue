@@ -1,8 +1,8 @@
 <template>
-  <div class="h-full w-full flex justify-between items-center bg-[#001529] px-5">
+  <div class="h-full w-full flex justify-between items-center bg-[#4096FF] px-5">
     <div class="flex space-x-3 items-center">
       <!-- <img src="/img/logo.png" class="h-10" /> -->
-      <span class="font-semibold text-white text-xl p-3">Dashboard</span>
+      <span class="font-roboto font-semibold text-white text-xl p-3">Dashboard</span>
     </div>
     <div class="flex space-x-3 items-center">
       <LangSwitcher />
