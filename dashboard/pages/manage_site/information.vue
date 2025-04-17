@@ -36,7 +36,25 @@
       </a-tab-pane>
       <!-- introduce -->
       <a-tab-pane key="intro" tab="Giới thiệu">
-        
+        <div class="bg-white grid grid-cols-1 md:grid-cols-2 gap-2 p-3">
+          <a-form :model="modelRef" ref="formRef" autocomplete="off" layout="horizontal" @finish="onSubmit">
+            <a-form-item class="!mb-0" label="Tìm Kiếm" name="name">
+              <a-input v-model:value="modelRef.name" placeholder="Tìm kiếm" />
+            </a-form-item>
+          </a-form>
+          <div class="flex justify-end">
+            <a-button @click="resetForm" class="font-roboto">Đặt Lại</a-button>
+            <a-button class="ml-2 font-roboto" htmlType="submit" type="primary">Tìm Kiếm</a-button>
+          </div>
+        </div>
+        <div class="flex-1 mt-2 p-3 overflow-auto">
+          <div class="flex justify-end py-3">
+            <a-button @click="showModal" type="primary">
+              <span class="flex justify-center items-center">Thêm mới</span>
+            </a-button>
+          </div>
+          <a-table :dataSource="dataSource" :columns="columns" />
+        </div>
       </a-tab-pane>
     </a-tabs>
     <!-- <div class="bg-white p-3">
@@ -47,9 +65,65 @@
 <script setup>
 const nuxtApp = useNuxtApp();
 const t = nuxtApp.$i18n.t;
+//form
+const modelRef = reactive({
+  name: "",
+});
+const formRef = ref({});
+const resetForm = async () => {
+  // delete tableParams?.name;
+  // tableParams.page = 1;
+  // tableParams.limit = 10;
+  formRef.value.resetFields();
+};
+async function onSubmit(value) {
+  // Object.assign(tableParams, {
+  //   page: 1,
+  //   limit: 10,
+  //   ...value,
+  // });
+}
 
+//tab
 const formState = ref({});
-const activeKey = ref("info");
+const activeKey = ref("intro");
+
+//table
+
+const columns = ref([
+  {
+    title: "STT",
+    dataIndex: "order",
+    key: "order",
+  },
+  {
+    title: "Tiêu đề",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Mô tả ngắn",
+    dataIndex: "status",
+    key: "status",
+  },
+  {
+    title: "Hình Ảnh",
+    dataIndex: "display_order",
+    key: "display_order",
+  },
+  {
+    title: "Trạng thái",
+    dataIndex: "path",
+    key: "path",
+  },
+  {
+    title: "Chức năng",
+    dataIndex: "action",
+    key: "action",
+  },
+]);
+
+const dataSource = ref([]);
 onMounted(() => {
   ////////////////////////////////Breadcrumb
   const settingStore = useSettingStore();

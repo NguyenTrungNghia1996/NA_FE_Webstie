@@ -14,7 +14,7 @@
     <div class="bg-white flex-1 mt-2 p-3 overflow-auto">
       <div class="flex justify-end py-3">
         <a-button @click="showModal" type="primary">
-            <span class="flex justify-center items-center">Thêm mới menu</span>
+            <span class="flex justify-center items-center">Thêm mới</span>
           </a-button>
       </div>
       <a-table :dataSource="dataSource" :columns="columns" />
@@ -77,6 +77,7 @@ const columns = ref([
   },
 ]);
 
+const dataSource = ref([])
 onMounted(() => {
   ////////////////////////////////Breadcrumb
   const settingStore = useSettingStore();
