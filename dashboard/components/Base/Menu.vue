@@ -1,34 +1,36 @@
 <template>
   <div class="h-full flex flex-col bg-white border">
-    <a-layout class="flex-1 overflow-y-auto">
-      <a-layout-sider theme="light" width="250px" v-model:collapsed="collapsed" collapsible>
-        <a-menu :open-keys="state.openKeys" v-model:selectedKeys="selectedKeys" mode="inline" :key="locale" @openChange="onOpenChange">
-          <template v-for="item_menu in renderMenu()" :key="item_menu.key">
-            <a-sub-menu v-if="item_menu.child && item_menu.child.length > 0" :key="item_menu.key">
-              <template #icon>
-                <Icon :name="item_menu.icon" class="text-3xl" />
-              </template>
-              <template #title>
-                <div>
-                  {{ item_menu.title }}
-                </div>
-              </template>
-              <a-menu-item v-for="child_menu_item in item_menu.child" :key="child_menu_item.key">
-                <div @click="router_push(child_menu_item.url)">
-                  {{ child_menu_item.title }}
-                </div>
+    <ClientOnly>
+      <a-layout class="flex-1 overflow-y-auto">
+        <a-layout-sider theme="light" width="250px" v-model:collapsed="collapsed" collapsible>
+          <a-menu :open-keys="state.openKeys" v-model:selectedKeys="selectedKeys" mode="inline" :key="locale" @openChange="onOpenChange">
+            <template v-for="item_menu in renderMenu()" :key="item_menu.key">
+              <a-sub-menu v-if="item_menu.child && item_menu.child.length > 0" :key="item_menu.key">
+                <template #icon>
+                  <Icon :name="item_menu.icon" class="text-3xl" />
+                </template>
+                <template #title>
+                  <p class="font-roboto">
+                    {{ item_menu.title }}
+                  </p>
+                </template>
+                <a-menu-item v-for="child_menu_item in item_menu.child" :key="child_menu_item.key">
+                  <p @click="router_push(child_menu_item.url)" class="font-roboto">
+                    {{ child_menu_item.title }}
+                  </p>
+                </a-menu-item>
+              </a-sub-menu>
+              <a-menu-item v-else :key="item_menu.url" @click="router_push(item_menu.url)">
+                <template #icon>
+                  <Icon :name="item_menu.icon" class="text-3xl" />
+                </template>
+                <p class="font-roboto"> {{ item_menu.title }}</p>
               </a-menu-item>
-            </a-sub-menu>
-            <a-menu-item v-else :key="item_menu.url" @click="router_push(item_menu.url)">
-              <template #icon>
-                <Icon :name="item_menu.icon" class="text-3xl" />
-              </template>
-              {{ item_menu.title }}
-            </a-menu-item>
-          </template>
-        </a-menu>
-      </a-layout-sider>
-    </a-layout>
+            </template>
+          </a-menu>
+        </a-layout-sider>
+      </a-layout>
+    </ClientOnly>
   </div>
 </template>
 <script setup>
@@ -111,17 +113,31 @@ const menuAdmin = computed(() => {
     { id: nuxtApp.$RANDOMID(), title: t("dashboard"), url: "/dashboard", icon: "ant-design:dashboard-outlined", key: "/dashboard" },
     {
       id: nuxtApp.$RANDOMID(),
-      title: t("unit-management"),
+      title: "Quản lý website",
+      url: "/manage_site",
       icon: "ant-design:team-outlined",
-      key: "unit-manage",
+      key: "/manage_site",
       child: [
-        { id: nuxtApp.$RANDOMID(), title: t("user"), url: "/manage/user", key: "/manage/user" },
-        { id: nuxtApp.$RANDOMID(), title: t("type-of-user"), url: "/manage/userType", key: "/manage/userType" },
-        { id: nuxtApp.$RANDOMID(), title: t("user-category"), url: "/manage/group", key: "/manage/group" },
-        { id: nuxtApp.$RANDOMID(), title: t("organizational-setup"), url: "/manage/orgUser", key: "/manage/orgUser" },
-        { id: nuxtApp.$RANDOMID(), title: t("job-role"), url: "/manage/jobRole", key: "/manage/jobRole" },
-      ]
-    }
+        { id: nuxtApp.$RANDOMID(), title: "Quản lý menu", url: "/manage_site/menu", key: "/manage_site/menu" },
+        { id: nuxtApp.$RANDOMID(), title: "Quản lý thông tin công ty", url: "/manage_site/information", key: "/manage_site/information" },
+        { id: nuxtApp.$RANDOMID(), title: "Quản lý dịch vụ", url: "/manage_site/service", key: "/manage_site/service" },
+        { id: nuxtApp.$RANDOMID(), title: "Quản lý sản phẩm", url: "/manage_site/product", key: "/manage_site/product" },
+      ],
+    },
+
+    // {
+    //   id: nuxtApp.$RANDOMID(),
+    //   title: t("unit-management"),
+    //   icon: "ant-design:team-outlined",
+    //   key: "unit-manage",
+    //   child: [
+    //     { id: nuxtApp.$RANDOMID(), title: t("user"), url: "/manage/user", key: "/manage/user" },
+    //     { id: nuxtApp.$RANDOMID(), title: t("type-of-user"), url: "/manage/userType", key: "/manage/userType" },
+    //     { id: nuxtApp.$RANDOMID(), title: t("user-category"), url: "/manage/group", key: "/manage/group" },
+    //     { id: nuxtApp.$RANDOMID(), title: t("organizational-setup"), url: "/manage/orgUser", key: "/manage/orgUser" },
+    //     { id: nuxtApp.$RANDOMID(), title: t("job-role"), url: "/manage/jobRole", key: "/manage/jobRole" },
+    //   ]
+    // }
   ];
 });
 
@@ -131,7 +147,7 @@ function renderMenu() {
   //   else return menuUser.value;
   // }
   // if (userStore.user.role == "admin") return menuAdmin.value;
-  return menuAdmin.value
+  return menuAdmin.value;
 }
 
 // function router_push(url) {
