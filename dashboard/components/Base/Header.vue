@@ -35,9 +35,7 @@
 const userStore = useUserStore();
 const signOut = async () => {
   userStore.logout();
-  window.location.reload();
-  // await navigateTo("/auth/login");
-  // await navigateTo("/test/test");
+  await navigateTo("/auth/login");
 };
 const toInfo = async () => {
   await navigateTo("/info");
