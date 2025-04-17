@@ -5,27 +5,16 @@ export default defineNuxtConfig({
     head: {
       link: [
         {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
-        }
-      ]
-    }
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap",
+        },
+      ],
+    },
   },
   devtools: { enabled: true },
-  modules: [
-    "@nuxt/icon",
-    "@vueuse/nuxt",
-    "@nuxtjs/i18n",
-    "@ant-design-vue/nuxt",
-    "@pinia/nuxt",
-    "@nuxtjs/tailwindcss",
-  ],
-  antd: {
-    extractStyle: true,
-  },
-  pinia: {
-    storesDirs: ["./stores/**"],
-  },
+  modules: ["@nuxt/icon", "@vueuse/nuxt", "@nuxtjs/i18n", "@ant-design-vue/nuxt", "@pinia/nuxt", "pinia-plugin-persistedstate/nuxt", "@nuxtjs/tailwindcss"],
+  antd: { extractStyle: true },
+  pinia: { storesDirs: ["./stores/**"] },
   i18n: {
     locales: [
       {
@@ -37,15 +26,9 @@ export default defineNuxtConfig({
         file: "vi-VN.json",
       },
     ],
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
+    bundle: { optimizeTranslationDirective: false },
     lazy: true,
     defaultLocale: "vi",
   },
-  runtimeConfig: {
-    public: {
-      baseURL: process.env.NUXT_PUBLIC_BASE_URL || "https://67ec945faa794fb3222e241d.mockapi.io",
-    },
-  },
+  runtimeConfig: { public: { baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://api.nguyenanh-est.com" } },
 });

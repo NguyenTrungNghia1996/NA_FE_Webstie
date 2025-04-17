@@ -1,5 +1,5 @@
 let ENDPOINTS = {
-  Test:"/test"
+  Login:"/api/backend/Authen/login"
 };
 class Request {
   constructor() {
@@ -88,15 +88,15 @@ class Request {
 class RestApi { 
   constructor() {
     this.request = new Request();
-    this.test = new Test(this.request);
+    this.user = new User(this.request);
   }
 }
-class Test {
+class User {
   constructor() {
     this.request = new Request();
   }
-  async get(data) {
-    return await this.request.get(ENDPOINTS.Test, data);
+  async login(data) {
+    return await this.request.post(ENDPOINTS.Login, data);
   }
 }
 export default () => {
