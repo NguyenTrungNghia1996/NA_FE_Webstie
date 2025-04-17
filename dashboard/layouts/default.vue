@@ -17,7 +17,7 @@
   </div>
 </template> -->
 <template>
-  <div class="w-full h-screen flex flex-col bg-gray-200">
+  <div class="w-full h-screen flex flex-col bg-gray-200 ">
     <div class="h-15">
       <BaseHeader />
     </div>

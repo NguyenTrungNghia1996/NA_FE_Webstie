@@ -1,27 +1,29 @@
 let ENDPOINTS = {
-  Login:"/api/backend/Authen/login"
+  Login: "/api/backend/Authen/login",
+
+  //service
+  SERVICE_LIST: "/api/backend/Dichvu/Dichvu_Getlist_Paging",
 };
+import { useUserStore } from "~~/stores/userStore";
 class Request {
   constructor() {
     this.handler = {
-      onRequest({ request, options }) {
-      },
-      onRequestError({ request, options, error }) {
-      },
+      onRequest({ request, options }) {},
+      onRequestError({ request, options, error }) {},
       onResponse({ request, response, options }) {
         return response._data;
       },
-      onResponseError({ request, response, options }) {
+      async onResponseError({ request, response, options }) {
+        if (response.status == 401) {
+          const userStore = useUserStore();
+          userStore.logout();
+          return await navigateTo("/auth/login");
+        }
         return response._data;
       },
     };
-    if (process.client) {
-      const userStore = useUserStore();
-      this.TOKEN = `Bearer ${userStore.user.token}`;
-    } else {
-      const token = useCookie("TOKEN");
-      this.TOKEN = `Bearer ${token.value}`;
-    }
+    const userStore = useUserStore();
+    this.TOKEN = `Bearer ${userStore.user.token}`;
     this.base_url = useRuntimeConfig().public.baseURL;
   }
   get(url, options) {
@@ -85,10 +87,11 @@ class Request {
     });
   }
 }
-class RestApi { 
+class RestApi {
   constructor() {
     this.request = new Request();
     this.user = new User(this.request);
+    this.service = new Service(this.request);
   }
 }
 class User {
@@ -97,6 +100,14 @@ class User {
   }
   async login(data) {
     return await this.request.post(ENDPOINTS.Login, data);
+  }
+}
+class Service {
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.SERVICE_LIST, data);
   }
 }
 export default () => {

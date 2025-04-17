@@ -6,7 +6,11 @@
 </template>
 <script setup>
 const nuxtApp = useNuxtApp();
+const { RestApi } = useApi();
 const t = nuxtApp.$i18n.t;
+
+const { data, status, error } = await RestApi.service.list({ params: { PageIndex: 1, PageSize: 10 } })
+console.log(data);
 onMounted(() => {
   ////////////////////////////////Breadcrumb
   const settingStore = useSettingStore();

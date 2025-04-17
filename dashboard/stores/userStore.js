@@ -11,15 +11,13 @@ export const useUserStore = defineStore(
       },
       logout() {
         this.user = {};
-        const token = useCookie("TOKEN");
-        token.value = "";
-        // if (process.client) {
-        //   localStorage.setItem("user", JSON.stringify({}))
-        // }
-        // return navigateTo('/auth/login')
       },
     },
     getters: {},
+    persist: {
+      // storage: piniaPluginPersistedstate.localStorage(),
+      storage: piniaPluginPersistedstate.cookies(),
+    },
   },
   {
     persist: true,
