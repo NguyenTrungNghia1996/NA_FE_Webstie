@@ -1,8 +1,15 @@
 let ENDPOINTS = {
   Login: "/api/backend/Authen/login",
-
+  S3: "/api/backend/Upload/presigned-url",
   //service
   SERVICE_LIST: "/api/backend/Dichvu/Dichvu_Getlist_Paging",
+  SERVICE: "/api/backend/Dichvu/Dichvu",
+  //intro
+  INTRO_LIST: "/api/backend/Gioithieu/Gioithieu_Getlist_Paging",
+  INTRO: "/api/backend/Gioithieu/gioithieu",
+  //product
+  PRODUCT_LIST: "/api/backend/Sanpham/Sanpham_Getlist_Paging",
+  PRODUCT: "/api/backend/Sanpham/Sanpham",
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -93,6 +100,49 @@ class RestApi {
     this.user = new User(this.request);
     this.service = new Service(this.request);
   }
+  async get_url_upload(acl, content_encoding, content_type, key, platform) {
+    let data = { acl, content_encoding, content_type, key, platform };
+    return this.request.put(ENDPOINTS.S3, { body: data });
+  }
+  async upload_s3(
+    key,
+    data,
+    { acl, encoding, content_type, bucket } = {
+      acl: "public-read",
+      encoding: "base64",
+      content_type: "image/jpeg",
+      bucket: "website",
+    },
+  ) {
+    const { data: resp } = await this.get_url_upload(acl, encoding, content_type, key, bucket);
+    const url = resp.value.value?.url;
+    const direct_url = resp.value.value?.direct_url;
+    if (!url || !direct_url) throw Error("presigned error");
+    let buf;
+    switch (encoding) {
+      case "base64":
+        // buf = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), "base64")
+        buf = _base64ToArrayBuffer(data.replace(/^data:image\/\w+;base64,/, ""));
+        break;
+      case "blob":
+        buf = data;
+        break;
+      default:
+        throw new Error("Invalid encoding");
+    }
+    await useFetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: "",
+        "x-amz-acl": acl || "public-read",
+        "Content-Encoding": encoding,
+        "Content-Type": content_type,
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: buf,
+    });
+    return direct_url;
+  }
 }
 class User {
   constructor() {
@@ -108,6 +158,18 @@ class Service {
   }
   async list(data) {
     return await this.request.get(ENDPOINTS.SERVICE_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.SERVICE, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.SERVICE, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.SERVICE, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.SERVICE, data);
   }
 }
 export default () => {

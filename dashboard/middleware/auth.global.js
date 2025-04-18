@@ -3,7 +3,7 @@ import { useJwt } from "@vueuse/integrations/useJwt";
 
 export default defineNuxtRouteMiddleware(async (to) => {
   // Bỏ qua middleware nếu đang ở trang login
-  if (to.path === "/auth/login") return;
+  if (to.path === "/auth/login" ||to.path === "/test" ) return;
   const userStore = useUserStore();
   const token = userStore.user?.token;
   if (!token) return navigateTo("/auth/login");
