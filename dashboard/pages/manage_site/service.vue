@@ -43,28 +43,43 @@
     </div>
 
     <!-- Modal Thêm/Sửa -->
-    <a-modal v-model:open="isModalOpen" :title="isEditMode ? 'Chỉnh sửa Dịch Vụ' : 'Thêm Dịch Vụ'" @ok="handleOk" @cancel="handleCancel" :confirm-loading="modalLoading">
+    <a-modal v-model:open="isModalOpen" :title="isEditMode ? 'Chỉnh sửa Dịch Vụ' : 'Thêm Dịch Vụ'" @ok="handleOk" @cancel="handleCancel" :confirm-loading="modalLoading" :width="700" :body-style="{ maxHeight: '90vh', overflowY: 'auto' }">
       <a-form :model="modalForm" layout="vertical">
-        <a-form-item label="Tiêu đề" name="name">
-          <a-input v-model:value="modalForm.name" />
-        </a-form-item>
-        <a-form-item label="Mô tả ngắn" name="description">
-          <a-input v-model:value="modalForm.description" />
-        </a-form-item>
-        <a-form-item label="Nội dung" name="content">
-          <TinyMCE v-model="modalForm.content"></TinyMCE>
-        </a-form-item>
-        <a-form-item label="Hình ảnh" name="image">
-          <a-input v-model:value="modalForm.image" />
-        </a-form-item>
-        <a-form-item label="Thứ tự" name="order">
-          <a-input-number v-model:value="modalForm.order" class="w-full" />
-        </a-form-item>
-        <a-form-item label="Trạng thái" name="status">
-          <a-switch v-model:checked="modalForm.status" />
-        </a-form-item>
-        <!-- Chỉ hiển thị khi chỉnh sửa -->
-        <div v-if="isEditMode" class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a-form-item label="Tiêu đề" name="name">
+            <a-input v-model:value="modalForm.name" />
+          </a-form-item>
+          <a-form-item label="Mô tả ngắn" name="description">
+            <a-input v-model:value="modalForm.description" />
+          </a-form-item>
+
+          <a-form-item label="Thứ tự" name="order">
+            <a-input-number v-model:value="modalForm.order" class="w-full" />
+          </a-form-item>
+          <a-form-item label="Trạng thái" name="status">
+            <a-switch v-model:checked="modalForm.status" />
+          </a-form-item>
+
+          <!-- Placeholder image, click to upload -->
+          <a-form-item label="Hình ảnh" class="col-span-full">
+            <div v-if="!modalForm.image" class="flex justify-center items-center h-32 border-dashed border-2 border-gray-400 rounded cursor-pointer" @click="triggerUpload">
+              <span class="text-gray-500">Chưa có ảnh</span>
+            </div>
+
+            <div v-else class="flex flex-col justify-center">
+              <img :src="modalForm.image" class="w-full max-h-60 object-contain border rounded cursor-pointer" @click="triggerUpload"/>
+            </div>
+          </a-form-item>
+        </div>
+
+        <!-- Nội dung chiếm nguyên hàng -->
+        <div class="mt-4">
+          <a-form-item label="Nội dung" name="content" class="col-span-full">
+            <TinyMCE v-model="modalForm.content" />
+          </a-form-item>
+        </div>
+
+        <div v-if="isEditMode" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <a-form-item label="Ngày tạo">
             <a-input :value="modalForm.create_date" disabled />
           </a-form-item>
@@ -73,15 +88,14 @@
           </a-form-item>
         </div>
       </a-form>
+
+      <!-- File upload ẩn, chỉ dùng khi bấm vào ảnh -->
+      <input class="hidden" ref="inputFileUpload" type="file" accept="image/jpeg,image/png" @change="onFilesChange" />
     </a-modal>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed, watch } from "vue";
-import { message } from "ant-design-vue";
-import { ClientOnly } from "#components";
-
 const nuxtApp = useNuxtApp();
 const { RestApi } = useApi();
 const t = nuxtApp.$i18n.t;
@@ -271,6 +285,39 @@ const loadData = async param => {
 
 await loadData({ ...param.value });
 
+const onFilesChange = async e => {
+  try {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const file_type = file.type;
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+    if (!allowedTypes.includes(file_type)) {
+      message.error("Tệp tải lên không đúng định dạng (chỉ chấp nhận PNG, JPEG, JPG)");
+      return;
+    }
+
+    const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+      acl: "public-read",
+      encoding: "blob",
+      content_type: file.type,
+      bucket: "website"
+    });
+
+    console.log("Uploaded image URL:", uploadedUrl);
+    modalForm.image = uploadedUrl;
+  } catch (error) {
+    console.error("Upload lỗi:", error);
+    message.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+  }
+};
+const inputFileUpload = ref(null);
+const triggerUpload = () => {
+  // Mở file dialog khi click vào ảnh để người dùng chọn ảnh mới
+  inputFileUpload.value.click();
+};
+
 onMounted(() => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => [
@@ -292,4 +339,3 @@ onMounted(() => {
   background: white;
 }
 </style>
-

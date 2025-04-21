@@ -100,6 +100,7 @@ class RestApi {
     this.request = new Request();
     this.user = new User(this.request);
     this.service = new Service(this.request);
+    this.product = new Product(this.request)
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -171,6 +172,27 @@ class Service {
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.SERVICE, data);
+  }
+}
+
+class Product {
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.PRODUCT_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.PRODUCT, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.PRODUCT, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.PRODUCT, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.PRODUCT, data);
   }
 }
 export default () => {
