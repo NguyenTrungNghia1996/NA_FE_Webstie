@@ -118,7 +118,7 @@ const menuAdmin = computed(() => {
       icon: "ant-design:team-outlined",
       key: "/manage_site",
       child: [
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý menu", url: "/manage_site/menu", key: "/manage_site/menu" },
+        { id: nuxtApp.$RANDOMID(), title: "Quản lý menu", url: "/manage_site", key: "/manage_site" },
         { id: nuxtApp.$RANDOMID(), title: "Quản lý thông tin công ty", url: "/manage_site/information", key: "/manage_site/information" },
         { id: nuxtApp.$RANDOMID(), title: "Quản lý dịch vụ", url: "/manage_site/service", key: "/manage_site/service" },
         { id: nuxtApp.$RANDOMID(), title: "Quản lý sản phẩm", url: "/manage_site/product", key: "/manage_site/product" },

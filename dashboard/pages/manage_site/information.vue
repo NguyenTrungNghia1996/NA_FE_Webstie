@@ -49,7 +49,7 @@
         </div>
         <div class="flex-1 mt-2 p-3 overflow-auto">
           <div class="flex justify-end py-3">
-            <a-button @click="showModal" type="primary">
+            <a-button @click="showModal" >
               <span class="flex justify-center items-center">Thêm mới</span>
             </a-button>
           </div>

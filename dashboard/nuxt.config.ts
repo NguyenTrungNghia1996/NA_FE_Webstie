@@ -31,4 +31,5 @@ export default defineNuxtConfig({
     defaultLocale: "vi",
   },
   runtimeConfig: { public: { baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://api.nguyenanh-est.com" } },
+  //  runtimeConfig: { public: { baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://localhost:3001" } },
 });
