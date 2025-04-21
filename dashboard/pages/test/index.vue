@@ -2,6 +2,7 @@
   <div>
     <h1>Test Page</h1>
     <p>This is a test page.</p>
+    <!-- <UploadImage/> -->
     <div @click="onClickUpload()">
       <a-avatar :size="150" shape="square">
         <template #icon><UserOutlined /></template>

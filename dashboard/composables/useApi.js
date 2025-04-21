@@ -1,6 +1,7 @@
 let ENDPOINTS = {
   Login: "/api/backend/Authen/login",
   S3: "/api/backend/Upload/presigned-url",
+  // S3: "/presigned-url",
   //service
   SERVICE_LIST: "/api/backend/Dichvu/Dichvu_Getlist_Paging",
   SERVICE: "/api/backend/Dichvu/Dichvu",
