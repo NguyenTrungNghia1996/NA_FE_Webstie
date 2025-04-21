@@ -1,7 +1,7 @@
 let ENDPOINTS = {
   Login: "/api/backend/Authen/login",
   S3: "/api/backend/Upload/presigned-url",
-  // S3: "/presigned-url",
+  INFO:"/api/backend/Thongtincongty/info",
   //service
   SERVICE_LIST: "/api/backend/Dichvu/Dichvu_Getlist_Paging",
   SERVICE: "/api/backend/Dichvu/Dichvu",
@@ -100,7 +100,8 @@ class RestApi {
     this.request = new Request();
     this.user = new User(this.request);
     this.service = new Service(this.request);
-    this.product = new Product(this.request)
+    this.product = new Product(this.request);
+    this.info = new Info(this.request)
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -174,7 +175,6 @@ class Service {
     return await this.request.delete(ENDPOINTS.SERVICE, data);
   }
 }
-
 class Product {
   constructor() {
     this.request = new Request();
@@ -193,6 +193,17 @@ class Product {
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.PRODUCT, data);
+  }
+}
+class Info{
+  constructor() {
+    this.request = new Request();
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.INFO, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.INFO, data);
   }
 }
 export default () => {
