@@ -52,7 +52,7 @@
           <a-input v-model:value="modalForm.description" />
         </a-form-item>
         <a-form-item label="Nội dung" name="content">
-          <a-textarea v-model:value="modalForm.content" :rows="4" />
+          <TinyMCE v-model="modalForm.content"></TinyMCE>
         </a-form-item>
         <a-form-item label="Hình ảnh" name="image">
           <a-input v-model:value="modalForm.image" />
