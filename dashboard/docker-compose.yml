@@ -4,6 +4,6 @@ services:
     environment:
       HOST: 0.0.0.0
       PORT: 3000
-      NUXT_PUBLIC_BASE_URL: http://api.nguyenanh-est.com
+      NUXT_PUBLIC_BASE_URL: https://api.nguyenanh-est.com
     ports:
       - 3001:3000
