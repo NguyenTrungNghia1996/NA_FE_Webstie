@@ -145,7 +145,6 @@ const param = ref({ search: "", PageIndex: 1, PageSize: 10 });
 
 const resetForm = async () => {
   formRef.value.resetFields();
-  param.value.search = "";
   param.value.PageIndex = 1;
   param.value.PageSize = 10;
   pagination.current = 1;
@@ -240,7 +239,6 @@ const handleOk = async () => {
       } else {
         message.error("Cập nhật không thành công");
       }
-      message.success("Cập nhật thành công");
     } else {
       const { data, status } = await RestApi.product.create({ body: JSON.stringify(transformData(modalForm)) });
       if (status.value === "success") {

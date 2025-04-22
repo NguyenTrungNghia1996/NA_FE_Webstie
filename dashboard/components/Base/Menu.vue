@@ -3,28 +3,52 @@
     <ClientOnly>
       <a-layout class="flex-1 overflow-y-auto">
         <a-layout-sider theme="light" width="250px" v-model:collapsed="collapsed" collapsible>
-          <a-menu :open-keys="state.openKeys" v-model:selectedKeys="selectedKeys" mode="inline" :key="locale" @openChange="onOpenChange">
-            <template v-for="item_menu in renderMenu()" :key="item_menu.key">
-              <a-sub-menu v-if="item_menu.child && item_menu.child.length > 0" :key="item_menu.key">
+          <div class="p-2">
+            <template v-if="!collapsed">
+              <a-input
+                v-model:value="searchQuery"
+                placeholder="Tìm kiếm menu..."
+                allow-clear
+                @focus="expandSidebar"
+              />
+            </template>
+            <template v-else>
+              <div class="w-full flex justify-center cursor-pointer" @click="expandSidebar">
+                <Icon name="ant-design:search-outlined" class="text-xl" />
+              </div>
+            </template>
+          </div>
+
+          <a-menu
+            :open-keys="menuState.openKeys"
+            v-model:selectedKeys="selectedMenuKeys"
+            mode="inline"
+            :key="locale"
+            @openChange="onMenuOpenChange"
+          >
+            <template v-for="menuItem in filteredMenuList" :key="menuItem.key">
+              <a-sub-menu v-if="menuItem.child?.length" :key="menuItem.key">
                 <template #icon>
-                  <Icon :name="item_menu.icon" class="text-3xl" />
+                  <Icon :name="menuItem.icon" class="text-3xl" />
                 </template>
                 <template #title>
-                  <p class="font-roboto">
-                    {{ item_menu.title }}
-                  </p>
+                  <p class="font-roboto">{{ menuItem.title }}</p>
                 </template>
-                <a-menu-item v-for="child_menu_item in item_menu.child" :key="child_menu_item.key">
-                  <p @click="router_push(child_menu_item.url)" class="font-roboto">
-                    {{ child_menu_item.title }}
+                <a-menu-item
+                  v-for="subItem in menuItem.child"
+                  :key="subItem.key"
+                >
+                  <p @click="navigateToPage(subItem.url)" class="font-roboto">
+                    {{ subItem.title }}
                   </p>
                 </a-menu-item>
               </a-sub-menu>
-              <a-menu-item v-else :key="item_menu.url" @click="router_push(item_menu.url)">
+
+              <a-menu-item v-else :key="menuItem.url" @click="navigateToPage(menuItem.url)">
                 <template #icon>
-                  <Icon :name="item_menu.icon" class="text-3xl" />
+                  <Icon :name="menuItem.icon" class="text-3xl" />
                 </template>
-                <p class="font-roboto"> {{ item_menu.title }}</p>
+                <p class="font-roboto">{{ menuItem.title }}</p>
               </a-menu-item>
             </template>
           </a-menu>
@@ -33,148 +57,143 @@
     </ClientOnly>
   </div>
 </template>
+
 <script setup>
-const nuxtApp = useNuxtApp();
-const t = nuxtApp.$i18n.t;
-import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
-const { locale, locales, setLocale } = useI18n();
-const breakpoints = useBreakpoints(breakpointsTailwind);
-const smAndLarger = breakpoints.greaterOrEqual("sm");
-const mdAndLarger = breakpoints.greaterOrEqual("md");
-const lgAndLarger = breakpoints.greaterOrEqual("lg");
-
-const router = useRouter();
-const selectedKeys = ref([]);
-const collapsed = ref(false);
-watch(mdAndLarger, () => {
-  if (!mdAndLarger.value && !collapsed.value) {
-    collapsed.value = true;
-  }
-});
-watch(lgAndLarger, () => {
-  if (lgAndLarger.value && collapsed.value) {
-    collapsed.value = false;
-  }
-});
-
+import { ref, reactive, computed, onMounted, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { useBreakpoints, breakpointsTailwind } from "@vueuse/core";
 import { useUserStore } from "~~/stores/userStore";
+
+const nuxtApp = useNuxtApp();
+const { locale } = useI18n();
+const t = nuxtApp.$i18n.t;
+const router = useRouter();
 const userStore = useUserStore();
 
-const state = reactive({
-  openKeys: [],
+const collapsed = ref(false);
+const selectedMenuKeys = ref([]);
+const menuState = reactive({ openKeys: [] });
+const searchQuery = ref("");
+
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isMediumAndUp = breakpoints.greaterOrEqual("md");
+const isLargeAndUp = breakpoints.greaterOrEqual("lg");
+
+// Tự động ẩn/hiện menu theo kích thước
+watch(isMediumAndUp, () => {
+  if (!isMediumAndUp.value && !collapsed.value) collapsed.value = true;
 });
-const onOpenChange = openKeys => {
-  if (openKeys.length > 0) {
-    state.openKeys = [openKeys.at(openKeys.length - 1)];
-  } else {
-    state.openKeys = openKeys;
+watch(isLargeAndUp, () => {
+  if (isLargeAndUp.value && collapsed.value) collapsed.value = false;
+});
+
+// Menu mẫu (có thể tách ra file riêng)
+const menuAdmin = computed(() => [
+  {
+    id: nuxtApp.$RANDOMID(),
+    title: t("dashboard"),
+    url: "/dashboard",
+    icon: "ant-design:dashboard-outlined",
+    key: "/dashboard",
+  },
+  {
+    id: nuxtApp.$RANDOMID(),
+    title: "Quản lý website",
+    url: "/manage_site",
+    icon: "ant-design:team-outlined",
+    key: "/manage_site",
+    child: [
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Quản lý menu",
+        url: "/manage_site",
+        key: "/manage_site",
+      },
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Quản lý thông tin công ty",
+        url: "/manage_site/information",
+        key: "/manage_site/information",
+      },
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Quản lý dịch vụ",
+        url: "/manage_site/service",
+        key: "/manage_site/service",
+      },
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Quản lý sản phẩm",
+        url: "/manage_site/product",
+        key: "/manage_site/product",
+      },
+    ],
+  },
+]);
+
+// Hàm trả về danh sách menu tương ứng role
+function getAvailableMenus() {
+  if (userStore.user.role === "user" && userStore.user.user_type === "admin") {
+    return menuAdmin.value;
   }
-};
-// const menuUser = computed(() => {
-//   return [
-//     {
-//       id: nuxtApp.$RANDOMID(),
-//       title: t("question-repository"),
-//       icon: "ant-design:file-unknown-outlined",
-//       url: "/question",
-//       key: "questionManage",
-//       child: [
-//         { id: nuxtApp.$RANDOMID(), title: t("add-individual-question"), url: "/question", key: "/question" },
-//         { id: nuxtApp.$RANDOMID(), title: t("add-questions-from-a-file"), url: "/question/file", key: "/question/file" },
-//         { id: nuxtApp.$RANDOMID(), title: t("view-and-edit-questions"), url: "/question/view", key: "/question/view" },
-//       ],
-//     },
-//     {
-//       id: nuxtApp.$RANDOMID(),
-//       title: t("exam-setup"),
-//       icon: "ant-design:folder-open-outlined",
-//       key: "examManage",
-//       child: [
-//         { id: nuxtApp.$RANDOMID(), title: t("generate-a-test-from-a-file"), url: "/exam/file", key: "/exam/file" },
-//         { id: nuxtApp.$RANDOMID(), title: t("generate-a-test-from-the-database"), url: "/exam/database", key: "/exam/database" },
-//         { id: nuxtApp.$RANDOMID(), title: t("manage-original-exams"), url: "/exam/original", key: "/exam/original" },
-//       ],
-//     },
-//     {
-//       id: nuxtApp.$RANDOMID(),
-//       title: t("mark-the-test"),
-//       icon: "ant-design:container-outlined",
-//       key: "mark",
-//       child: [
-//         { id: nuxtApp.$RANDOMID(), title: t("mark-the-test"), url: "/mark", key: "/mark" },
-//         { id: nuxtApp.$RANDOMID(), title: t("result-mark"), url: "/mark/result", key: "/mark/result" },
-//       ],
-//     },
-//   ];
-// });
-// console.log(userStore.user.role, "userStore.user.role");
-const menuAdmin = computed(() => {
-  return [
-    { id: nuxtApp.$RANDOMID(), title: t("dashboard"), url: "/dashboard", icon: "ant-design:dashboard-outlined", key: "/dashboard" },
-    {
-      id: nuxtApp.$RANDOMID(),
-      title: "Quản lý website",
-      url: "/manage_site",
-      icon: "ant-design:team-outlined",
-      key: "/manage_site",
-      child: [
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý menu", url: "/manage_site", key: "/manage_site" },
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý thông tin công ty", url: "/manage_site/information", key: "/manage_site/information" },
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý dịch vụ", url: "/manage_site/service", key: "/manage_site/service" },
-        { id: nuxtApp.$RANDOMID(), title: "Quản lý sản phẩm", url: "/manage_site/product", key: "/manage_site/product" },
-      ],
-    },
-
-    // {
-    //   id: nuxtApp.$RANDOMID(),
-    //   title: t("unit-management"),
-    //   icon: "ant-design:team-outlined",
-    //   key: "unit-manage",
-    //   child: [
-    //     { id: nuxtApp.$RANDOMID(), title: t("user"), url: "/manage/user", key: "/manage/user" },
-    //     { id: nuxtApp.$RANDOMID(), title: t("type-of-user"), url: "/manage/userType", key: "/manage/userType" },
-    //     { id: nuxtApp.$RANDOMID(), title: t("user-category"), url: "/manage/group", key: "/manage/group" },
-    //     { id: nuxtApp.$RANDOMID(), title: t("organizational-setup"), url: "/manage/orgUser", key: "/manage/orgUser" },
-    //     { id: nuxtApp.$RANDOMID(), title: t("job-role"), url: "/manage/jobRole", key: "/manage/jobRole" },
-    //   ]
-    // }
-  ];
-});
-
-function renderMenu() {
-  // if (userStore.user.role == "user") {
-  //   if (userStore.user.user_type == `admin`) return menuAdmin.value.filter(el => el.id !== `mark`);
-  //   else return menuUser.value;
-  // }
-  // if (userStore.user.role == "admin") return menuAdmin.value;
   return menuAdmin.value;
 }
 
-// function router_push(url) {
-//   router.push(url);
-// }
-const router_push = async url => {
+// Tìm kiếm menu theo keyword
+const filteredMenuList = computed(() => {
+  const keyword = searchQuery.value.trim().toLowerCase();
+  if (!keyword) return getAvailableMenus();
+
+  return getAvailableMenus()
+    .map(menu => {
+      const matchingChildren = menu.child?.filter(child =>
+        child.title.toLowerCase().includes(keyword)
+      );
+      if (menu.title.toLowerCase().includes(keyword) || matchingChildren?.length) {
+        return {
+          ...menu,
+          child: matchingChildren?.length ? matchingChildren : menu.child,
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
+});
+
+// Điều hướng trang
+const navigateToPage = async url => {
   await navigateTo(url);
 };
+
+// Xử lý khi mở sub-menu
+const onMenuOpenChange = openKeys => {
+  menuState.openKeys = openKeys.length ? [openKeys.at(-1)] : [];
+};
+
+// Gán active menu khi route thay đổi
 watch(
   () => router.currentRoute.value.fullPath,
-  (newValue, oldValue) => {
-    selectedKeys.value = [router.currentRoute.value.fullPath];
-  },
+  newPath => {
+    selectedMenuKeys.value = [newPath];
+  }
 );
+
+// Mở rộng sidebar khi click tìm kiếm
+const expandSidebar = () => {
+  collapsed.value = false;
+};
+
+// Xử lý mở menu cha khi load
 onMounted(() => {
-  selectedKeys.value = [router.currentRoute.value.fullPath];
-  if (userStore.user.role === "user") {
-    if (userStore.user.user_type === "admin") {
-      const item = menuAdmin.value.find(el => el.child && el.child.findIndex(el => el.url === router.currentRoute.value.fullPath) >= 0);
-      if (item) state.openKeys = [item.key];
-    } else {
-      const item = menuUser.value.find(el => el.child && el.child.findIndex(el => el.url === router.currentRoute.value.fullPath) >= 0);
-      if (item) state.openKeys = [item.key];
-    }
-  } else {
-    const item = menuAdmin.value.find(el => el.child && el.child.findIndex(el => el.url === router.currentRoute.value.fullPath) >= 0);
-    if (item) state.openKeys = [item.key];
+  selectedMenuKeys.value = [router.currentRoute.value.fullPath];
+  const allMenus = getAvailableMenus();
+  const parentItem = allMenus.find(menu =>
+    menu.child?.some(child => child.url === router.currentRoute.value.fullPath)
+  );
+  if (parentItem) {
+    menuState.openKeys = [parentItem.key];
   }
 });
 </script>
+
