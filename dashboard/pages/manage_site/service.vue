@@ -27,7 +27,9 @@
               <img :src="record.image" alt="Hình ảnh" class="w-16 h-10 object-cover" />
             </template>
             <template v-else-if="column.key === 'status'">
-              <span>{{ record.status ? "Hiện" : "Ẩn" }}</span>
+              <span :class="record.status ? 'text-green-600' : 'text-red-500'">
+                {{ record.status ? "Hoạt động" : "Tạm ẩn" }}
+              </span>
             </template>
             <template v-else-if="column.key === 'action'">
               <div class="flex gap-2">

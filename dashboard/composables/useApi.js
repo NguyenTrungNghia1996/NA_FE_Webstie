@@ -1,7 +1,7 @@
 let ENDPOINTS = {
   Login: "/api/backend/Authen/login",
   S3: "/api/backend/Upload/presigned-url",
-  INFO:"/api/backend/Thongtincongty/info",
+  INFO: "/api/backend/Thongtincongty/info",
   //service
   SERVICE_LIST: "/api/backend/Dichvu/Dichvu_Getlist_Paging",
   SERVICE: "/api/backend/Dichvu/Dichvu",
@@ -11,6 +11,12 @@ let ENDPOINTS = {
   //product
   PRODUCT_LIST: "/api/backend/Sanpham/Sanpham_Getlist_Paging",
   PRODUCT: "/api/backend/Sanpham/Sanpham",
+  //Intro
+  INTRO_LIST: "/api/backend/Gioithieu/Gioithieu_Getlist_Paging",
+  INTRO:"/api/backend/Gioithieu/gioithieu",
+  //Menu
+  MENU_LIST: "/api/backend/Menu_Website/Menu_Website_Getlist_Paging",
+  MENU: "/api/backend/Menu_Website/Menu_Website_Detail"
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -101,7 +107,9 @@ class RestApi {
     this.user = new User(this.request);
     this.service = new Service(this.request);
     this.product = new Product(this.request);
-    this.info = new Info(this.request)
+    this.info = new Info(this.request);
+    this.intro = new Intro(this.request);
+    this.menu = new Menu(this.request);
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -204,6 +212,46 @@ class Info{
   }
   async update(data) {
     return await this.request.put(ENDPOINTS.INFO, data);
+  }
+}
+class Intro{
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.INTRO_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.INTRO, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.INTRO, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.INTRO, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.INTRO, data);
+  }
+}
+class Menu{
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.MENU_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.MENU, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.MENU, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.MENU, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.MENU, data);
   }
 }
 export default () => {
