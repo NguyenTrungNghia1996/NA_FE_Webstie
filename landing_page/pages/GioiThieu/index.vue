@@ -14,7 +14,7 @@ const { data, status, error } = await RestApi.view.about();
 if (status.value == "success") {
   introduce.value = data.value.map((item, index) => ({
     title: item.tentieude,
-    description: item.moTaNgan != null ? item.moTaNgan : "" + item.moTaChiTiet,
+    description: item.moTa,
     imageSrc: item.urlImg,
     reverse: index % 2 !== 0
   }));
