@@ -231,8 +231,8 @@ onMounted(() => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => {
     return [
-      { url: "/manage_site", title: "Quản lý site" },
-      { url: "/manage_site", title: "Quản lý menu" },
+      { url: "/page_management", title: "Quản lý site" },
+      { url: "/page_management/menu", title: "Quản lý menu" },
     ];
   });
   settingStore.setBreadcrumb(tempBreadcrumb.value);

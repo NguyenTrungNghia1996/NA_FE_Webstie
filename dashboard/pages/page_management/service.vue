@@ -323,8 +323,8 @@ const triggerUpload = () => {
 onMounted(() => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => [
-    { url: "/manage_site", title: "Quản lý site" },
-    { url: "/manage_site/service", title: "Quản lý dịch vụ" },
+    { url: "/page_management", title: "Quản lý site" },
+    { url: "/page_management/service", title: "Quản lý dịch vụ" },
   ]);
   settingStore.setBreadcrumb(tempBreadcrumb.value);
   watch(tempBreadcrumb, () => {
