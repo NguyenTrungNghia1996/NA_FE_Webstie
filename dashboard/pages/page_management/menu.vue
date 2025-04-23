@@ -16,7 +16,7 @@
         <a-button type="primary" @click="openForm()" class="font-roboto w-full md:w-auto">Thêm menu</a-button>
       </div>
       <div class="overflow-x-auto">
-        <a-table :columns="columns" :data-source="menuTree" :pagination="pagination" :row-key="record => record.id" :expandable="{ childrenColumnName: 'children' }" bordered @change="handleTableChange">
+        <a-table size="small" :columns="columns" :data-source="menuTree" :pagination="pagination" :row-key="record => record.id" :expandable="{ childrenColumnName: 'children' }" bordered @change="handleTableChange">
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'active'">
               <span :class="record.active ? 'text-green-600' : 'text-red-500'">
@@ -231,8 +231,8 @@ onMounted(() => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => {
     return [
-      { url: "/manage_site", title: "Quản lý site" },
-      { url: "/manage_site", title: "Quản lý menu" },
+      { url: "/page_management", title: "Quản lý site" },
+      { url: "/page_management/menu", title: "Quản lý menu" },
     ];
   });
   settingStore.setBreadcrumb(tempBreadcrumb.value);
