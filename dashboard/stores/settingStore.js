@@ -5,11 +5,15 @@ export const useSettingStore = defineStore("setting", {
       { url: "/dashboard", title: "Dashboard" },
       { url: "/dashboard", title: "Dashboard" },
     ],
+    loading: false,
   }),
   actions: {
     setBreadcrumb(value) {
       this.breadcrumb =value;
-    }
+    },
+    setLoading(value) {
+      this.loading = value;
+    },
   },
   getters: {
   },

@@ -85,12 +85,12 @@
           </a-form>
           <input class="hidden" ref="inputFileUpload" type="file" accept="image/jpeg,image/png" @change="onFilesChange" />
         </div>
-        <div class="p-4 border-t md:hidden">
-          <a-button type="primary" @click="handleSubmit" :loading="loading" block> Lưu thông tin </a-button>
+        <div class="p-4 border-t flex justify-end items-center">
+          <a-button type="primary" @click="handleSubmit" :loading="loading"> Lưu thông tin </a-button>
         </div>
-        <div class="flex justify-end items-center p-4 border-t">
+        <!-- <div class="flex justify-end items-center p-4 border-t">
           <a-button type="primary" @click="handleSubmit" :loading="loading" class="md:w-auto w-full"> Lưu thông tin </a-button>
-        </div>
+        </div> -->
       </a-tab-pane>
       <a-tab-pane key="intro" tab="Giới thiệu">
         <div class="gap-2 p-3 border-b">
