@@ -16,7 +16,10 @@ let ENDPOINTS = {
   INTRO:"/api/backend/Gioithieu/gioithieu",
   //Menu
   MENU_LIST: "/api/backend/Menu_Website/Menu_Website_Getlist_Paging",
-  MENU: "/api/backend/Menu_Website/Menu_Website_Detail"
+  MENU: "/api/backend/Menu_Website/Menu_Website_Detail",
+  //permission
+  PERMISSION_GROUP: "/api/backend/RolesGroup/Danhsachnhomquyen",
+  PERMISSION:"/api/backend/RolesGroup/phanquyen",
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -110,6 +113,7 @@ class RestApi {
     this.info = new Info(this.request);
     this.intro = new Intro(this.request);
     this.menu = new Menu(this.request);
+    this.permission = new Permission(this.request)
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -252,6 +256,26 @@ class Menu{
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.MENU, data);
+  }
+}
+class Permission{
+  constructor() {
+    this.request = new Request();
+  }
+  async list_group(data) {
+    return await this.request.get(ENDPOINTS.PERMISSION_GROUP, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.PERMISSION, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.PERMISSION, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.PERMISSION, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.PERMISSION, data);
   }
 }
 export default () => {

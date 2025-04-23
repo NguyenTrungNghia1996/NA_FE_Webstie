@@ -5,12 +5,7 @@
         <a-layout-sider theme="light" width="250px" v-model:collapsed="collapsed" collapsible>
           <div class="p-2">
             <template v-if="!collapsed">
-              <a-input
-                v-model:value="searchQuery"
-                placeholder="Tìm kiếm menu..."
-                allow-clear
-                @focus="expandSidebar"
-              />
+              <a-input v-model:value="searchQuery" placeholder="Tìm kiếm menu..." allow-clear @focus="expandSidebar" />
             </template>
             <template v-else>
               <div class="w-full flex justify-center cursor-pointer" @click="expandSidebar">
@@ -19,13 +14,7 @@
             </template>
           </div>
 
-          <a-menu
-            :open-keys="menuState.openKeys"
-            v-model:selectedKeys="selectedMenuKeys"
-            mode="inline"
-            :key="locale"
-            @openChange="onMenuOpenChange"
-          >
+          <a-menu :open-keys="menuState.openKeys" v-model:selectedKeys="selectedMenuKeys" mode="inline" :key="locale" @openChange="onMenuOpenChange">
             <template v-for="menuItem in filteredMenuList" :key="menuItem.key">
               <a-sub-menu v-if="menuItem.child?.length" :key="menuItem.key">
                 <template #icon>
@@ -34,10 +23,7 @@
                 <template #title>
                   <p class="font-roboto">{{ menuItem.title }}</p>
                 </template>
-                <a-menu-item
-                  v-for="subItem in menuItem.child"
-                  :key="subItem.key"
-                >
+                <a-menu-item v-for="subItem in menuItem.child" :key="subItem.key">
                   <p @click="navigateToPage(subItem.url)" class="font-roboto">
                     {{ subItem.title }}
                   </p>
@@ -106,27 +92,48 @@ const menuAdmin = computed(() => [
     child: [
       {
         id: nuxtApp.$RANDOMID(),
-        title: "Quản lý menu",
+        title: "Menu",
         url: "/page_management/menu",
         key: "/page_management/menu",
       },
       {
         id: nuxtApp.$RANDOMID(),
-        title: "Quản lý thông tin công ty",
+        title: "Thông tin công ty",
         url: "/page_management/information",
         key: "/page_management/information",
       },
       {
         id: nuxtApp.$RANDOMID(),
-        title: "Quản lý dịch vụ",
+        title: "Dịch vụ",
         url: "/page_management/service",
         key: "/page_management/service",
       },
       {
         id: nuxtApp.$RANDOMID(),
-        title: "Quản lý sản phẩm",
+        title: "Sản phẩm",
         url: "/page_management/product",
         key: "/page_management/product",
+      },
+    ],
+  },
+  {
+    id: nuxtApp.$RANDOMID(),
+    title: "Quản lý hệ thống",
+    url: "/system_management",
+    icon: "ant-design:team-outlined",
+    key: "/system_management",
+    child: [
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Nhóm người dùng",
+        url: "/system_management/group",
+        key: "/system_management/group",
+      },
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Người dùng",
+        url: "/system_management/user",
+        key: "/system_management/user",
       },
     ],
   },
@@ -147,9 +154,7 @@ const filteredMenuList = computed(() => {
 
   return getAvailableMenus()
     .map(menu => {
-      const matchingChildren = menu.child?.filter(child =>
-        child.title.toLowerCase().includes(keyword)
-      );
+      const matchingChildren = menu.child?.filter(child => child.title.toLowerCase().includes(keyword));
       if (menu.title.toLowerCase().includes(keyword) || matchingChildren?.length) {
         return {
           ...menu,
@@ -176,7 +181,7 @@ watch(
   () => router.currentRoute.value.fullPath,
   newPath => {
     selectedMenuKeys.value = [newPath];
-  }
+  },
 );
 
 // Mở rộng sidebar khi click tìm kiếm
@@ -188,12 +193,9 @@ const expandSidebar = () => {
 onMounted(() => {
   selectedMenuKeys.value = [router.currentRoute.value.fullPath];
   const allMenus = getAvailableMenus();
-  const parentItem = allMenus.find(menu =>
-    menu.child?.some(child => child.url === router.currentRoute.value.fullPath)
-  );
+  const parentItem = allMenus.find(menu => menu.child?.some(child => child.url === router.currentRoute.value.fullPath));
   if (parentItem) {
     menuState.openKeys = [parentItem.key];
   }
 });
 </script>
-
