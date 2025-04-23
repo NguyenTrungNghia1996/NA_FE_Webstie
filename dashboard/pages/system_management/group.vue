@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-full">
-    <div class="bg-white flex-1 mt-2 p-3 overflow-auto">
+    <div class="bg-white flex-1 p-3 overflow-auto">
       <div class="flex justify-end py-3">
         <a-button @click="showModal" type="primary">
           <span class="flex justify-center items-center">Thêm mới</span>
@@ -323,4 +323,15 @@ const handleSave = async () => {
     isModalVisible.value = false;
   }
 };
+onMounted(() => {
+  const settingStore = useSettingStore();
+  const tempBreadcrumb = computed(() => [
+    { url: "/system_management", title: "Quản lý hệ thống" },
+    { url: "/system_management/group", title: "Quản lý nhóm người dùng" },
+  ]);
+  settingStore.setBreadcrumb(tempBreadcrumb.value);
+  watch(tempBreadcrumb, () => {
+    settingStore.setBreadcrumb(tempBreadcrumb.value);
+  });
+});
 </script>

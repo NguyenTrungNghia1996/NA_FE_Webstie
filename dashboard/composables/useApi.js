@@ -13,13 +13,16 @@ let ENDPOINTS = {
   PRODUCT: "/api/backend/Sanpham/Sanpham",
   //Intro
   INTRO_LIST: "/api/backend/Gioithieu/Gioithieu_Getlist_Paging",
-  INTRO:"/api/backend/Gioithieu/gioithieu",
+  INTRO: "/api/backend/Gioithieu/gioithieu",
   //Menu
   MENU_LIST: "/api/backend/Menu_Website/Menu_Website_Getlist_Paging",
   MENU: "/api/backend/Menu_Website/Menu_Website_Detail",
   //permission
   PERMISSION_GROUP: "/api/backend/RolesGroup/Danhsachnhomquyen",
-  PERMISSION:"/api/backend/RolesGroup/phanquyen",
+  PERMISSION: "/api/backend/RolesGroup/phanquyen",
+  //user
+  USER_LIST: "/api/backend/User/GetList_UserPaging",
+  USER: "/api/backend/User/user",
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -113,7 +116,7 @@ class RestApi {
     this.info = new Info(this.request);
     this.intro = new Intro(this.request);
     this.menu = new Menu(this.request);
-    this.permission = new Permission(this.request)
+    this.permission = new Permission(this.request);
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -152,7 +155,7 @@ class RestApi {
         "x-amz-acl": acl || "public-read",
         "Content-Encoding": encoding,
         "Content-Type": content_type,
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
       },
       body: buf,
     });
@@ -165,6 +168,9 @@ class User {
   }
   async login(data) {
     return await this.request.post(ENDPOINTS.Login, data);
+  }
+  async list(data) { 
+    return await this.request.get(ENDPOINTS.USER_LIST, data);
   }
 }
 class Service {
@@ -207,7 +213,7 @@ class Product {
     return await this.request.delete(ENDPOINTS.PRODUCT, data);
   }
 }
-class Info{
+class Info {
   constructor() {
     this.request = new Request();
   }
@@ -218,7 +224,7 @@ class Info{
     return await this.request.put(ENDPOINTS.INFO, data);
   }
 }
-class Intro{
+class Intro {
   constructor() {
     this.request = new Request();
   }
@@ -238,7 +244,7 @@ class Intro{
     return await this.request.delete(ENDPOINTS.INTRO, data);
   }
 }
-class Menu{
+class Menu {
   constructor() {
     this.request = new Request();
   }
@@ -258,7 +264,7 @@ class Menu{
     return await this.request.delete(ENDPOINTS.MENU, data);
   }
 }
-class Permission{
+class Permission {
   constructor() {
     this.request = new Request();
   }
