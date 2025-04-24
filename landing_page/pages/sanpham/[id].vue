@@ -58,10 +58,10 @@ const data_detail = ref({
 //   type: "DETAIL",
 // },
 const transformData = (input) => {
-  data_breadcrumb.value.push({
-    url: "#",
-    label: input.tieuDe,
-  });
+  // data_breadcrumb.value.push({
+  //   url: "#",
+  //   label: input.tieuDe,
+  // });
   return {
     title: input.tieuDe || "",
     description: input.noiDung || "",

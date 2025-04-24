@@ -1,41 +1,27 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white">
     <div class="flex flex-col lg:flex-row gap-8">
       <!-- Main Content (2/3 width) -->
       <main class="lg:w-2/3">
         <!-- Article Card -->
-        <article
-          class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg"
-        >
+        <article class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
           <!-- Article Header -->
           <div class="p-6 sm:p-8">
-            <div
-              class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2"
-            >
+            <div class="flex items-center text-sm text-gray-500  mb-2">
               <span>{{ props.data.create_date }}</span>
             </div>
-            <h1
-              class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
-            >
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900  mb-4 leading-tight">
               {{ props.data.title }}
             </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+            <p class="text-lg text-gray-600  mb-6">
               {{ props.data.short_description }}
             </p>
           </div>
 
           <!-- Featured Image (optional) -->
-          <NuxtImg
-          v-if="props.data.image"
-            :src="props.data.image"
-            :alt="props.data.title"
-            placeholder="/placeholder.png"
-            class="w-full h-64 sm:h-80 object-cover items-center p-5"
-          />
+          <NuxtImg v-if="props.data.image" :src="props.data.image" :alt="props.data.title" placeholder="/placeholder.png" class="w-full h-64 sm:h-80 object-cover items-center p-5" />
           <!-- Article Content -->
-          <div
-            class="px-6 sm:px-8 pb-8 prose prose-lg max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:list-disc prose-ol:list-decimal dark:prose-invert"
-          >
+          <div class="px-6 sm:px-8 pb-8 prose prose-lg max-w-none prose-headings:text-gray-900  prose-p:text-gray-700  prose-a:text-blue-600  prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal ">
             <div v-html="props.data.description"></div>
           </div>
         </article>
@@ -46,10 +32,7 @@
         <!-- Sticky sidebar container -->
         <div class="sticky top-6 space-y-6">
           <!-- Featured Posts -->
-          <Featured
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" 
-            :type="props.data.type"
-          />
+          <Featured class="bg-white rounded-xl shadow-md p-6" :type="props.data.type" />
         </div>
       </aside>
     </div>
