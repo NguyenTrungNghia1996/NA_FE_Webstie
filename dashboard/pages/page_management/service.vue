@@ -195,12 +195,18 @@ const showModal = () => {
     create_date: "",
     user_create: "",
   });
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
   isModalOpen.value = true;
 };
 
 const editRecord = record => {
   isEditMode.value = true;
   Object.assign(modalForm, { ...record });
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
   isModalOpen.value = true;
 };
 
@@ -258,6 +264,9 @@ const handleOk = async () => {
 };
 
 const handleCancel = () => {
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
   isModalOpen.value = false;
 };
 
@@ -300,18 +309,26 @@ const onFilesChange = async e => {
       return;
     }
 
-    const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+    const timestamp = new Date().getTime();
+    const fileExtension = file.name.split('.').pop();
+    const originalName = file.name.substring(0, file.name.lastIndexOf('.'));
+    const newFileName = `${timestamp}_${originalName}.${fileExtension}`;
+    const renamedFile = new File([file], newFileName, { type: file.type });
+
+    const uploadedUrl = await RestApi.upload_s3(renamedFile.name, renamedFile, {
       acl: "public-read",
       encoding: "blob",
       content_type: file.type,
-      bucket: "website"
+      bucket: "website",
     });
 
     console.log("Uploaded image URL:", uploadedUrl);
     modalForm.image = uploadedUrl;
+    e.target.value = null;
   } catch (error) {
     console.error("Upload lỗi:", error);
     message.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+    e.target.value = null;
   }
 };
 const inputFileUpload = ref(null);

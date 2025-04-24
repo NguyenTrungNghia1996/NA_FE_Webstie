@@ -27,7 +27,6 @@
               <img :src="record.image" alt="Hình ảnh" class="w-16 h-10 object-cover" />
             </template>
             <template v-else-if="column.key === 'status'">
-              <!-- <span>{{ record.status ? "Hiện" : "Ẩn" }}</span> -->
               <span :class="record.status ? 'text-green-600' : 'text-red-500'">
                 {{ record.status ? "Hoạt động" : "Tạm ẩn" }}
               </span>
@@ -196,12 +195,20 @@ const showModal = () => {
     user_create: "",
   });
   isModalOpen.value = true;
+  // Reset input file khi mở modal mới
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
 };
 
 const editRecord = record => {
   isEditMode.value = true;
   Object.assign(modalForm, { ...record });
   isModalOpen.value = true;
+  // Reset input file khi mở modal chỉnh sửa
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
 };
 
 function transformData(input) {
@@ -219,7 +226,6 @@ const handleOk = async () => {
   modalLoading.value = true;
   try {
     if (modalForm.id) {
-      // await RestApi.service.update(modalForm.id, modalForm);
       const updateBody = {
         id: modalForm.id,
         tieuDe: modalForm.name || "",
@@ -228,8 +234,8 @@ const handleOk = async () => {
         urlImg: modalForm.image || "",
         active: modalForm.status || false,
         thutuhienthi: modalForm.order || 0,
-        ngayTao: modalForm.create_date || "", // Thêm create_date
-        nguoiTao: modalForm.user_create || "", // Thêm user_create
+        ngayTao: modalForm.create_date || "",
+        nguoiTao: modalForm.user_create || "",
       };
       const { data, status } = await RestApi.product.update({ body: JSON.stringify(updateBody) });
       if (status.value === "success") {
@@ -258,6 +264,10 @@ const handleOk = async () => {
 
 const handleCancel = () => {
   isModalOpen.value = false;
+  // Reset input file khi đóng modal
+  if (inputFileUpload.value) {
+    inputFileUpload.value.value = null;
+  }
 };
 
 const deleteRecord = async id => {
@@ -284,7 +294,10 @@ const loadData = async param => {
   }
 };
 
-await loadData({ ...param.value });
+const inputFileUpload = ref(null);
+const triggerUpload = () => {
+  inputFileUpload.value.click();
+};
 
 const onFilesChange = async e => {
   try {
@@ -299,7 +312,13 @@ const onFilesChange = async e => {
       return;
     }
 
-    const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+    const timestamp = new Date().getTime();
+    const fileExtension = file.name.split('.').pop();
+    const originalName = file.name.substring(0, file.name.lastIndexOf('.'));
+    const newFileName = `${timestamp}_${originalName}.${fileExtension}`;
+    const renamedFile = new File([file], newFileName, { type: file.type });
+
+    const uploadedUrl = await RestApi.upload_s3(renamedFile.name, renamedFile, {
       acl: "public-read",
       encoding: "blob",
       content_type: file.type,
@@ -308,14 +327,13 @@ const onFilesChange = async e => {
 
     console.log("Uploaded image URL:", uploadedUrl);
     modalForm.image = uploadedUrl;
+    e.target.value = null;
   } catch (error) {
     console.error("Upload lỗi:", error);
     message.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+    // Reset input file khi có lỗi
+    e.target.value = null;
   }
-};
-const inputFileUpload = ref(null);
-const triggerUpload = () => {
-  inputFileUpload.value.click();
 };
 
 onMounted(() => {
@@ -329,6 +347,8 @@ onMounted(() => {
     settingStore.setBreadcrumb(tempBreadcrumb.value);
   });
 });
+
+await loadData({ ...param.value });
 </script>
 
 <style scoped>

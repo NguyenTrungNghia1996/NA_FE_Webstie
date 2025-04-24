@@ -161,7 +161,8 @@ const showModal = () => {
 };
 const showEdit = record => {
   isEditMode.value = true;
-  Object.assign(formState.value, { ...record });
+  console.log(record);
+  // Object.assign(formState.value, { ...record });
   modalVisible.value = true;
 };
 
