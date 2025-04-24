@@ -7,7 +7,7 @@
     <div class="w-full flex-1 flex overflow-hidden">
       <BaseMenu />
       <div class="flex-1 flex flex-col overflow-hidden">
-        <div class="bg-white sticky top-0 !z-10">
+        <div class="bg-white sticky top-0 z-10">
           <BaseBreadcrumb />
         </div>
         <div class="p-3 flex-1 overflow-y-auto">

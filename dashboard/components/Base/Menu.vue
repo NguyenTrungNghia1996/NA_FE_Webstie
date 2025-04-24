@@ -135,6 +135,12 @@ const menuAdmin = computed(() => [
         url: "/system_management/user",
         key: "/system_management/user",
       },
+      {
+        id: nuxtApp.$RANDOMID(),
+        title: "Nhân viên",
+        url: "/system_management/staff",
+        key: "/system_management/staff",
+      },
     ],
   },
 ]);

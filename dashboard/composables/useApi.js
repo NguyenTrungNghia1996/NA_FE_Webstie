@@ -23,6 +23,9 @@ let ENDPOINTS = {
   //user
   USER_LIST: "/api/backend/User/GetList_UserPaging",
   USER: "/api/backend/User/user",
+  //staff
+  STAFF_LIST: "/api/backend/NhanSu/Nhansu_Getlist_Paging",
+  STAFF:"/api/backend/NhanSu/NhanSu"
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -117,6 +120,7 @@ class RestApi {
     this.intro = new Intro(this.request);
     this.menu = new Menu(this.request);
     this.permission = new Permission(this.request);
+    this.staff = new Staff(this.request);
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -171,6 +175,9 @@ class User {
   }
   async list(data) { 
     return await this.request.get(ENDPOINTS.USER_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.USER, data);
   }
 }
 class Service {
@@ -282,6 +289,26 @@ class Permission {
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.PERMISSION, data);
+  }
+}
+class Staff{
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.STAFF_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.STAFF, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.STAFF, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.STAFF, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.STAFF, data);
   }
 }
 export default () => {
