@@ -265,8 +265,13 @@ const onFilesChange = async e => {
       message.error("Kích thước file quá lớn (tối đa 2MB)");
       return;
     }
+    const timestamp = new Date().getTime();
+    const fileExtension = file.name.split('.').pop();
+    const originalName = file.name.substring(0, file.name.lastIndexOf('.'));
+    const newFileName = `${timestamp}_${originalName}.${fileExtension}`;
+    const renamedFile = new File([file], newFileName, { type: file.type });
 
-    const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+    const uploadedUrl = await RestApi.upload_s3(renamedFile.name, renamedFile, {
       acl: "public-read",
       encoding: "blob",
       content_type: file.type,
@@ -275,9 +280,11 @@ const onFilesChange = async e => {
 
     formState.value.logoimg = uploadedUrl;
     message.success("Tải lên logo thành công!");
+    e.target.value = null;
   } catch (error) {
     console.error("Upload lỗi:", error);
     message.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+    e.target.value = null;
   }
 };
 
@@ -473,7 +480,13 @@ const onFilesChangeInfo = async e => {
       return;
     }
 
-    const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+    const timestamp = new Date().getTime();
+    const fileExtension = file.name.split('.').pop();
+    const originalName = file.name.substring(0, file.name.lastIndexOf('.'));
+    const newFileName = `${timestamp}_${originalName}.${fileExtension}`;
+    const renamedFile = new File([file], newFileName, { type: file.type });
+
+    const uploadedUrl = await RestApi.upload_s3(renamedFile.name, renamedFile, {
       acl: "public-read",
       encoding: "blob",
       content_type: file.type,
@@ -482,9 +495,11 @@ const onFilesChangeInfo = async e => {
 
     console.log("Uploaded image URL:", uploadedUrl);
     formData.value.urlImg = uploadedUrl;
+    e.target.value = null;
   } catch (error) {
     console.error("Upload lỗi:", error);
     message.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+    e.target.value = null;
   }
 };
 const inputFileUploadInfo = ref(null);

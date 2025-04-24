@@ -18,28 +18,6 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 let editorInstance = null;
-async function imagesUploadHandler(blobInfo, success, failure) {
-  // try {
-  //   const uploadedUrl = await RestApi.upload_s3(blobInfo.filename(), blobInfo.blob(), {
-  //     acl: "public-read",
-  //     encoding: "blob",
-  //     content_type: blobInfo.blob().type,
-  //     bucket: "website",
-  //   });
-
-  //   console.log("Uploaded:", uploadedUrl);
-
-  //   // TinyMCE chỉ cần một URL
-  //   success({
-  //     src: uploadedUrl,
-  //     alt: blobInfo.filename(),
-  //   });
-  // } catch (err) {
-  //   console.error("Upload error:", err);
-  //   failure("Không thể tải ảnh lên. Vui lòng thử lại.");
-  // }
-}
-
 // Mở chọn ảnh từ máy tính → upload dưới dạng base64
 function filePickerCallback(callback, value, meta) {
   if (meta.filetype === "image") {
@@ -53,7 +31,13 @@ function filePickerCallback(callback, value, meta) {
 
       try {
         // Gọi API upload ảnh lên S3
-        const uploadedUrl = await RestApi.upload_s3(file.name, file, {
+        const timestamp = new Date().getTime();
+        const fileExtension = file.name.split(".").pop();
+        const originalName = file.name.substring(0, file.name.lastIndexOf("."));
+        const newFileName = `${timestamp}_${originalName}.${fileExtension}`;
+        const renamedFile = new File([file], newFileName, { type: file.type });
+
+        const uploadedUrl = await RestApi.upload_s3(renamedFile.name, renamedFile, {
           acl: "public-read",
           encoding: "blob",
           content_type: file.type,
