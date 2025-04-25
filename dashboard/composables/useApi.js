@@ -32,7 +32,8 @@ let ENDPOINTS = {
   RESET_PASSWORD:"/api/backend/User/user/reset-password",
   //Menu_backend
   GET_ALL_MENU: "/api/backend/Menu/GetallFunction",
-  
+  GET_DETAIL_FULL_MENU: "/api/backend/Menu/GetlistallMenu_Paging",
+  MENU_BACKEND:"/api/backend/Menu/function"
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -343,6 +344,18 @@ class Menu_backend {
   }
   async list_all(data) {
     return await this.request.get(ENDPOINTS.GET_ALL_MENU, data);
+  }
+  async list_full_detail(data) {
+    return await this.request.post(ENDPOINTS.GET_DETAIL_FULL_MENU, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.MENU_BACKEND, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.MENU_BACKEND, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.MENU_BACKEND, data);
   }
 }
 export default () => {
