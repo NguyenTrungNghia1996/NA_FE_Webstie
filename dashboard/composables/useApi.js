@@ -25,7 +25,9 @@ let ENDPOINTS = {
   USER: "/api/backend/User/user",
   //staff
   STAFF_LIST: "/api/backend/NhanSu/Nhansu_Getlist_Paging",
-  STAFF:"/api/backend/NhanSu/NhanSu"
+  STAFF: "/api/backend/NhanSu/NhanSu",
+  //change_password
+  CHANGE_PASSWORD:"/api/backend/User/user/change-password"
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -178,6 +180,18 @@ class User {
   }
   async get(data) {
     return await this.request.get(ENDPOINTS.USER, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.USER, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.USER, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.USER, data);
+  }
+  async change_pasword(data) {
+    return await this.request.post(ENDPOINTS.CHANGE_PASSWORD, data);
   }
 }
 class Service {
