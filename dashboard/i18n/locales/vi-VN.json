@@ -9,5 +9,9 @@
   "user-category": "Danh mục người dùng",
   "organizational-setup": "Thiết lập tổ chức",
   "job-role": "Vai trò công việc",
-  "dashboard": "Trang tổng quan"
+  "dashboard": "Trang tổng quan",
+  "change_password": "Đổi mật khẩu",
+  "current_password": "Mật khẩu hiện tại ",
+  "new_password": "Mật khẩu mới",
+  "confirm_password": "Nhập lại mật khẩu mới"
 }

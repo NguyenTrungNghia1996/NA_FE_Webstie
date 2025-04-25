@@ -25,7 +25,13 @@ let ENDPOINTS = {
   USER: "/api/backend/User/user",
   //staff
   STAFF_LIST: "/api/backend/NhanSu/Nhansu_Getlist_Paging",
-  STAFF:"/api/backend/NhanSu/NhanSu"
+  STAFF: "/api/backend/NhanSu/NhanSu",
+  POSITION:"/api/backend/NhanSu/chucvu",
+  //change_password
+  CHANGE_PASSWORD: "/api/backend/User/user/change-password",
+  //Menu_backend
+  GET_ALL_MENU: "/api/backend/Menu/GetallFunction",
+  
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
@@ -121,6 +127,7 @@ class RestApi {
     this.menu = new Menu(this.request);
     this.permission = new Permission(this.request);
     this.staff = new Staff(this.request);
+    this.menu_backend = new Menu_backend(this.request);
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -178,6 +185,18 @@ class User {
   }
   async get(data) {
     return await this.request.get(ENDPOINTS.USER, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.USER, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.USER, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.USER, data);
+  }
+  async change_pasword(data) {
+    return await this.request.post(ENDPOINTS.CHANGE_PASSWORD, data);
   }
 }
 class Service {
@@ -309,6 +328,17 @@ class Staff{
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.STAFF, data);
+  }
+  async get_position(data) {
+    return await this.request.get(ENDPOINTS.POSITION, data);
+  }
+}
+class Menu_backend {
+  constructor() {
+    this.request = new Request();
+  }
+  async list_all(data) {
+    return await this.request.get(ENDPOINTS.GET_ALL_MENU, data);
   }
 }
 export default () => {

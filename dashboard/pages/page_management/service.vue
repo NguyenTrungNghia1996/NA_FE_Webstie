@@ -322,7 +322,7 @@ const onFilesChange = async e => {
       bucket: "website",
     });
 
-    console.log("Uploaded image URL:", uploadedUrl);
+    // console.log("Uploaded image URL:", uploadedUrl);s
     modalForm.image = uploadedUrl;
     e.target.value = null;
   } catch (error) {

@@ -14,13 +14,22 @@
 
     <div class="bg-white flex-1 mt-2 p-3 overflow-auto">
       <div class="flex justify-end py-3">
-        <a-button @click="() => showModal()" type="primary">Thêm mới</a-button>
+        <a-button @click="showModal" type="primary">Thêm mới</a-button>
       </div>
       <ClientOnly>
-        <a-table size="small" :data-source="dataSource" :columns="columns" row-key="id" :pagination="pagination" :scroll="{ x: 'max-content' }" class="overflow-auto" @change="handleTableChange">
+        <a-table size="small" :data-source="dataSource" :columns="columns" row-key="id" :pagination="pagination" :scroll="{ x: 'max-content' }" class="overflow-auto" @change="handleTableChange" bordered>
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'ngaySinh'">
               {{ record.ngaySinh ? moment(record.ngaySinh).format("DD/MM/YYYY") : "" }}
+            </template>
+            <template v-else-if="column.key === 'ngayBatDau'">
+              {{ record.ngayBatDau ? moment(record.ngayBatDau).format("DD/MM/YYYY") : "" }}
+            </template>
+            <template v-else-if="column.key === 'chucVu'">
+              {{ getPositionName(record.idChucVu) }}
+            </template>
+            <template v-else-if="column.key === 'gioiTinh'">
+              {{ record.gioiTinh === 1 ? "Nam" : record.gioiTinh === 0 ? "Nữ" : "Khác" }}
             </template>
             <template v-else-if="column.key === 'action'">
               <div class="flex gap-2">
@@ -38,16 +47,54 @@
       </ClientOnly>
     </div>
 
-    <a-modal v-model:open="modalVisible" :title="isEditMode ? 'Cập nhật nhân viên' : 'Thêm mới nhân viên'" @ok="handleSave" @cancel="() => (modalVisible = false)">
-      <a-form layout="vertical">
-        <a-form-item label="Tên nhân viên"><a-input v-model:value="formState.tenNhanVien" /></a-form-item>
-        <a-form-item label="Email"><a-input v-model:value="formState.email" /></a-form-item>
-        <a-form-item label="Số điện thoại"><a-input v-model:value="formState.phone" /></a-form-item>
-        <a-form-item label="Ngày sinh">
+    <a-modal v-model:open="modalVisible" :title="isEditMode ? 'Cập nhật nhân viên' : 'Thêm mới nhân viên'" @ok="handleSave" @cancel="closeModal">
+      <a-form layout="vertical" :model="formState" ref="modalFormRef" class="grid grid-cols-2 gap-3">
+        <a-form-item label="Tên nhân viên" name="tenNhanVien" :rules="[{ required: true, message: 'Vui lòng nhập tên nhân viên' }]">
+          <a-input v-model:value="formState.tenNhanVien" />
+        </a-form-item>
+        <a-form-item
+          label="Email"
+          name="email"
+          :rules="[
+            {
+              type: 'email',
+              message: 'Email không hợp lệ',
+            },
+          ]"
+        >
+          <a-input v-model:value="formState.email" />
+        </a-form-item>
+        <a-form-item
+          label="Số điện thoại"
+          name="phone"
+          :rules="[
+            {
+              pattern: /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+              message: 'Số điện thoại không hợp lệ',
+            },
+          ]"
+        >
+          <a-input v-model:value="formState.phone" />
+        </a-form-item>
+        <a-form-item label="Giới tính" name="gioiTinh" :rules="[{ required: true, message: 'Vui lòng chọn giới tính' }]">
+          <a-select v-model:value="formState.gioiTinh" placeholder="Chọn giới tính">
+            <a-select-option :value="1">Nam</a-select-option>
+            <a-select-option :value="0">Nữ</a-select-option>
+            <a-select-option :value="2">Khác</a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="Ngày sinh" name="ngaySinh" :rules="[{ required: true, message: 'Vui lòng chọn ngày sinh' }]">
           <a-date-picker v-model:value="formState.ngaySinh" format="DD/MM/YYYY" value-format="YYYY-MM-DDTHH:mm:ss" style="width: 100%" />
         </a-form-item>
-        <a-form-item label="Quê quán"><a-input v-model:value="formState.queQuan" /></a-form-item>
-        <a-form-item label="Chức vụ"><a-input v-model:value="formState.chucVu" /></a-form-item>
+        <a-form-item label="Ngày bắt đầu làm việc" name="ngayBatDau" :rules="[{ required: true, message: 'Vui lòng chọn ngày bắt đầu làm việc' }]">
+          <a-date-picker v-model:value="formState.ngayBatDau" format="DD/MM/YYYY" value-format="YYYY-MM-DDTHH:mm:ss" style="width: 100%" />
+        </a-form-item>
+        <a-form-item label="Quê quán" name="queQuan">
+          <a-input v-model:value="formState.queQuan" />
+        </a-form-item>
+        <a-form-item label="Chức vụ" name="idChucVu" :rules="[{ required: true, message: 'Vui lòng chọn chức vụ' }]">
+          <a-select v-model:value="formState.idChucVu" placeholder="Chọn chức vụ" :options="positionOptions" :field-names="{ label: 'tenChucVu', value: 'id' }" />
+        </a-form-item>
       </a-form>
     </a-modal>
   </div>
@@ -57,7 +104,7 @@
 import moment from "moment";
 import "moment/locale/vi";
 moment.locale("vi");
-
+const modalFormRef = ref(null);
 const nuxtApp = useNuxtApp();
 const { RestApi } = useApi();
 const t = nuxtApp.$i18n.t;
@@ -65,37 +112,45 @@ const isEditMode = ref(false);
 
 const param = ref({ search: "", PageIndex: 1, PageSize: 10 });
 const dataSource = ref([]);
+const positionOptions = ref([]);
 const pagination = reactive({
   current: 1,
   pageSize: 10,
   total: 0,
   showTotal: (total, range) => `Hiển thị ${range[0]}-${range[1]} trên tổng số ${total} bản ghi`,
   showSizeChanger: true,
-  pageSizeOptions: ["1","10", "20", "50", "100"],
+  pageSizeOptions: ["1", "10", "20", "50", "100"],
 });
 
 const modelRef = reactive({ name: "" });
 const formRef = ref(null);
 const modalVisible = ref(false);
 
-const formState = ref({
+const resetFormState = () => ({
+  id: undefined,
   tenNhanVien: "",
   email: "",
   phone: "",
+  gioiTinh: 1,
   ngaySinh: null,
+  ngayBatDau: null,
   queQuan: "",
-  chucVu: "",
+  idChucVu: null,
 });
 
-const resetForm = () => {
+const formState = ref(resetFormState());
+
+const resetForm = async () => {
   if (formRef.value) {
     formRef.value.resetFields();
     param.value.PageIndex = 1;
     param.value.PageSize = 10;
+    param.value.search = "";
     pagination.current = 1;
     pagination.pageSize = 10;
     modelRef.name = "";
   }
+  await loadData({ ...param.value });
 };
 
 const onSubmit = async () => {
@@ -110,9 +165,9 @@ const handleTableChange = async paginationInfo => {
   pagination.pageSize = paginationInfo.pageSize;
   await loadData({ ...param.value });
 };
-//delete
+
 const handleDelete = async record => {
-  const { status } = await RestApi.staff.delete({ id: record.id });
+  const { status } = await RestApi.staff.delete({ params: { id: record.id } });
   if (status.value === "success") {
     message.success("Đã xoá nhân viên");
     await loadData({ ...param.value });
@@ -121,49 +176,58 @@ const handleDelete = async record => {
   }
 };
 
-const handleSave = async () => {
-  // const payload = {
-  //   ...formState,
-  //   ngaySinh: formState.ngaySinh ? moment(formState.ngaySinh).format("YYYY-MM-DDT00:00:00") : null,
-  // };
-  console.log(formState);
-  let status;
-  // if (editData.value) {
-  //   // ({ status } = await RestApi.staff.update({ id: editData.value.id, ...payload }));
-  // } else {
-  //   // ({ status } = await RestApi.staff.create(payload));
-  // }
-
-  // if (status.value === "success") {
-  //   message.success(editData.value ? "Cập nhật thành công" : "Thêm mới thành công");
-  //   modalVisible.value = false;
-  //   await loadData(param.value);
-  // } else {
-  //   message.error("Lỗi xử lý");
-  // }
+const closeModal = () => {
   modalVisible.value = false;
+  formState.value = resetFormState();
 };
-//create
+
 const showModal = () => {
   isEditMode.value = false;
-  Object.assign(formState.value, {
-    id: null,
-    idChucVu: null,
-    stt: null,
-    tenNhanVien: "",
-    email: "",
-    phone: "",
-    ngaySinh: null,
-    queQuan: "",
-    chucVu: "",
-  });
+  formState.value = resetFormState();
   modalVisible.value = true;
 };
-const showEdit = record => {
+
+const showEdit = async record => {
   isEditMode.value = true;
-  console.log(record);
-  // Object.assign(formState.value, { ...record });
+  formState.value = { ...resetFormState(), ...record };
   modalVisible.value = true;
+};
+
+const handleSave = async () => {
+  try {
+    await modalFormRef.value.validateFields();
+    const payload = {
+      ...formState.value,
+      ngaySinh: formState.value.ngaySinh ? moment(formState.value.ngaySinh).format("YYYY-MM-DDT00:00:00") : "",
+      ngayBatDau: formState.value.ngayBatDau ? moment(formState.value.ngayBatDau).format("YYYY-MM-DDT00:00:00") : "",
+    };
+
+    if (!isEditMode.value) {
+      delete payload.id;
+      delete payload.stt;
+    }
+    let status;
+    if (isEditMode.value) {
+      ({ status } = await RestApi.staff.update({ body: JSON.stringify(payload) }));
+    } else {
+      ({ status } = await RestApi.staff.create({ body: JSON.stringify(payload) }));
+    }
+
+    if (status.value === "success") {
+      message.success(isEditMode.value ? "Cập nhật thành công" : "Thêm mới thành công");
+      closeModal();
+      await loadData(param.value);
+    } else {
+      message.error("Lỗi xử lý");
+    }
+  } catch (error) {
+    message.error("Validation Failed:", error);
+  }
+};
+
+const getPositionName = id => {
+  const position = positionOptions.value.find(item => item.id === id);
+  return position ? position.tenChucVu : "";
 };
 
 const columns = computed(() => [
@@ -172,8 +236,9 @@ const columns = computed(() => [
   { title: "Email", dataIndex: "email", key: "email" },
   { title: "Số Điện Thoại", dataIndex: "phone", key: "phone" },
   { title: "Ngày Sinh", dataIndex: "ngaySinh", key: "ngaySinh" },
+  { title: "Ngày bắt đầu", dataIndex: "ngayBatDau", key: "ngayBatDau" },
   { title: "Quê Quán", dataIndex: "queQuan", key: "queQuan" },
-  { title: "Chức Vụ", dataIndex: "chucVu", key: "chucVu" },
+  { title: "Chức Vụ", key: "chucVu" },
   { title: "Hành động", key: "action", fixed: "right", width: 140 },
 ]);
 
@@ -187,9 +252,16 @@ const loadData = async param => {
   }
 };
 
-await loadData({ ...param.value });
+const loadPositionData = async () => {
+  const { data, status } = await RestApi.staff.get_position();
+  if (status.value === "success") {
+    positionOptions.value = data.value.data;
+  } else {
+    message.error("Lỗi lấy dữ liệu chức vụ");
+  }
+};
 
-onMounted(() => {
+onMounted(async () => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => [
     { url: "/system_management", title: "Quản lý hệ thống" },
@@ -199,5 +271,8 @@ onMounted(() => {
   watch(tempBreadcrumb, () => {
     settingStore.setBreadcrumb(tempBreadcrumb.value);
   });
+
+  await loadPositionData();
+  await loadData({ ...param.value });
 });
 </script>

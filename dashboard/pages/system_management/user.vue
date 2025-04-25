@@ -134,7 +134,7 @@ await loadData({ ...param.value });
 
 const handleDelete = async id => {
   try {
-    const { status } = await RestApi.user.delete({ params: { id } });
+    const { status } = await RestApi.user.delete({ params: { id: id } });
     if (status.value === "success") {
       message.success("Xoá thành công");
       await loadData({ ...param.value });
@@ -182,20 +182,19 @@ const handleEdit = async record => {
 const handleSubmit = async () => {
   try {
     submitLoading.value = true;
-    let st;
-    console.log(formState);
-    // if (isEditMode.value) {
-    //   const { data, status } = await RestApi.user.update({
-    //     body: JSON.stringify(formState),
-    //   });
-    //   st = status;
-    // } else {
-    //   const { data, status } = await RestApi.user.create({
-    //     body: JSON.stringify(formState),
-    //   });
-    //   st = status;
-    // }
-
+    let st = "";
+    if (isEditMode.value) {
+      const { data, status } = await RestApi.user.update({
+        body: JSON.stringify(formState),
+      });
+      st = status.value;
+    } else {
+      const { data, status } = await RestApi.user.create({
+        body: JSON.stringify(formState),
+      });
+      st = status.value;
+    }
+    console.log(">>>>>>>", st);
     if (st === "success") {
       message.success(isEditMode.value ? "Cập nhật người dùng thành công!" : "Thêm mới người dùng thành công!");
     } else {
