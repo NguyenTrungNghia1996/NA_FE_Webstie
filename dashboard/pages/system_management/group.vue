@@ -86,177 +86,30 @@ const columns = [
 await loadData({ ...param.value });
 
 //add
-const roleSource = ref({
-  roleGroupName: "",
-  moTa: "",
-  dataPhanQuyen: [
-    {
-      id: 1,
-      functionName: "Quản lý hệ thống",
-      dataPermission: [],
-    },
-    {
-      id: 2,
-      functionName: "Quản lý nhóm người dùng",
-      dataPermission: [],
-    },
-    {
-      id: 3,
-      functionName: "Quản lý người dùng",
-      dataPermission: [],
-    },
-    {
-      id: 4,
-      functionName: "Quản lý website",
-      dataPermission: [],
-    },
-    {
-      id: 5,
-      functionName: "Quản lý bán hàng",
-      dataPermission: [],
-    },
-    {
-      id: 6,
-      functionName: "Quản lý công việc",
-      dataPermission: [],
-    },
-    {
-      id: 7,
-      functionName: "Quản lý Menu",
-      dataPermission: [],
-    },
-    {
-      id: 8,
-      functionName: "Quản lý Nhân sự",
-      dataPermission: [],
-    },
-    {
-      id: 9,
-      functionName: "Danh sách nhân sự",
-      dataPermission: [],
-    },
-    {
-      id: 10,
-      functionName: "Quản lý thông tin khách hàng",
-      dataPermission: [],
-    },
-    {
-      id: 11,
-      functionName: "Quản lý thông tin dự án",
-      dataPermission: [],
-    },
-    {
-      id: 13,
-      functionName: "Quản lý thông tin công ty",
-      dataPermission: [],
-    },
-    {
-      id: 14,
-      functionName: "Quản lý dịch vụ",
-      dataPermission: [],
-    },
-    {
-      id: 15,
-      functionName: "Quản lý sản phẩm",
-      dataPermission: [],
-    },
-    {
-      id: 16,
-      functionName: "Quản lý Giới thiệu",
-      dataPermission: [],
-    },
-    {
-      id: 17,
-      functionName: "Quản lý Danh mục",
-      dataPermission: [],
-    },
-    {
-      id: 18,
-      functionName: "Danh Mục Chức vụ",
-      dataPermission: [],
-    },
-    {
-      id: 19,
-      functionName: "Danh Mục Loại Sản Phẩm",
-      dataPermission: [],
-    },
-    {
-      id: 21,
-      functionName: "Danh Mục Kho",
-      dataPermission: [],
-    },
-    {
-      id: 22,
-      functionName: "Danh Mục Sản Phẩm",
-      dataPermission: [],
-    },
-    {
-      id: 24,
-      functionName: "Danh Mục Nhà Cung Cấp",
-      dataPermission: [],
-    },
-    {
-      id: 34,
-      functionName: "Hóa đơn Nhập",
-      dataPermission: [],
-    },
-    {
-      id: 36,
-      functionName: "Nhập Kho",
-      dataPermission: [],
-    },
-    {
-      id: 37,
-      functionName: "Danh Mục ĐVT",
-      dataPermission: [],
-    },
-    {
-      id: 39,
-      functionName: "Xuất Kho",
-      dataPermission: [],
-    },
-    {
-      id: 40,
-      functionName: "Hóa đơn Xuất",
-      dataPermission: [],
-    },
-    {
-      id: 41,
-      functionName: "Kiểm Kê",
-      dataPermission: [],
-    },
-    {
-      id: 42,
-      functionName: "Tồn Kho",
-      dataPermission: [],
-    },
-    {
-      id: 43,
-      functionName: "Báo cáo Nhập",
-      dataPermission: [],
-    },
-    {
-      id: 44,
-      functionName: "Báo cáo Xuất ",
-      dataPermission: [],
-    },
-    {
-      id: 45,
-      functionName: "Báo cáo Xuất Nhập Tồn",
-      dataPermission: [],
-    },
-    {
-      id: 46,
-      functionName: "Báo cáo Hóa đơn nhập",
-      dataPermission: [],
-    },
-    {
-      id: 47,
-      functionName: "Báo cáo Hóa đơn xuất",
-      dataPermission: [],
-    },
-  ],
-});
+function convertMenuToRolePermission(inputData, roleGroupName = "", moTa = "") {
+  // Kiểm tra nếu đầu vào không hợp lệ
+  if (!inputData || !inputData.menu || !Array.isArray(inputData.menu)) {
+    throw new Error("Input data is invalid");
+  }
+  const outputData = {
+    roleGroupName: roleGroupName,
+    moTa: moTa,
+    dataPhanQuyen: inputData.menu.map(item => ({
+      id: item.id,
+      functionName: item.functionName,
+      dataPermission: []
+    }))
+  };
+  return outputData;
+}
+const roleSource = ref({});
+const { data, status } = await RestApi.menu_backend.list_all();
+if (status.value === "success") { 
+  roleSource.value = convertMenuToRolePermission(data.value);
+} else {
+  message.error("Lỗi lấy dữ liệu phần quyền")
+}
+
 const availablePermissions = ref([
   { id: 1, permissionName: "Truy cập" },
   { id: 2, permissionName: "Thêm" },
@@ -273,21 +126,21 @@ const showModal = () => {
 const handleEdit = async record => {
   isEditMode.value = true;
   const { data, status } = await RestApi.permission.get({ params: { roleId: record.id } });
-  if (status.value === "success") { 
+  if (status.value === "success") {
     Object.assign(modalRule.value, data.value.data);
     isModalVisible.value = true;
   } else {
-    message.error("Lấy dữ liệu chi tiết không thành công !")
+    message.error("Lấy dữ liệu chi tiết không thành công !");
   }
 };
 //delete
 const handleDelete = async record => {
   const { data, status } = await RestApi.permission.delete({ params: { id: record.id } });
-  if (status?.value === "success") { 
-    message.success("Xóa dữ liệu thành công !")
+  if (status?.value === "success") {
+    message.success("Xóa dữ liệu thành công !");
     await loadData({ ...param.value });
   } else {
-    message.error("Xóa dữ liệu không thành công !")
+    message.error("Xóa dữ liệu không thành công !");
   }
 };
 //all
@@ -295,29 +148,24 @@ const handleCancel = () => {
   isModalVisible.value = false;
 };
 
-
 const handleSave = async () => {
   try {
-    const action = isEditMode.value ? 'update' : 'create';
-    const successMessage = isEditMode.value
-      ? 'Cập nhật nhóm quyền thành công!'
-      : 'Thêm mới nhóm quyền thành công!';
-    const errorMessage = isEditMode.value
-      ? 'Cập nhật nhóm quyền không thành công!'
-      : 'Thêm mới nhóm quyền không thành công!';
+    const action = isEditMode.value ? "update" : "create";
+    const successMessage = isEditMode.value ? "Cập nhật nhóm quyền thành công!" : "Thêm mới nhóm quyền thành công!";
+    const errorMessage = isEditMode.value ? "Cập nhật nhóm quyền không thành công!" : "Thêm mới nhóm quyền không thành công!";
 
     const response = await RestApi.permission[action]({
       body: JSON.stringify(modalRule.value),
     });
 
-    if (response.status.value === 'success') {
+    if (response.status.value === "success") {
       message.success(successMessage);
     } else {
       message.error(errorMessage);
     }
   } catch (error) {
-    console.error('Lỗi xử lý nhóm quyền:', error);
-    message.error('Đã xảy ra lỗi. Vui lòng thử lại sau!');
+    console.error("Lỗi xử lý nhóm quyền:", error);
+    message.error("Đã xảy ra lỗi. Vui lòng thử lại sau!");
   } finally {
     await loadData({ ...param.value });
     isModalVisible.value = false;
