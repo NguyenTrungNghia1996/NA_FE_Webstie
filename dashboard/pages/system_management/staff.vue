@@ -140,15 +140,17 @@ const resetFormState = () => ({
 
 const formState = ref(resetFormState());
 
-const resetForm = () => {
+const resetForm = async () => {
   if (formRef.value) {
     formRef.value.resetFields();
     param.value.PageIndex = 1;
     param.value.PageSize = 10;
+    param.value.search = "";
     pagination.current = 1;
     pagination.pageSize = 10;
     modelRef.name = "";
   }
+  await loadData({ ...param.value });
 };
 
 const onSubmit = async () => {
