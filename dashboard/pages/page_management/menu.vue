@@ -191,7 +191,7 @@ const handleSave = async () => {
 
 const handleDelete = async delete_id => {
   try {
-    console.log(delete_id);
+    // console.log(delete_id);
     const { status } = await RestApi.menu.delete({ params: { id:delete_id } });
     if (status.value === "success") {
       message.success("Xóa dữ liệu thành công!");

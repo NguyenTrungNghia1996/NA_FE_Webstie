@@ -26,6 +26,7 @@ let ENDPOINTS = {
   //staff
   STAFF_LIST: "/api/backend/NhanSu/Nhansu_Getlist_Paging",
   STAFF: "/api/backend/NhanSu/NhanSu",
+  POSITION:"/api/backend/NhanSu/chucvu",
   //change_password
   CHANGE_PASSWORD: "/api/backend/User/user/change-password",
   //Menu_backend
@@ -327,6 +328,9 @@ class Staff{
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.STAFF, data);
+  }
+  async get_position(data) {
+    return await this.request.get(ENDPOINTS.POSITION, data);
   }
 }
 class Menu_backend {
