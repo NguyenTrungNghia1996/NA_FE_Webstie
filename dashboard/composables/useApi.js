@@ -29,6 +29,7 @@ let ENDPOINTS = {
   POSITION:"/api/backend/NhanSu/chucvu",
   //change_password
   CHANGE_PASSWORD: "/api/backend/User/user/change-password",
+  RESET_PASSWORD:"/api/backend/User/user/reset-password",
   //Menu_backend
   GET_ALL_MENU: "/api/backend/Menu/GetallFunction",
   
@@ -197,6 +198,9 @@ class User {
   }
   async change_pasword(data) {
     return await this.request.post(ENDPOINTS.CHANGE_PASSWORD, data);
+  }
+  async reset_password(data) {
+    return await this.request.post(ENDPOINTS.RESET_PASSWORD, data);
   }
 }
 class Service {

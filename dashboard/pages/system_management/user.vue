@@ -15,6 +15,9 @@
             <template v-else-if="column.key === 'actions'">
               <a-space>
                 <a-button size="small" type="primary" @click="handleEdit(record)" :loading="editLoading[record.id]"> Sửa </a-button>
+                <a-popconfirm title="Bạn có chắc chắn muốn reset mật khẩu người dùng này không?" ok-text="Reset" cancel-text="Huỷ" @confirm="handleReset(record.id)">
+                  <a-button size="small" type="primary">Reset Password</a-button>
+                </a-popconfirm>
                 <a-popconfirm title="Bạn có chắc chắn muốn xoá người dùng này không?" ok-text="Xoá" cancel-text="Huỷ" @confirm="handleDelete(record.id)">
                   <a-button size="small" type="primary" danger>Xoá</a-button>
                 </a-popconfirm>
@@ -144,6 +147,20 @@ const handleDelete = async id => {
   } catch (error) {
     console.error("Error deleting user:", error);
     message.error("Đã xảy ra lỗi khi xoá người dùng");
+  }
+};
+const handleReset = async id => {
+  try {
+    const { status } = await RestApi.user.reset_password({ params: { userId: id } });
+    if (status.value === "success") {
+      message.success("Reset thành công");
+      await loadData({ ...param.value });
+    } else {
+      message.error("Lỗi khi reset người dùng");
+    }
+  } catch (error) {
+    console.error("Error reset user:", error);
+    message.error("Đã xảy ra lỗi khi reset người dùng");
   }
 };
 
