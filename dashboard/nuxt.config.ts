@@ -3,11 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   app: {
     head: {
+      title: "DASHBOARD",
       link: [
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap",
         },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       ],
     },
   },

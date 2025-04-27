@@ -3,11 +3,13 @@ const isDev = process.env.NODE_ENV === "development";
 export default defineNuxtConfig({
   app: {
     head: {
+      title: "Nguyên Anh EST",
       link: [
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
-        }
+        },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },
