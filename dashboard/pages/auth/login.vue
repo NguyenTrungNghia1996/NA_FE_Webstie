@@ -36,10 +36,10 @@
 </template>
 
 <script setup>
+const settingStore = useSettingStore();
 definePageMeta({ layout: "auth" });
 const { RestApi } = useApi();
 const userStore = useUserStore();
-
 
 const form = reactive({
   username: "admin",
@@ -53,10 +53,10 @@ const handleLogin = async () => {
   loading.value = true;
   try {
     const { data, status, error } = await RestApi.user.login({ body: JSON.stringify(form) });
-    if (status.value == "success") {    
-      userStore.setUser(data.value);
+    if (status.value == "success") {
+      await userStore.setUser(data.value);
       message.success("Đăng nhập thành công!");
-      navigateTo('/dashboard')
+      navigateTo("/dashboard");
     } else {
       console.error("error:", error);
       message.error("Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin");
