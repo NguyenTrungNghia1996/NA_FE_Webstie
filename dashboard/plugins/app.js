@@ -10,7 +10,7 @@ export default defineNuxtPlugin(async NuxtApp => {
     }),
   });
   if (status.value === "success") {
-    settingStore.setMenu(data.value);
+    settingStore.setMenu(data.value.menu);
   }
 
   // const t = NuxtApp.$i18n.t;

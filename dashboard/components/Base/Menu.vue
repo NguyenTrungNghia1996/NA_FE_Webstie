@@ -276,10 +276,10 @@ watch(isLargeAndUp, () => {
 });
 
 const formattedMenu = computed(() => {
-  const menuItems = settingStore.menu.menu.filter(item => item.parentId === null);
+  const menuItems = settingStore.menu.filter(item => item.parentId === null);
   
   return menuItems.map(parentItem => {
-    const children = settingStore.menu.menu.filter(item => item.parentId === parentItem.id);
+    const children = settingStore.menu.filter(item => item.parentId === parentItem.id);
 
     return {
       id: parentItem.id,

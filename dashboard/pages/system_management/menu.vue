@@ -69,6 +69,7 @@
 <script setup>
 const { RestApi } = useApi();
 
+const settingStore = useSettingStore();
 const menuData = ref([]);
 const loading = ref(false);
 const modalLoading = ref(false);
@@ -127,6 +128,7 @@ const fetchMenuData = async () => {
     });
     if (status.value === "success") {
       menuData.value = data.value.menu;
+      settingStore.setMenu(data.value.menu);
     } else {
       message.error("Không thể tải dữ liệu menu");
     }
@@ -256,6 +258,17 @@ const resetForm = () => {
   formState.parentId = null;
   formState.link = "";
 };
+onMounted(() => {
+  
+  const tempBreadcrumb = computed(() => [
+    { url: "/system_management", title: "Quản lý hệ thống" },
+    { url: "/system_management/menu", title: "Quản lý menu" },
+  ]);
+  settingStore.setBreadcrumb(tempBreadcrumb.value);
+  watch(tempBreadcrumb, () => {
+    settingStore.setBreadcrumb(tempBreadcrumb.value);
+  });
+});
 </script>
 
 <style scoped>
