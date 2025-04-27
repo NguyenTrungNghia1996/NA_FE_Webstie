@@ -6,8 +6,23 @@
       </div>
       <a-spin :spinning="loading">
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-          <a-table size="small" :columns="columns" :data-source="processedMenu" :pagination="false" row-key="id" :default-expand-all-rows="true" :loading="loading" :scroll="{ x: 'max-content' }" bordered>
+          <a-table
+            size="small"
+            :columns="columns"
+            :data-source="processedMenu"
+            :pagination="false"
+            row-key="id"
+            :expanded-row-keys="expandedRowKeys"
+            @expand="handleExpand"
+            :loading="loading"
+            :scroll="{ x: 'max-content' }"
+            bordered
+          >
             <template #bodyCell="{ column, record }">
+              <template v-if="column.key === 'stt'">
+                <span>{{ record.stt }}</span>
+              </template>
+
               <template v-if="column.key === 'functionName'">
                 <span v-if="!record.parentId" class="font-semibold">
                   {{ record.functionName }}
@@ -27,7 +42,14 @@
               <template v-if="column.key === 'actions'">
                 <div class="flex flex-wrap gap-2">
                   <a-button type="primary" size="small" @click="editItem(record)" :loading="record.id === editingId"> Sửa </a-button>
-                  <a-button type="primary" size="small" danger @click="deleteItem(record)" :loading="record.id === deletingId"> Xóa </a-button>
+                  <a-popconfirm
+                    title="Bạn có chắc chắn muốn xóa menu này?"
+                    ok-text="Xóa"
+                    cancel-text="Hủy"
+                    @confirm="() => deleteItem(record)"
+                  >
+                    <a-button type="primary" size="small" danger :loading="record.id === deletingId"> Xóa </a-button>
+                  </a-popconfirm>
                 </div>
               </template>
             </template>
@@ -40,24 +62,67 @@
           </a-table>
         </div>
       </a-spin>
-      <a-modal v-model:open="modalVisible" :title="isEditing ? 'Chỉnh sửa Menu' : 'Thêm Menu mới'" @ok="handleOk" @cancel="handleCancel" :confirm-loading="confirmLoading" width="90%" :style="{ maxWidth: '600px' }" :destroyOnClose="true">
+      <a-modal
+        v-model:open="modalVisible"
+        :title="isEditing ? 'Chỉnh sửa Menu' : 'Thêm Menu mới'"
+        @ok="handleOk"
+        @cancel="handleCancel"
+        :confirm-loading="confirmLoading"
+        width="90%"
+        :style="{ maxWidth: '600px' }"
+        :destroyOnClose="true"
+      >
         <a-spin :spinning="modalLoading">
-          <a-form :model="formState" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }" autocomplete="off" layout="vertical">
-            <a-form-item label="Tên Menu" name="functionName" :rules="[{ required: true, message: 'Vui lòng nhập tên menu!' }]">
-              <a-input v-model:value="formState.functionName" placeholder="Nhập tên menu" />
+          <a-form
+            :model="formState"
+            :label-col="{ span: 24 }"
+            :wrapper-col="{ span: 24 }"
+            autocomplete="off"
+            layout="vertical"
+          >
+            <a-form-item label="STT (Thứ tự hiển thị)" name="stt">
+              <a-input-number
+                v-model:value="formState.stt"
+                :min="1"
+                style="width: 100%"
+                placeholder="Nhập số thứ tự"
+              />
+            </a-form-item>
+
+            <a-form-item
+              label="Tên Menu"
+              name="functionName"
+              :rules="[{ required: true, message: 'Vui lòng nhập tên menu!' }]"
+            >
+              <a-input
+                v-model:value="formState.functionName"
+                placeholder="Nhập tên menu"
+              />
             </a-form-item>
 
             <a-form-item label="Menu cha" name="parentId">
-              <a-select v-model:value="formState.parentId" placeholder="Chọn menu cha" allow-clear :loading="loadingParentMenus">
+              <a-select
+                v-model:value="formState.parentId"
+                placeholder="Chọn menu cha"
+                allow-clear
+                :loading="loadingParentMenus"
+              >
                 <a-select-option :value="null">Không có (Menu chính)</a-select-option>
-                <a-select-option v-for="parent in parentMenus" :key="parent.id" :value="parent.id">
+                <a-select-option
+                  v-for="parent in parentMenus"
+                  :key="parent.id"
+                  :value="parent.id"
+                >
                   {{ parent.functionName }}
                 </a-select-option>
               </a-select>
             </a-form-item>
 
             <a-form-item label="Đường dẫn" name="link">
-              <a-input v-model:value="formState.link" placeholder="Ví dụ: /path/to/page" />
+              <a-input
+                v-model:value="formState.link"
+                placeholder="Ví dụ: /path/to/page"
+              />
             </a-form-item>
           </a-form>
         </a-spin>
@@ -76,6 +141,7 @@ const modalLoading = ref(false);
 const loadingParentMenus = ref(false);
 const editingId = ref(null);
 const deletingId = ref(null);
+const expandedRowKeys = ref([]); // Quản lý các hàng đang mở
 
 const columns = [
   {
@@ -83,6 +149,12 @@ const columns = [
     dataIndex: "functionName",
     key: "functionName",
     width: "30%",
+  },
+  {
+    title: "STT",
+    key: "stt",
+    width: 80,
+    align: "center",
   },
   {
     title: "Menu cha",
@@ -111,6 +183,7 @@ const isEditing = ref(false);
 
 const formState = reactive({
   id: null,
+  stt: 1,
   functionName: "",
   parentId: null,
   link: "",
@@ -129,6 +202,8 @@ const fetchMenuData = async () => {
     if (status.value === "success") {
       menuData.value = data.value.menu;
       settingStore.setMenu(data.value.menu);
+      // Reset expanded rows khi load lại dữ liệu
+      expandedRowKeys.value = [];
     } else {
       message.error("Không thể tải dữ liệu menu");
     }
@@ -150,9 +225,6 @@ const fetchParentMenus = async () => {
 };
 
 await fetchMenuData();
-// onMounted(async () => {
-//   await Promise.all([fetchMenuData(), fetchParentMenus()]);
-// });
 
 const parentMenus = computed(() => {
   return menuData.value.filter(item => !item.parentId);
@@ -171,6 +243,16 @@ const processedMenu = computed(() => {
   });
 });
 
+// Xử lý mở/đóng các hàng
+const handleExpand = (expanded, record) => {
+  if (expanded) {
+    // Nếu mở một hàng, đóng tất cả các hàng khác
+    expandedRowKeys.value = [record.id];
+  } else {
+    expandedRowKeys.value = [];
+  }
+};
+
 const showAddModal = () => {
   isEditing.value = false;
   resetForm();
@@ -185,30 +267,21 @@ const editItem = record => {
 };
 
 const deleteItem = async record => {
-  Modal.confirm({
-    title: "Xác nhận xóa",
-    content: `Bạn có chắc chắn muốn xóa menu "${record.functionName}"?`,
-    okText: "Xóa",
-    okType: "danger",
-    cancelText: "Hủy",
-    async onOk() {
-      try {
-        deletingId.value = record.id;
-        const { data, status } = await RestApi.menu_backend.delete({ params: { id: record.id } });
-        if (status.value === "success") {
-          message.success("Xóa menu thành công");
-          await fetchMenuData();
-        } else {
-          message.error("Xóa menu thất bại");
-        }
-      } catch (error) {
-        console.error("Lỗi khi xóa menu:", error);
-        message.error("Không thể xóa menu");
-      } finally {
-        deletingId.value = null;
-      }
-    },
-  });
+  try {
+    deletingId.value = record.id;
+    const { data, status } = await RestApi.menu_backend.delete({ params: { id: record.id } });
+    if (status.value === "success") {
+      message.success("Xóa menu thành công");
+      await fetchMenuData();
+    } else {
+      message.error("Xóa menu thất bại");
+    }
+  } catch (error) {
+    console.error("Lỗi khi xóa menu:", error);
+    message.error("Không thể xóa menu");
+  } finally {
+    deletingId.value = null;
+  }
 };
 
 const handleOk = async () => {
@@ -254,12 +327,13 @@ const handleCancel = () => {
 
 const resetForm = () => {
   formState.id = null;
+  formState.stt = 1;
   formState.functionName = "";
   formState.parentId = null;
   formState.link = "";
 };
+
 onMounted(() => {
-  
   const tempBreadcrumb = computed(() => [
     { url: "/system_management", title: "Quản lý hệ thống" },
     { url: "/system_management/menu", title: "Quản lý menu" },
