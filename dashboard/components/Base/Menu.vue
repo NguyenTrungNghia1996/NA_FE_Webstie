@@ -275,17 +275,11 @@ watch(isLargeAndUp, () => {
   if (isLargeAndUp.value && collapsed.value) collapsed.value = false;
 });
 
-// Dữ liệu menu
-// const menuData = computed(() => {
-//   retu
-// });
-
-// Chuyển đổi dữ liệu menu thành cấu trúc phù hợp
 const formattedMenu = computed(() => {
-  const menuItems = settingStore.menu.value.filter(item => item.parentId === null);
-  console.log(settingStore);
+  const menuItems = settingStore.menu.menu.filter(item => item.parentId === null);
+  
   return menuItems.map(parentItem => {
-    const children = settingStore.menu.value.filter(item => item.parentId === parentItem.id);
+    const children = settingStore.menu.menu.filter(item => item.parentId === parentItem.id);
 
     return {
       id: parentItem.id,
