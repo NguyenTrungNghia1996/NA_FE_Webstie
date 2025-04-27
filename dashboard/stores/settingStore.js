@@ -6,6 +6,7 @@ export const useSettingStore = defineStore("setting", {
       { url: "/dashboard", title: "Dashboard" },
     ],
     loading: false,
+    menu:[]
   }),
   actions: {
     setBreadcrumb(value) {
@@ -14,6 +15,9 @@ export const useSettingStore = defineStore("setting", {
     setLoading(value) {
       this.loading = value;
     },
+    setMenu(value) {
+      this.menu = value
+    }
   },
   getters: {
   },

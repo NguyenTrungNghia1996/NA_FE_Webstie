@@ -261,6 +261,9 @@ const loadPositionData = async () => {
   }
 };
 
+await loadPositionData();
+await loadData({ ...param.value });
+
 onMounted(async () => {
   const settingStore = useSettingStore();
   const tempBreadcrumb = computed(() => [
@@ -271,8 +274,5 @@ onMounted(async () => {
   watch(tempBreadcrumb, () => {
     settingStore.setBreadcrumb(tempBreadcrumb.value);
   });
-
-  await loadPositionData();
-  await loadData({ ...param.value });
 });
 </script>
