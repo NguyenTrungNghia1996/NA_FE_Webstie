@@ -27,27 +27,27 @@ const data_view = ref([
     data: {
       slides: [
         {
-          img: '/Slide/bannertet.png',
+          img: 'https://image.nguyenanh-est.com/website/1746671187665_banner1NA.png',
           alt: 'Slide 1',
           url: '#',
         },
         {
-          img: '/Slide/Congthongtin.png',
+          img: 'https://image.nguyenanh-est.com/website/1746671187665_banner1NA.png',
           alt: 'Slide 2',
           url: '#',
         },
         {
-          img: '/Slide/Hocvathitructuyen.png',
+          img: 'https://image.nguyenanh-est.com/website/1746671187665_banner1NA.png',
           alt: 'Slide 3',
           url: '#',
         },
         {
-          img: '/Slide/Thediemdanhthongminh.png',
+          img: 'https://image.nguyenanh-est.com/website/1746671187665_banner1NA.png',
           alt: 'Slide 4',
           url: '#',
         },
         {
-          img: '/Slide/Thongtingiaoduc.png',
+          img: 'https://image.nguyenanh-est.com/website/1746671187665_banner1NA.png',
           alt: 'Slide 5',
           url: '#',
         },
