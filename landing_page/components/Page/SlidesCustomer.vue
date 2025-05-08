@@ -1,9 +1,7 @@
 <template>
   <div class="container mx-auto flex flex-col gap-6 py-6 px-6">
     <div class="flex flex-col items-center">
-      <h2
-        class="font-roboto text-[36px] font-medium leading-[42px] uppercase text-center text-[#212529]"
-      >
+      <h2 class="font-roboto text-[36px] font-medium leading-[42px] uppercase text-center text-[#212529]">
         {{ props.data.title }}
       </h2>
       <div class="h-[3px] w-[200px] mt-4 bg-[#212529]"></div>
@@ -12,16 +10,26 @@
       <ClientOnly>
         <swiper-container ref="containerRef" :init="false">
           <swiper-slide v-for="n in props.data.slides" :key="n">
-            <NuxtLink :to="n.url">
+            <!-- <NuxtLink :to="n.url">
               <div class="transform transition-all duration-700 ease-in-out">
                 <div class="flex flex-col justify-center items-center ">
                   <NuxtImg
                     :src="n.image"
                     :alt="n.image"
                     placeholder="/placeholder.png"
-                    class="w-full h-auto border border-gray-300 rounded-xl bg-white shadow-md"
+                    class="w-[200px] h-[100px] object-cover border border-gray-300 rounded-xl bg-white shadow-md"
                   />
-                  <!-- <p>{{ n.name }}</p> -->
+                  <p>{{ n.name }}</p>
+                </div>
+              </div>
+            </NuxtLink> -->
+            <NuxtLink :to="n.url">
+              <div class="transform transition-all duration-700 ease-in-out">
+                <div class="flex flex-col justify-center items-center">
+                  <NuxtImg :src="n.image" :alt="n.image" placeholder="/placeholder.png" class="w-[200px] h-[100px] object-cover object-center border border-gray-300 rounded-xl bg-white shadow-md" />
+                  <p class="mt-2 w-[200px] text-center text-sm font-medium text-[#212529] truncate" :title="n.name">
+                    {{ n.name }}
+                  </p>
                 </div>
               </div>
             </NuxtLink>
@@ -33,14 +41,6 @@
 </template>
 <script setup>
 const props = defineProps({
-  // title: {
-  //   type: String,
-  //   required: true
-  // },
-  // slides: {
-  //   type: Array,
-  //   required: true
-  // },
   data: {
     type: Object,
     required: true,

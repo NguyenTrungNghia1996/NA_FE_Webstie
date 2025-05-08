@@ -80,82 +80,6 @@ const data_customer = ref({
       image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
       url: "#",
     },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
-    {
-      image: "https://nguyenanh-est.com/Image/LogoKhachHang/logost.png",
-      url: "#",
-    },
   ],
 });
 
@@ -187,10 +111,10 @@ const { data: typical_customers, status: status_typical_customers, error: error_
 if (status_typical_customers.value == "success") {
   data_customer.value.slides = typical_customers.value.map(item => {
     return {
-      id: item.id,
-      name: item.tenKhachHang,
-      image: item.urlLogo,
-      url: item.website,
+      id: item.id || "",
+      name: item.tenKhachHang|| "",
+      image: item.urlLogo || "",
+      url: item.website || "",
     };
   });
 } else {
