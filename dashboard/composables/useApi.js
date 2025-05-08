@@ -26,21 +26,28 @@ let ENDPOINTS = {
   //staff
   STAFF_LIST: "/api/backend/NhanSu/Nhansu_Getlist_Paging",
   STAFF: "/api/backend/NhanSu/NhanSu",
-  POSITION:"/api/backend/NhanSu/chucvu",
+  POSITION: "/api/backend/NhanSu/chucvu",
   //change_password
   CHANGE_PASSWORD: "/api/backend/User/user/change-password",
-  RESET_PASSWORD:"/api/backend/User/user/reset-password",
+  RESET_PASSWORD: "/api/backend/User/user/reset-password",
   //Menu_backend
   GET_ALL_MENU: "/api/backend/Menu/GetallFunction",
   GET_DETAIL_FULL_MENU: "/api/backend/Menu/GetlistallMenu_Paging",
-  MENU_BACKEND:"/api/backend/Menu/function"
+  MENU_BACKEND: "/api/backend/Menu/function",
+  //customer 
+  CUSTOMERS_LIST: "/api/backend/Khachhangtieubieu/Getlist_Pagging",
+  CUSTOMERS: "/api/backend/Khachhangtieubieu/Khachhang",
+  CUSTOMERS_TYPE: "/api/backend/Khachhangtieubieu/Khachhang/LoaiKH",
+  //Slide
+  SLIDE_LIST: "/api/backend/SlideBanner/SlideBanner_Getlist",
+  SLIDE: "/api/backend/SlideBanner/SliderBanner"
 };
 import { useUserStore } from "~~/stores/userStore";
 class Request {
   constructor() {
     this.handler = {
-      onRequest({ request, options }) {},
-      onRequestError({ request, options, error }) {},
+      onRequest({ request, options }) { },
+      onRequestError({ request, options, error }) { },
       onResponse({ request, response, options }) {
         return response._data;
       },
@@ -130,6 +137,8 @@ class RestApi {
     this.permission = new Permission(this.request);
     this.staff = new Staff(this.request);
     this.menu_backend = new Menu_backend(this.request);
+    this.customer = new Customer(this.request);
+    this.slide = new Slide(this.request);
   }
   async get_url_upload(acl, content_encoding, content_type, key, platform) {
     let data = { acl, content_encoding, content_type, key, platform };
@@ -182,7 +191,7 @@ class User {
   async login(data) {
     return await this.request.post(ENDPOINTS.Login, data);
   }
-  async list(data) { 
+  async list(data) {
     return await this.request.get(ENDPOINTS.USER_LIST, data);
   }
   async get(data) {
@@ -315,7 +324,7 @@ class Permission {
     return await this.request.delete(ENDPOINTS.PERMISSION, data);
   }
 }
-class Staff{
+class Staff {
   constructor() {
     this.request = new Request();
   }
@@ -356,6 +365,49 @@ class Menu_backend {
   }
   async delete(data) {
     return await this.request.delete(ENDPOINTS.MENU_BACKEND, data);
+  }
+}
+class Customer {
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.CUSTOMERS_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.CUSTOMERS, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.CUSTOMERS, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.CUSTOMERS, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.CUSTOMERS, data);
+  }
+  async type(data) {
+    return await this.request.get(ENDPOINTS.CUSTOMERS_LIST, data);
+  }
+}
+class Slide {
+  constructor() {
+    this.request = new Request();
+  }
+  async list(data) {
+    return await this.request.get(ENDPOINTS.SLIDE_LIST, data);
+  }
+  async get(data) {
+    return await this.request.get(ENDPOINTS.SLIDE, data);
+  }
+  async create(data) {
+    return await this.request.post(ENDPOINTS.SLIDE, data);
+  }
+  async update(data) {
+    return await this.request.put(ENDPOINTS.SLIDE, data);
+  }
+  async delete(data) {
+    return await this.request.delete(ENDPOINTS.SLIDE, data);
   }
 }
 export default () => {

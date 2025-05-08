@@ -1,16 +1,14 @@
 <template>
-  <div>
+  <a-config-provider :locale="locale">
     <a-extract-style>
       <NuxtLayout>
-        <a-config-provider :locale="locale">
-          <NuxtPage />
-        </a-config-provider>
+        <NuxtPage />
       </NuxtLayout>
       <div v-if="settingStore.loading" class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen !z-99999 overflow-hidden bg-gray-500 opacity-50 flex flex-col items-center justify-center">
         <a-spin size="large" />
       </div>
     </a-extract-style>
-  </div>
+  </a-config-provider>
 </template>
 <script setup>
 const settingStore = useSettingStore();
