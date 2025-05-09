@@ -27,9 +27,6 @@
               <div class="transform transition-all duration-700 ease-in-out">
                 <div class="flex flex-col justify-center items-center">
                   <NuxtImg :src="n.image" :alt="n.image" placeholder="/placeholder.png" class="w-[200px] h-[100px] object-cover object-center border border-gray-300 rounded-xl bg-white shadow-md" />
-                  <p class="mt-2 w-[200px] text-center text-sm font-medium text-[#212529] truncate" :title="n.name">
-                    {{ n.name }}
-                  </p>
                 </div>
               </div>
             </NuxtLink>
