@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white min-h-full p-3">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-xl font-bold">Quản lý banner</h1>
+    <div class="flex justify-end items-center mb-4">
+      <!-- <h1 class="text-xl font-bold">Quản lý banner</h1> -->
       <a-button type="primary" @click="showModal(null)">
         <template #icon>
           <PlusOutlined />
@@ -224,6 +224,17 @@ const onFilesChange = async e => {
   }
 };
 await loadData();
+onMounted(() => {
+  const settingStore = useSettingStore();
+  const tempBreadcrumb = computed(() => [
+    { url: "/page_management", title: "Quản lý site" },
+    { url: "/page_management/slide", title: "Quản lý banner" },
+  ]);
+  settingStore.setBreadcrumb(tempBreadcrumb.value);
+  watch(tempBreadcrumb, () => {
+    settingStore.setBreadcrumb(tempBreadcrumb.value);
+  });
+});
 </script>
 
 <style scoped></style>
