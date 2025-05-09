@@ -13,12 +13,12 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-});
+// const props = defineProps({
+//   data: {
+//     type: Object,
+//     required: true,
+//   },
+// });
 const containerRef = ref(null);
 
 const swiper = useSwiper(containerRef, {

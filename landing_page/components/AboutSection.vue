@@ -34,8 +34,8 @@
             : 'opacity-0 scale-95 translate-x-20'
       ]"
     >
-      <h2 class="text-2xl sm:text-3xl font-bold text-blue-700 mb-4">{{ title }}</h2>
-      <div class="text-gray-700 text-base sm:text-lg leading-relaxed" v-html="description">
+      <h2 class="text-2xl sm:text-3xl font-bold text-black mb-4">{{ title }}</h2>
+      <div class="text-gray-700 text-base sm:text-lg leading-relaxed prose" v-html="description">
       </div>
     </div>
   </div>
@@ -69,3 +69,5 @@ onMounted(() => {
   }
 })
 </script>
+<style>
+</style>
