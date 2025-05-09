@@ -12,6 +12,8 @@ let ENDPOINTS = {
   GET_PROUDCT: "/api/frontend/Sanpham/Getlist_Sanpham",
   GET_DETAIL_PROUDCT: "/api/frontend/Sanpham/Getdetail_Sanpham",
   GET_OUTSTANDING_PROUDCT: "/api/frontend/Sanpham/Getlist_Sanpham_Noibat",
+
+  BANNER:"/api/frontend/SlideBanner/Getlist",
 };
 class Request {
   constructor() {
@@ -146,6 +148,9 @@ class View {
   }
   async typical_customers(data) {
     return this.requester.get(ENDPOINTS.TYPICAL_CUSTOMERS,data)
+  }
+  async banner(data) {
+    return this.requester.get(ENDPOINTS.BANNER,data)
   }
 }
 class Product {
