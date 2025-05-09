@@ -3,6 +3,14 @@
     <div class="w-screen container mx-auto">
       <AboutSection v-for="(item, index) in data" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0" />
     </div>
+    <div class="w-screen container mx-auto grid grid-cols-1 gap-3">
+      <p class="text-2xl sm:text-3xl font-bold text-black mb-4 text-center">GIAO DIỆN PHẦN MỀM</p>
+      <NuxtImg class="mx-auto" src="https://image.nguyenanh-est.com/website/1746783633753_u12.png" placeholder="/placeholder.png" />
+      <p class="text-black text-center text-sm">Giao diện bạn đọc</p>
+      <NuxtImg class="mx-auto" src="https://image.nguyenanh-est.com/website/1746784103883_u14.png" placeholder="/placeholder.png" />
+      <p class="text-black text-center text-sm">Bảng điều khiển</p>
+    </div>
+    
   </div>
 </template>
 <script setup>
@@ -48,5 +56,4 @@ const data = ref([
   },
 ]);
 </script>
-<style scoped>
-</style>
+<style scoped></style>
