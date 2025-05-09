@@ -1,17 +1,15 @@
 <template>
-  <ClientOnly>
-    <swiper-container ref="containerRef" :init="false" class="w-full">
-      <swiper-slide v-for="(slide, idx) in a" :key="idx" class="w-full aspect-[16/4]">
-        <NuxtLink :to="slide.url" class="w-full h-full flex items-center justify-center overflow-hidden">
-          <NuxtImg 
-            :src="slide.img"
-            :alt="slide.alt"
-            class="w-full h-full object-cover"
-          />
-        </NuxtLink>
-      </swiper-slide>
-    </swiper-container>
-  </ClientOnly>
+  <div class="w-screen">
+    <ClientOnly>
+      <swiper-container ref="containerRef" :init="false" class="w-screen">
+        <swiper-slide v-for="(slide, idx) in a" :key="idx" class="w-screen aspect-[16/4]">
+          <NuxtLink :to="slide.url" class="w-screen h-full flex items-center justify-center overflow-hidden">
+            <NuxtImg placeholder="/placeholder.png" :src="slide.img" :alt="slide.alt" class="w-screen h-full object-cover" />
+          </NuxtLink>
+        </swiper-slide>
+      </swiper-container>
+    </ClientOnly>
+  </div>
 </template>
 
 <script setup>
