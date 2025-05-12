@@ -1,12 +1,11 @@
 <template>
   <div
     ref="aboutRef"
-    class="flex flex-col md:flex-row items-center justify-between gap-8 py-10 px-4"
-    :class="{ 'md:flex-row-reverse': reverse }"
+    class="flex flex-col lg:flex-row items-center justify-between gap-8 py-10 px-4"
+    :class="{ 'lg:flex-row-reverse': reverse }"
   >
-    <!-- Image -->
     <div
-      class="w-full md:w-1/2 transform transition-all duration-700 ease-out"
+      class="w-full lg:w-1/2 transform transition-all duration-700 ease-out"
       :class="[
         visible
           ? 'opacity-100 scale-100 translate-x-0'
@@ -22,10 +21,8 @@
           class="w-full h-auto rounded-xl shadow-lg"
         />
     </div>
-
-    <!-- Text -->
     <div
-      class="w-full md:w-1/2 text-center md:text-left transform transition-all duration-700 ease-out delay-100"
+      class="w-full lg:w-1/2 text-left transform transition-all duration-700 ease-out delay-100"
       :class="[
         visible
           ? 'opacity-100 scale-100 translate-x-0'
@@ -42,8 +39,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-
 const props = defineProps({
   title: String,
   description: String,
@@ -69,5 +64,5 @@ onMounted(() => {
   }
 })
 </script>
-<style>
-</style>
+
+
