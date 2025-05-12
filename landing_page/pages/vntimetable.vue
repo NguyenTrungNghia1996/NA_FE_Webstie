@@ -29,7 +29,7 @@
           <div class="w-16 md:w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SlideWrapper_2D v-for="(benefit, index) in benefitsData" :key="index" :reverse="index % 2 !== 0" class="bg-white rounded-lg transition-all md:rounded-xl shadow-sm md:shadow-md duration-300 h-full">
             <div class="grid grid-cols-1 lg:grid-cols-3">
               <div class="p-2 flex items-center justify-center">
@@ -68,7 +68,6 @@
           </SlideWrapper_2D>
         </div>
       </div>
-      vntimetable
       <div class="flex flex-col">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-blue-800 mb-4">Giao Diện Phần Mềm VnTimeTable 4.0</h2>
