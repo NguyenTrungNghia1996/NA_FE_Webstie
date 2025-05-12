@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[url('/bgfooter.png')] bg-center bg-cover bg-no-repeat">
+  <footer class="bg-[url('/bgfooter.png')] bg-center bg-cover bg-no-repeat w-screen">
     <div class="container mx-auto px-4 sm:px-[50px] py-6 sm:py-10 text-white">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-8">
         <!-- Online Products -->
