@@ -14,9 +14,9 @@
           <div class="h-1 w-16 md:w-20 bg-blue-600 rounded-full"></div>
         </div>
         <div class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base">
-          <p>VnTimeTable là phần mềm chuyên dụng trong việc xếp thời khóa biểu cho các trường phổ thông, được phát triển dựa trên nhiều năm nghiên cứu và ứng dụng thực tiễn.</p>
+          <p>VnTimeTable là phần mềm chuyên dụng trong việc xếp thời khóa biểu cho các trường phổ thông, được phát triển dựa trên nhiều năm nghiên cứu và ứng dụng thực tiễn.Đây là sản phẩm tiếp nối từ các phiên bản MoEtTKB 2.0 và 3.0 từng được chuyển giao cho Bộ Giáo dục & Đào tạo, hiện đã được thương mại hóa với phiên bản mới nhất là VnTimeTable 4.0</p>
           <p class="font-semibold text-blue-700">VnTimeTable 4.0</p>
-          <p>Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như: liệt kê tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và liên hệ giữa các lớp học sinh.</p>
+          <p>. Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như tiết tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và lịch nghỉ của giáo viên, học sinh. Với thuật toán xếp tự động có hiệu suất cao và công cụ tinh chỉnh mạnh mẽ, VnTimeTable giúp tối ưu hóa quy trình lập thời khóa biểu, mang lại sự linh hoạt và hiệu quả vượt trội cho các trường phổ thông.</p>
         </div>
       </SlideWrapper_2D>
     </div>
@@ -126,16 +126,16 @@ const benefitsData = [
 
 const features = [
   { id: "01", description: "Phần mềm hỗ trợ xếp thời khóa biểu tự động cho các trường phổ thông, phù hợp với mọi cấp học, mô hình giáo dục và chương trình đào tạo hiện hành." },
-  { id: "02", description: "Xử lý hiệu quả các ràng buộc thực tế: tiết học tránh xếp, học cách ngày, xếp thành cặp, môn học tại phòng chuyên dụng, tiết học cố định..." },
+  { id: "02", description: "Xử lý hiệu quả các ràng buộc thực tế: tiết học tránh xếp, học cách ngày, xếp thành cặp, môn học tại phòng chuyên dụng, tiết học cố định, …" },
   { id: "03", description: "Cấu hình chi tiết theo từng lớp, môn học, giáo viên và phòng học; cho phép cập nhật linh hoạt theo nhu cầu thực tế." },
-  { id: "04", description: "Hỗ trợ phân công chuyên môn theo lớp hoặc theo giáo viên, kiểm soát tình trạng trùng lịch, dồn tiết." },
-  { id: "05", description: "Giao diện trực quan, thao tác đơn giản bằng kéo-thả, có chức năng hiển thị màu sắc giúp nhận diện trạng thái tiết học dễ dàng." },
+  { id: "04", description: "Hỗ trợ phân công chuyên môn theo lớp hoặc theo giáo viên, kiểm soát tốt tình trạng trùng lịch, dồn tiết." },
+  { id: "05", description: "Giao diện trực quan, thao tác đơn giản bằng kéo – thả; có chức năng hiển thị màu sắc giúp nhận diện trạng thái tiết học dễ dàng." },
   { id: "06", description: "Cho phép xếp lịch cục bộ theo môn, giáo viên, lớp học hoặc phòng học để xử lý các trường hợp khó xếp." },
-  { id: "07", description: "Có thể chỉnh sửa thời khóa biểu sau khi xếp tự động để hoàn thiện theo ý người dùng." },
+  { id: "07", description: "Có thể tinh chỉnh thời khóa biểu sau khi xếp tự động để hoàn thiện theo ý người dùng." },
   { id: "08", description: "Quản lý các tiết nghỉ theo lớp, giáo viên và phòng học nhằm tối ưu hóa việc sử dụng tài nguyên." },
   { id: "09", description: "Hỗ trợ tìm kiếm phòng học thay thế, giáo viên dạy thay và tiết học còn trống trong thời khóa biểu." },
   { id: "10", description: "Cho phép nhập, xuất dữ liệu, đồng bộ với hệ thống quản lý của Phòng Giáo dục & Đào tạo." },
   { id: "11", description: "Hỗ trợ in ấn thời khóa biểu theo giáo viên, lớp học, môn học, xuất file thuận tiện cho quản lý." },
-  { id: "12", description: "Hệ thống báo cáo, thống kê phân công giảng dạy chi tiết, phục vụ tốt công tác quản trị và kiểm tra nội bộ." },
+  { id: "12", description: "Hệ thống báo cáo, thống kê phân công giảng dạy chi tiết, phục vụ tốt công tác quản trị và kiểm tra nội bộ." }
 ];
 </script>
