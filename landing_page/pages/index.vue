@@ -46,17 +46,10 @@ const data_info = ref({
   image: "https://nguyenanh-est.com/Image/nguyenanh.png",
   url: "#",
 });
-
+const viewStore = useViewStore();
 const data_product = ref({
   title: "SẢN PHẨM",
-  slides: [
-    {
-      title: "Ứng dụng eNetViet",
-      description: "eNetViet được thiết kế và xây dựng nhằm tạo nên một cộng đồng giáo dục gắn kết giữa nhà quản lý (cán bộ Sở/ Phòng Giáo dục, Nhà trường) với Giáo viên và Phụ huynh nhằm mang lại...",
-      url: "#",
-      image: "/Sp/sanpham1.jpg",
-    },
-  ],
+  slides: viewStore.product,
   image: "bg-[url('/Rectangle_2244.webp')]",
 });
 
@@ -84,7 +77,7 @@ const data_customer = ref({
 });
 
 const { RestApi } = useApi();
-const { data: source_product, status: status_product, error: error_product } = await RestApi.product.get_proudct();
+// const { data: source_product, status: status_product, error: error_product } = await RestApi.product.get_proudct();
 const { data: source_service, status: status_service, error: error_service } = await RestApi.product.get_service();
 
 const transformData = (inputData, baseUrl = "/") => {
@@ -95,11 +88,13 @@ const transformData = (inputData, baseUrl = "/") => {
     image: `${item.urlImg}`, // Đường dẫn ảnh
   }));
 };
-if (status_product.value == "success") {
-  data_product.value.slides = transformData(source_product.value, "/sanpham");
-} else {
-  console.log("error:", error_product);
-}
+
+// if (status_product.value == "success") {
+//   // data_product.value.slides = transformData(source_product.value, "/sanpham");
+//   // data_product
+// } else {
+//   console.log("error:", error_product);
+// }
 
 if (status_service.value == "success") {
   data_service.value.slides = transformData(source_service.value, "/dichvu");

@@ -54,7 +54,7 @@
           <div class="w-20 md:w-24 h-1 md:h-1.5 bg-blue-600 mx-auto rounded-full"></div>
         </div>
         <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 items-stretch">
-          <SlideWrapper_2D v-for="(feature, index) in features" :key="index" :reverse="index % 2 !== 0" class="w-full md:w-[calc(50%-12px)]">
+          <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class="w-full md:w-[calc(50%-12px)]">
             <div class="h-full bg-blue-100 rounded-tl-2xl rounded-br-2xl p-3 md:p-4 flex flex-col">
               <div class="flex items-start flex-1">
                 <div class="text-blue-800 font-bold text-xl md:text-2xl lg:text-3xl flex-shrink-0 mr-3 md:mr-4">
