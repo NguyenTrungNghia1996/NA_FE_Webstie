@@ -9,7 +9,7 @@
             <li v-for="(product, index) in online_products" :key="index" class="font-roboto flex items-start text-sm sm:text-base">
               <nuxt-link :to="product.url">
                 <Icon name="material-symbols:arrow-forward-ios-rounded" class="text-white mt-0.5 mr-1 flex-shrink-0" size="14" />
-                <span>{{ product.lable }}</span>
+                <span>{{ product.title }}</span>
               </nuxt-link>
             </li>
           </ul>
@@ -62,10 +62,9 @@
 
 <script setup>
 const online_products = ref([]);
-
 const quick_access = ref([]);
-import { useSettingStore } from "#imports";
+const viewStore = useViewStore();
 const settingStore = useSettingStore();
-online_products.value = settingStore.products;
+online_products.value = viewStore.product;
 quick_access.value = settingStore.service;
 </script>
