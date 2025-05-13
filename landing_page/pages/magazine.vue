@@ -17,7 +17,7 @@
 const data = ref([
   {
     title: "Giới thiệu chung",
-    description: "<p>Trang web tạp ch&iacute; chuy&ecirc;n ng&agrave;nh l&agrave; một nền tảng số h&oacute;a hiện đại, được thiết kế&nbsp;<br>d&agrave;nh ri&ecirc;ng cho việc c&ocirc;ng bố, quản l&yacute;, lưu trữ v&agrave; lan tỏa c&aacute;c c&ocirc;ng tr&igrave;nh nghi&ecirc;n cứu&nbsp;<br>khoa học chuy&ecirc;n s&acirc;u trong từng lĩnh vực cụ thể như y dược, c&ocirc;ng nghệ, gi&aacute;o dục,&nbsp;<br>kỹ thuật, m&ocirc;i trường, kinh tế...một c&aacute;ch chuy&ecirc;n nghiệp, minh bạch v&agrave; hiện đại.</p> <p>&nbsp;</p> <p>Với giao diện th&acirc;n thiện, khả năng t&iacute;ch hợp chuẩn quốc tế v&agrave; hỗ trợ truy cập mở,&nbsp;<br>đ&acirc;y l&agrave; c&ocirc;ng cụ thiết yếu g&oacute;p phần n&acirc;ng cao chất lượng học thuật, mở rộng phạm vi&nbsp;<br>ảnh hưởng của tạp ch&iacute;, v&agrave; kết nối mạng lưới tri thức khoa học trong nước v&agrave; to&agrave;n cầu.</p>",
+    description: "<p>Hệ thống xuất bản tạp chí điện tử là một nền tảng số hóa hiện đại, được thiết kế dành riêng cho việc công bố, quản lý, lưu trữ và lan tỏa các công trình nghiên cứu khoa học chuyên sâu trong từng lĩnh vực cụ thể như y dược, công nghệ, giáo dục, kỹ thuật, môi trường, kinh tế...một cách chuyên nghiệp, minh bạch và hiện đại.</p> <br/><p>Với giao diện thân thiện, khả năng tích hợp chuẩn quốc tế và hỗ trợ truy cập mở, đây là công cụ thiết yếu góp phần nâng cao chất lượng học thuật, mở rộng phạm vi ảnh hưởng của tạp chí, và kết nối mạng lưới tri thức khoa học trong nước và toàn cầu.</p>",
     imageSrc: "https://image.nguyenanh-est.com/website/1746781049875_u0.png",
     reverse: false,
   },

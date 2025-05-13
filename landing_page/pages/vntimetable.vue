@@ -1,37 +1,36 @@
 <template>
-  <div class="container mx-auto px-4">
-    <div class="w-full p-4 md:p-8 grid grid-cols-1 gap-6 md:gap-10">
-      <!-- Hero Section -->
-      <div class="flex flex-col lg:flex-row gap-6 md:gap-8">
-        <SlideWrapper_2D class="flex-1">
-          <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">
-            <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038356653_u8.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-cover" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-          </div>
-        </SlideWrapper_2D>
+  <div class="flex flex-col gap-3">
+    <!-- Hero Section -->
+    <div class="flex-col lg:flex-row gap-6 md:gap-8 flex container mx-auto py-5">
+      <SlideWrapper_2D class="flex-1">
+        <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">
+          <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038356653_u8.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-cover" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
+        </div>
+      </SlideWrapper_2D>
 
-        <SlideWrapper_2D reverse class="flex-1 mt-4 md:mt-0">
-          <div class="mb-4 md:mb-6">
-            <h1 class="text-lg md:text-xl lg:text-2xl font-bold text-blue-800 mb-2">Phần mềm xếp thời khóa biểu VnTimeTable 4.0</h1>
-            <div class="h-1 w-16 md:w-20 bg-blue-600 rounded-full"></div>
-          </div>
-          <div class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base">
-            <p>VnTimeTable là phần mềm chuyên dụng trong việc xếp thời khóa biểu cho các trường phổ thông, được phát triển dựa trên nhiều năm nghiên cứu và ứng dụng thực tiễn.</p>
-            <p class="font-semibold text-blue-700">VnTimeTable 4.0</p>
-            <p>Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như: liệt kê tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và liên hệ giữa các lớp học sinh.</p>
-          </div>
-        </SlideWrapper_2D>
-      </div>
+      <SlideWrapper_2D reverse class="flex-1 mt-4 md:mt-0">
+        <div class="mb-4 md:mb-6">
+          <h1 class="text-lg md:text-xl lg:text-2xl font-bold text-blue-800 mb-2">Phần mềm xếp thời khóa biểu VnTimeTable 4.0</h1>
+          <div class="h-1 w-16 md:w-20 bg-blue-600 rounded-full"></div>
+        </div>
+        <div class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base">
+          <p>VnTimeTable là phần mềm chuyên dụng trong việc xếp thời khóa biểu cho các trường phổ thông, được phát triển dựa trên nhiều năm nghiên cứu và ứng dụng thực tiễn.</p>
+          <p class="font-semibold text-blue-700">VnTimeTable 4.0</p>
+          <p>Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như: liệt kê tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và liên hệ giữa các lớp học sinh.</p>
+        </div>
+      </SlideWrapper_2D>
+    </div>
 
-      <!-- Benefits Section -->
-      <div>
-        <div class="text-center mb-8 md:mb-16">
+    <!-- Benefits Section -->
+    <div class="bg-gray-100 py-5">
+      <div class="container mx-auto">
+        <div class="text-center  mb-8 md:mb-12">
           <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3 md:mb-4">Lợi ích VnTimeTable 4.0</h2>
           <div class="w-16 md:w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <SlideWrapper_2D v-for="(benefit, index) in benefitsData" :key="index" :reverse="index % 2 !== 0" class="bg-white rounded-lg transition-all md:rounded-xl shadow-sm md:shadow-md duration-300 h-full">
-            <div class="grid grid-cols-1 lg:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <SlideWrapper_2D v-for="(benefit, index) in benefitsData" :key="index" :reverse="index % 2 !== 0" class="flex h-full">
+            <div class="grid grid-cols-1 lg:grid-cols-3 w-full h-full m-auto flex-1 bg-white rounded-lg transition-all md:rounded-xl shadow-sm md:shadow-md duration-300">
               <div class="p-2 flex items-center justify-center">
                 <NuxtImg placeholder="/placeholder.png" :src="benefit.image" :alt="`${benefit.title} demo`" class="w-full h-32 md:h-40 object-cover rounded-lg" />
               </div>
@@ -45,49 +44,58 @@
           </SlideWrapper_2D>
         </div>
       </div>
+    </div>
 
-      <!-- Features Section -->
+    <!-- Features Section -->
 
-      <div>
-        <div class="text-center mb-8 md:mb-12">
-          <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3 md:mb-4">CÁC TÍNH NĂNG NỔI BẬT</h2>
-          <div class="w-20 md:w-24 h-1 md:h-1.5 bg-blue-600 mx-auto rounded-full"></div>
-        </div>
-        <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 items-stretch">
-          <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class="w-full md:w-[calc(50%-12px)]">
-            <div class="h-full bg-blue-100 rounded-tl-2xl rounded-br-2xl p-3 md:p-4 flex flex-col">
-              <div class="flex items-start flex-1">
-                <div class="text-blue-800 font-bold text-xl md:text-2xl lg:text-3xl flex-shrink-0 mr-3 md:mr-4">
-                  {{ feature.id }}
-                </div>
-                <p class="text-gray-700 text-sm md:text-base mt-0.5">
-                  {{ feature.description }}
-                </p>
-              </div>
+    <div class="container mx-auto">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3 md:mb-4">Các tính năng nổi bật</h2>
+        <div class="w-20 md:w-24 h-1 md:h-1.5 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class=" flex h-full w-full">
+          <div class="bg-blue-100 rounded-tl-2xl rounded-br-2xl p-3 md:p-4 flex flex-row h-full flex-1">
+            <div class="text-blue-800 font-bold text-xl md:text-2xl lg:text-3xl mr-3 md:mr-4 flex-shrink-0">
+              {{ feature.id }}
             </div>
-          </SlideWrapper_2D>
-        </div>
+            <p class="text-gray-700 text-sm md:text-base mt-0.5 flex-grow flex-1">
+              {{ feature.description }}
+            </p>
+          </div>
+        </SlideWrapper_2D>
       </div>
-      <div class="flex flex-col">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-blue-800 mb-4">Giao Diện Phần Mềm VnTimeTable 4.0</h2>
-          <div class="w-24 h-2 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
-          <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">Trải nghiệm giao diện trực quan và thân thiện với người dùng</p>
-        </div>
-        <div class="w-full flex-col text-center py-5">
-          <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038712826_u9.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-          <p>Màn hình sau khi đăng nhập</p>
-        </div>
-        <div class="w-full flex-col text-center py-5">
-          <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038973425_u12.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-          <p>Màn hình xếp thời khóa biểu</p>
-        </div>
-        <div class="w-full flex-col text-center py-5">
-          <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747039015012_u14.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-          <p>Màn hình tinh chỉnh thời khóa biểu</p>
-        </div>
+      <!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class="flex h-full w-full flex-1">
+          <div class="bg-blue-100 rounded-tl-2xl rounded-br-2xl p-3 md:p-4 flex-1 !w-full flex flex-1">
+            <div class="text-blue-800 font-bold text-xl md:text-2xl lg:text-3xl mr-3 md:mr-4 items-center justify-center w-5/10">
+              {{ feature.id }}
+            </div>
+            <p class="text-gray-700 text-sm md:text-base mt-0.5 flex-1">
+              {{ feature.description }}
+            </p>
+          </div>
+        </SlideWrapper_2D>
+      </div> -->
+    </div>
+    <div class="flex flex-col container mx-auto p-4">
+      <div class="text-center mb-12">
+        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-4">Giao diện phần mềm VnTimeTable 4.0</h2>
+        <div class="w-24 h-2 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">Trải nghiệm giao diện trực quan và thân thiện với người dùng</p>
       </div>
-      
+      <div class="w-full flex-col text-center py-5">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038712826_u9.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
+        <p>Màn hình sau khi đăng nhập</p>
+      </div>
+      <div class="w-full flex-col text-center py-5">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038973425_u12.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
+        <p>Màn hình xếp thời khóa biểu</p>
+      </div>
+      <div class="w-full flex-col text-center py-5">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747039015012_u14.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
+        <p>Màn hình tinh chỉnh thời khóa biểu</p>
+      </div>
     </div>
   </div>
 </template>

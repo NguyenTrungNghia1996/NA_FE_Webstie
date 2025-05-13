@@ -1,7 +1,7 @@
 <template>
   <div
     ref="aboutRef"
-    class="flex flex-col lg:flex-row items-center justify-between gap-8 py-10 px-4"
+    class="flex flex-col lg:flex-row gap-8 py-10 px-4"
     :class="{ 'lg:flex-row-reverse': reverse }"
   >
     <div
@@ -38,6 +38,7 @@
   </div>
 </template>
 
+
 <script setup>
 const props = defineProps({
   title: String,
@@ -55,7 +56,13 @@ const aboutRef = ref(null)
 onMounted(() => {
   const observer = new IntersectionObserver(
     ([entry]) => {
-      visible.value = entry.isIntersecting
+      if (entry.isIntersecting) {
+        visible.value = true;
+        // Unobserve the element once it's visible to prevent re-triggering
+        if (aboutRef.value) {
+          observer.unobserve(aboutRef.value);
+        }
+      }
     },
     { threshold: 0.3 }
   )
@@ -64,5 +71,3 @@ onMounted(() => {
   }
 })
 </script>
-
-
