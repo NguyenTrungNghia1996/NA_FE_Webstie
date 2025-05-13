@@ -1,0 +1,25 @@
+# Node modules & logs
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist
+.nuxt
+.output
+
+# Local environment files
+.env
+.env.*.local
+
+# OS / IDE / misc
+.DS_Store
+.vscode
+.idea
+*.swp
+
+# Git
+.git
+.gitignore
