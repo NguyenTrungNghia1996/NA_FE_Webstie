@@ -15,8 +15,7 @@
         </div>
         <div class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base">
           <p>VnTimeTable là phần mềm chuyên dụng trong việc xếp thời khóa biểu cho các trường phổ thông, được phát triển dựa trên nhiều năm nghiên cứu và ứng dụng thực tiễn.Đây là sản phẩm tiếp nối từ các phiên bản MoEtTKB 2.0 và 3.0 từng được chuyển giao cho Bộ Giáo dục & Đào tạo, hiện đã được thương mại hóa với phiên bản mới nhất là VnTimeTable 4.0</p>
-          <p class="font-semibold text-blue-700">VnTimeTable 4.0</p>
-          <p>. Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như tiết tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và lịch nghỉ của giáo viên, học sinh. Với thuật toán xếp tự động có hiệu suất cao và công cụ tinh chỉnh mạnh mẽ, VnTimeTable giúp tối ưu hóa quy trình lập thời khóa biểu, mang lại sự linh hoạt và hiệu quả vượt trội cho các trường phổ thông.</p>
+          <p>Phần mềm hỗ trợ đầy đủ các yêu cầu và ràng buộc thực tế trong công tác xếp thời khóa biểu như tiết tránh xếp, xếp theo nhóm môn học, phòng học bộ môn, các tiết học cố định và lịch nghỉ của giáo viên, học sinh. Với thuật toán xếp tự động có hiệu suất cao và công cụ tinh chỉnh mạnh mẽ, VnTimeTable giúp tối ưu hóa quy trình lập thời khóa biểu, mang lại sự linh hoạt và hiệu quả vượt trội cho các trường phổ thông.</p>
         </div>
       </SlideWrapper_2D>
     </div>
