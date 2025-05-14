@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen">
-    <div class="w-screen container mx-auto">
-      <AboutSection v-for="(item, index) in data" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0" />
+    <div class="w-screen">
+      <AboutSection v-for="(item, index) in data" :color="true" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0"/>
     </div>
     <div class="w-screen container mx-auto grid grid-cols-1 gap-3">
       <p class="text-2xl sm:text-3xl font-bold text-black mb-4 text-center">GIAO DIỆN PHẦN MỀM</p>
@@ -17,7 +17,7 @@
 const data = ref([
   {
     title: "Giới thiệu chung",
-    description: "<p>Hệ thống xuất bản tạp chí điện tử là một nền tảng số hóa hiện đại, được thiết kế dành riêng cho việc công bố, quản lý, lưu trữ và lan tỏa các công trình nghiên cứu khoa học chuyên sâu trong từng lĩnh vực cụ thể như y dược, công nghệ, giáo dục, kỹ thuật, môi trường, kinh tế...một cách chuyên nghiệp, minh bạch và hiện đại.</p> <br/><p>Với giao diện thân thiện, khả năng tích hợp chuẩn quốc tế và hỗ trợ truy cập mở, đây là công cụ thiết yếu góp phần nâng cao chất lượng học thuật, mở rộng phạm vi ảnh hưởng của tạp chí, và kết nối mạng lưới tri thức khoa học trong nước và toàn cầu.</p>",
+    description: "<p>Hệ thống xuất bản tạp chí điện tử là một nền tảng số hóa hiện đại, được thiết kế dành riêng cho việc công bố, quản lý, lưu trữ và lan tỏa các công trình nghiên cứu khoa học chuyên sâu trong từng lĩnh vực cụ thể như y dược, công nghệ, giáo dục, kỹ thuật, môi trường, kinh tế...một cách chuyên nghiệp, minh bạch và hiện đại.</p><p>Với giao diện thân thiện, khả năng tích hợp chuẩn quốc tế và hỗ trợ truy cập mở, đây là công cụ thiết yếu góp phần nâng cao chất lượng học thuật, mở rộng phạm vi ảnh hưởng của tạp chí, và kết nối mạng lưới tri thức khoa học trong nước và toàn cầu.</p>",
     imageSrc: "https://image.nguyenanh-est.com/website/1746781049875_u0.png",
     reverse: false,
   },
