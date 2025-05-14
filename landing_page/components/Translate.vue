@@ -47,7 +47,8 @@ const changeLanguage = async (lang) => {
     await $fetch('/reset-language');
 
     // Xoá client cookie nếu có
-    document.cookie = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    document.cookie = "googtrans=; path=/; domain=.nguyenanh-est.com; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
     // Reload sạch
     window.location.href = window.location.origin + window.location.pathname;
