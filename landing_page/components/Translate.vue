@@ -24,18 +24,36 @@ const toggleDropdown = () => {
 //     window.location.reload();
 //   }, 300); // 300ms là ổn trong hầu hết trường hợp
 // };
+// const changeLanguage = async (lang) => {
+//   isOpen.value = false;
+
+//   if (lang === 'vi') {
+//     // Reset Google Translate về mặc định
+//     document.cookie = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+//     window.location.href = window.location.origin + window.location.pathname;
+//   } else {
+//     setLanguage(lang);
+//     setTimeout(() => {
+//       window.location.reload();
+//     }, 600);
+//   }
+// };
+
 const changeLanguage = async (lang) => {
   isOpen.value = false;
 
   if (lang === 'vi') {
-    // Reset Google Translate về mặc định
+    // Gọi API xoá cookie phía server
+    await $fetch('/api/logout');
+
+    // Xoá client cookie nếu có
     document.cookie = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // Reload sạch
     window.location.href = window.location.origin + window.location.pathname;
   } else {
-    setLanguage(lang);
-    setTimeout(() => {
-      window.location.reload();
-    }, 600);
+    document.cookie = `googtrans=/vi/${lang};path=/;`;
+    window.location.href = window.location.origin + window.location.pathname;
   }
 };
 
