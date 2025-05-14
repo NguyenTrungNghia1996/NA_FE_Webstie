@@ -44,7 +44,7 @@ const changeLanguage = async (lang) => {
 
   if (lang === 'vi') {
     // Gọi API xoá cookie phía server
-    await $fetch('/api/logout');
+    await $fetch('/reset-language');
 
     // Xoá client cookie nếu có
     document.cookie = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
