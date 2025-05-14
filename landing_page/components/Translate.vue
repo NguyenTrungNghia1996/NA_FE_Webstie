@@ -24,19 +24,19 @@ const toggleDropdown = () => {
 //     window.location.reload();
 //   }, 300); // 300ms là ổn trong hầu hết trường hợp
 // };
-const changeLanguage = async lang => {
-  if (activeLanguage === lang) {
-    isOpen.value = false;
-    return;
-  }
-
-  setLanguage(lang);
+const changeLanguage = async (lang) => {
   isOpen.value = false;
-  token.value = null;
-  setTimeout(() => {
-    const cleanUrl = window.location.origin + window.location.pathname;
-    window.location.href = cleanUrl;
-  }, 600);
+
+  if (lang === 'vi') {
+    // Reset Google Translate về mặc định
+    document.cookie = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = window.location.origin + window.location.pathname;
+  } else {
+    setLanguage(lang);
+    setTimeout(() => {
+      window.location.reload();
+    }, 600);
+  }
 };
 
 const languageFlags = {
