@@ -8,22 +8,40 @@ const isOpen = ref(false);
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
 };
-const delay = ms => {
-  var cur_d = new Date();
-  var cur_ticks = cur_d.getTime();
-  var ms_passed = 0;
-  while (ms_passed < ms) {
-    var d = new Date(); // Possible memory leak?
-    var ticks = d.getTime();
-    ms_passed = ticks - cur_ticks;
-    // d = null;  // Prevent memory leak?
+// const changeLanguage = async lang => {
+//   setLanguage(lang);
+//   await nextTick();
+//   isOpen.value = false; // Close dropdown after selection
+//   window.location.reload();
+// };
+// const changeLanguage = async lang => {
+//   setLanguage(lang);
+//   isOpen.value = false;
+
+//   // Đợi 1 chút để Google xử lý rồi mới reload
+//   setTimeout(() => {
+//     window.location.reload();
+//   }, 300); // 300ms là ổn trong hầu hết trường hợp
+// };
+const changeLanguage = async (lang) => {
+  if (activeLanguage === lang) {
+    isOpen.value = false;
+    return;
   }
-};
-const changeLanguage = lang => {
+
   setLanguage(lang);
-  isOpen.value = false; // Close dropdown after selection
-  delay(1000)
-  window.location.reload();
+  isOpen.value = false;
+
+  // Reset Google Translate bằng cách reload toàn bộ
+  setTimeout(() => {
+    // Nếu quay về tiếng Việt, remove URL params & reload
+    if (lang === 'vi') {
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.location.href = cleanUrl; // xoá ?hl=en hay các tham số
+    } else {
+      window.location.reload();
+    }
+  }, 300);
 };
 
 const languageFlags = {
