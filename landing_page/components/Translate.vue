@@ -8,10 +8,21 @@ const isOpen = ref(false);
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
 };
-
+const delay = ms => {
+  var cur_d = new Date();
+  var cur_ticks = cur_d.getTime();
+  var ms_passed = 0;
+  while (ms_passed < ms) {
+    var d = new Date(); // Possible memory leak?
+    var ticks = d.getTime();
+    ms_passed = ticks - cur_ticks;
+    // d = null;  // Prevent memory leak?
+  }
+};
 const changeLanguage = lang => {
   setLanguage(lang);
   isOpen.value = false; // Close dropdown after selection
+  delay(1000)
   window.location.reload();
 };
 
