@@ -23,6 +23,26 @@ const toggleDropdown = () => {
 //     window.location.reload();
 //   }, 300); // 300ms là ổn trong hầu hết trường hợp
 // };
+// const changeLanguage = async (lang) => {
+//   if (activeLanguage === lang) {
+//     isOpen.value = false;
+//     return;
+//   }
+
+//   setLanguage(lang);
+//   isOpen.value = false;
+
+//   // Reset Google Translate bằng cách reload toàn bộ
+//   setTimeout(() => {
+//     // Nếu quay về tiếng Việt, remove URL params & reload
+//     if (lang === 'vi') {
+//       const cleanUrl = window.location.origin + window.location.pathname;
+//       window.location.href = cleanUrl; // xoá ?hl=en hay các tham số
+//     } else {
+//       window.location.reload();
+//     }
+//   }, 300);
+// };
 const changeLanguage = async (lang) => {
   if (activeLanguage === lang) {
     isOpen.value = false;
@@ -32,15 +52,12 @@ const changeLanguage = async (lang) => {
   setLanguage(lang);
   isOpen.value = false;
 
-  // Reset Google Translate bằng cách reload toàn bộ
   setTimeout(() => {
-    // Nếu quay về tiếng Việt, remove URL params & reload
-    if (lang === 'vi') {
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.location.href = cleanUrl; // xoá ?hl=en hay các tham số
-    } else {
-      window.location.reload();
-    }
+    // Xóa param ?hl=... nếu có
+    const cleanUrl = window.location.origin + window.location.pathname;
+
+    // Reload toàn bộ trang như "từ đầu"
+    window.location.href = cleanUrl + (lang !== 'vi' ? `?hl=${lang}` : '');
   }, 300);
 };
 
