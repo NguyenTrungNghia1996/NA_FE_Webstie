@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useGoogleTranslate } from "#imports";
-const token = useCookie('token');
+const token = useCookie("token");
 
 const { activeLanguage, setLanguage, supportedLanguages, isLoaded } = useGoogleTranslate();
 const isOpen = ref(false);
@@ -24,7 +24,7 @@ const toggleDropdown = () => {
 //     window.location.reload();
 //   }, 300); // 300ms là ổn trong hầu hết trường hợp
 // };
-const changeLanguage = async (lang) => {
+const changeLanguage = async lang => {
   if (activeLanguage === lang) {
     isOpen.value = false;
     return;
@@ -33,16 +33,10 @@ const changeLanguage = async (lang) => {
   setLanguage(lang);
   isOpen.value = false;
   token.value = null;
-  // Reset Google Translate bằng cách reload toàn bộ
   setTimeout(() => {
-    // Nếu quay về tiếng Việt, remove URL params & reload
-    if (lang === 'vi') {
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.location.href = cleanUrl; // xoá ?hl=en hay các tham số
-    } else {
-      window.location.reload();
-    }
-  }, 300);
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.location.href = cleanUrl;
+  }, 600);
 };
 
 const languageFlags = {
