@@ -77,21 +77,21 @@
         </SlideWrapper_2D>
       </div> -->
     </div>
-    <div class="flex flex-col container mx-auto p-4">
+    <div class="flex flex-col container mx-auto py-4">
       <div class="text-center mb-12">
         <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-4">Giao diện phần mềm VnTimeTable 4.0</h2>
         <div class="w-24 h-2 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
         <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">Trải nghiệm giao diện trực quan và thân thiện với người dùng</p>
       </div>
-      <div class="w-full flex-col text-center py-5">
+      <div class="w-full flex-col text-center">
         <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038712826_u9.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
         <p>Màn hình sau khi đăng nhập</p>
       </div>
-      <div class="w-full flex-col text-center py-5">
+      <div class="w-full flex-col text-center">
         <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038973425_u12.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
         <p>Màn hình xếp thời khóa biểu</p>
       </div>
-      <div class="w-full flex-col text-center py-5">
+      <div class="w-full flex-col text-center">
         <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747039015012_u14.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
         <p>Màn hình tinh chỉnh thời khóa biểu</p>
       </div>
