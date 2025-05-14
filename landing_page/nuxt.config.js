@@ -30,7 +30,8 @@ export default defineNuxtConfig({
   ],
   googleTranslate: {
     defaultLanguage: 'vi',
-    supportedLanguages: ['vi','en']
+    supportedLanguages: ['vi', 'en'],
+    autoTranslate: false,
   },
   css: ['~/assets/css/tailwind.css'],
   ui: {
