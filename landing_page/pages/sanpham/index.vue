@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component class="py-6" v-for="(item, index) in data_view" :key="index" :is="$type2Component(item.type)" :data="item.data" />
+    <component v-for="(item, index) in data_view" :key="index" :is="$type2Component(item.type)" :data="item.data" />
   </div>
 </template>
 <script setup>
