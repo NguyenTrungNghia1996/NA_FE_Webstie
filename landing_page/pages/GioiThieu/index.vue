@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component class="py-6" v-for="(item, index) in data_view" :key="index" :is="$type2Component(item.type)" :data="item.data" />
+    <component v-for="(item, index) in data_view" :key="index" :is="$type2Component(item.type)" :data="item.data" />
     <div class="container mx-auto">
       <AboutSection v-for="(item, index) in introduce" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="item.reverse" />
     </div>
