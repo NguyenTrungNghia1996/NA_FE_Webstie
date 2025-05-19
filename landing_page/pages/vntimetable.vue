@@ -23,7 +23,7 @@
     <!-- Benefits Section -->
     <div class="bg-gray-100 py-5">
       <div class="container mx-auto">
-        <div class="text-center  mb-8 md:mb-12">
+        <div class="text-center mb-8 md:mb-12">
           <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3 md:mb-4">Lợi ích VnTimeTable 4.0</h2>
           <div class="w-16 md:w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
         </div>
@@ -53,7 +53,7 @@
         <div class="w-20 md:w-24 h-1 md:h-1.5 bg-blue-600 mx-auto rounded-full"></div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class=" flex h-full w-full">
+        <SlideWrapper_2D :direction="'y'" v-for="(feature, index) in features" :key="index" class="flex h-full w-full">
           <div class="bg-blue-100 rounded-tl-2xl rounded-br-2xl p-3 md:p-4 flex flex-row h-full flex-1">
             <div class="text-blue-800 font-bold text-xl md:text-2xl lg:text-3xl mr-3 md:mr-4 flex-shrink-0">
               {{ feature.id }}
@@ -77,23 +77,31 @@
         </SlideWrapper_2D>
       </div> -->
     </div>
-    <div class="flex flex-col container mx-auto py-4">
-      <div class="text-center mb-12">
-        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-4">Giao diện phần mềm VnTimeTable 4.0</h2>
-        <div class="w-24 h-2 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
-        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">Trải nghiệm giao diện trực quan và thân thiện với người dùng</p>
+
+    <div class="flex flex-col container mx-auto px-4 py-4 gap-6">
+      <!-- Tiêu đề -->
+      <div class="text-center mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">Giao diện phần mềm VnTimeTable 4.0</h2>
+        <div class="w-20 h-1.5 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
+        <p class="mt-4 text-base md:text-lg text-gray-600 mx-auto">Trải nghiệm giao diện trực quan và thân thiện với người dùng</p>
       </div>
-      <div class="w-full flex-col text-center">
-        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038712826_u9.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-        <p>Màn hình sau khi đăng nhập</p>
+
+      <!-- Ảnh 1 -->
+      <div class="flex flex-col items-center w-full mx-auto">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038712826_u9.png" alt="Giao diện VnTimeTable 4.0 - Màn hình đăng nhập" class="w-full max-w-2xl object-contain rounded-lg shadow-sm border border-gray-200" loading="lazy" />
+        <p class="mt-2 text-sm text-gray-500">Màn hình sau khi đăng nhập</p>
       </div>
-      <div class="w-full flex-col text-center">
-        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038973425_u12.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-        <p>Màn hình xếp thời khóa biểu</p>
+
+      <!-- Ảnh 2 -->
+      <div class="flex flex-col items-center w-full mx-auto mt-6">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038973425_u12.png" alt="Giao diện VnTimeTable 4.0 - Xếp thời khóa biểu" class="w-full max-w-2xl object-contain rounded-lg shadow-sm border border-gray-200" loading="lazy" />
+        <p class="mt-2 text-sm text-gray-500">Màn hình xếp thời khóa biểu</p>
       </div>
-      <div class="w-full flex-col text-center">
-        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747039015012_u14.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-contain" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
-        <p>Màn hình tinh chỉnh thời khóa biểu</p>
+
+      <!-- Ảnh 3 -->
+      <div class="flex flex-col items-center w-full mx-auto mt-6">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747039015012_u14.png" alt="Giao diện VnTimeTable 4.0 - Tinh chỉnh thời khóa biểu" class="w-full max-w-2xl object-contain rounded-lg shadow-sm border border-gray-200" loading="lazy" />
+        <p class="mt-2 text-sm text-gray-500">Màn hình tinh chỉnh thời khóa biểu</p>
       </div>
     </div>
   </div>
@@ -135,6 +143,6 @@ const features = [
   { id: "09", description: "Hỗ trợ tìm kiếm phòng học thay thế, giáo viên dạy thay và tiết học còn trống trong thời khóa biểu." },
   { id: "10", description: "Cho phép nhập, xuất dữ liệu, đồng bộ với hệ thống quản lý của Phòng Giáo dục & Đào tạo." },
   { id: "11", description: "Hỗ trợ in ấn thời khóa biểu theo giáo viên, lớp học, môn học, xuất file thuận tiện cho quản lý." },
-  { id: "12", description: "Hệ thống báo cáo, thống kê phân công giảng dạy chi tiết, phục vụ tốt công tác quản trị và kiểm tra nội bộ." }
+  { id: "12", description: "Hệ thống báo cáo, thống kê phân công giảng dạy chi tiết, phục vụ tốt công tác quản trị và kiểm tra nội bộ." },
 ];
 </script>
