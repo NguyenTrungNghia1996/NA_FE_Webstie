@@ -118,7 +118,7 @@
               </a-select>
             </a-form-item>
 
-            <a-form-item label="Đường dẫn" name="link">
+            <a-form-item label="Đường dẫn" name="link" :rules="[{ required: true, message: 'Vui lòng nhập đường đẫn! ' }]">
               <a-input
                 v-model:value="formState.link"
                 placeholder="Ví dụ: /path/to/page"
