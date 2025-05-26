@@ -54,7 +54,7 @@ const data_view = ref([
   {
     type: "PRODUCT",
     data: {
-      title: "Dịch vụ",
+      title: "Sản Phẩm",
       list: viewStore.product,
     },
   },

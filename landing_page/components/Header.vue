@@ -2,10 +2,9 @@
   <div class="h-[70px] md:h-[80px] w-full bg-white z-[10] border-b border-gray-300 fixed">
     <div class="container mx-auto h-full flex justify-between items-center px-4">
       <!-- Logo -->
-      <div class="m-3">
+       <nuxt-link to="/" class="m-3">
         <NuxtImg :src="settingStore.info.logo" :alt="settingStore.info.logo" placeholder="/placeholder.png" class="h-16 md:h-20 w-full" />
-      </div>
-
+       </nuxt-link>
       <!-- Mobile Menu Button -->
       <button @click="toggleMobileMenu" class="md:hidden p-2 focus:outline-none transition-all duration-300" aria-label="Menu mobile">
         <div class="w-6 h-6 relative">
