@@ -3,12 +3,7 @@ import { useSettingStore } from "~~/stores/settingStore";
 export default defineNuxtPlugin(async NuxtApp => {
   const { RestApi } = useApi();
   const settingStore = useSettingStore(NuxtApp.$pinia);
-  const { data, status } = await RestApi.menu_backend.list_full_detail({
-    body: JSON.stringify({
-      pageIndex: "1",
-      pageSize: "100",
-    }),
-  });
+  const { data, status } = await RestApi.menu_backend.menu_by_user();
   if (status.value === "success") {
     settingStore.setMenu(data.value.menu);
   }
