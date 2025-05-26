@@ -221,7 +221,6 @@ const { data, status, error } = await RestApi.view.menu();
 
 if (status.value == "success") {
   mainMenuItems.value = convertMenu(data.value);
-  console.log("error:", data.value);
 } else {
   console.log("error:", error);
 }
