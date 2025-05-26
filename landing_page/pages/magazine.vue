@@ -1,17 +1,24 @@
 <template>
   <div class="w-screen">
     <div class="w-screen">
-      <PageSlidesBanner/>
-      <AboutSection v-for="(item, index) in data" :color="true" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0"/>
+      <PageSlidesBanner />
+      <AboutSection v-for="(item, index) in data" :color="true" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0" />
     </div>
-    <div class="w-screen container mx-auto grid grid-cols-1 gap-3">
-      <p class="text-2xl sm:text-3xl font-bold text-black mb-4 text-center">GIAO DIỆN PHẦN MỀM</p>
-      <NuxtImg class="mx-auto" src="https://image.nguyenanh-est.com/website/1746783633753_u12.png" placeholder="/placeholder.png" />
-      <p class="text-black text-center text-sm">Giao diện bạn đọc</p>
-      <NuxtImg class="mx-auto" src="https://image.nguyenanh-est.com/website/1746784103883_u14.png" placeholder="/placeholder.png" />
-      <p class="text-black text-center text-sm">Bảng điều khiển</p>
+    <div class="flex flex-col container mx-auto px-4 py-4 gap-6">
+      <div class="text-center mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">GIAO DIỆN PHẦN MỀM</h2>
+      </div>
+
+      <div class="flex flex-col items-center w-full mx-auto">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1746783633753_u12.png" alt="Giao diện VnTimeTable 4.0 - Màn hình đăng nhập" class="w-full max-w-2xl object-contain rounded-lg shadow-sm border border-gray-200" loading="lazy" />
+        <p class="mt-2 text-sm text-gray-500">Giao diện bạn đọc</p>
+      </div>
+       <div class="flex flex-col items-center w-full mx-auto">
+        <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1746784103883_u14.png" alt="Giao diện VnTimeTable 4.0 - Màn hình đăng nhập" class="w-full max-w-2xl object-contain rounded-lg shadow-sm border border-gray-200" loading="lazy" />
+        <p class="mt-2 text-sm text-gray-500">Bảng điều khiển</p>
+      </div>
     </div>
-    
+
   </div>
 </template>
 <script setup>
