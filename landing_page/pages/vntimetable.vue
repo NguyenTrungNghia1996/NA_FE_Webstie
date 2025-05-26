@@ -4,12 +4,12 @@
      <PageSlidesBanner/>
     <div class="flex-col lg:flex-row gap-6 md:gap-8 flex container mx-auto py-5">
       <SlideWrapper_2D class="flex-1">
-        <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">
+        <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100 px-2">
           <NuxtImg placeholder="/placeholder.png" src="https://image.nguyenanh-est.com/website/1747038356653_u8.png" alt="Giao diện VnTimeTable 4.0" class="w-full h-full object-cover" sizes="sm:100vw md:50vw lg:800px" loading="lazy" />
         </div>
       </SlideWrapper_2D>
 
-      <SlideWrapper_2D reverse class="flex-1 mt-4 md:mt-0">
+      <SlideWrapper_2D reverse class="flex-1 mt-4 md:mt-0 px-2">
         <div class="mb-4 md:mb-6">
           <h1 class="text-lg md:text-xl lg:text-2xl font-bold text-blue-800 mb-2">Phần mềm xếp thời khóa biểu VnTimeTable 4.0</h1>
           <div class="h-1 w-16 md:w-20 bg-blue-600 rounded-full"></div>
