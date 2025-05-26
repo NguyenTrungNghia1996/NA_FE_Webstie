@@ -17,27 +17,17 @@
               <a-input v-model:value="formState.diaChi" placeholder="Nhập địa chỉ" />
             </a-form-item>
 
-            <a-form-item
-              label="Số điện thoại"
-              name="soDienThoai"
-              class="md:col-span-1"
-              :rules="[
-                { required: true, message: 'Vui lòng nhập số điện thoại' },
-                { pattern: /(84|0[3|5|7|8|9])+([0-9]{8})\b/, message: 'Số điện thoại không hợp lệ' },
-              ]"
-            >
+            <a-form-item label="Số điện thoại" name="soDienThoai" class="md:col-span-1" :rules="[
+              { required: true, message: 'Vui lòng nhập số điện thoại' },
+              { pattern: /(84|0[3|5|7|8|9])+([0-9]{8})\b/, message: 'Số điện thoại không hợp lệ' },
+            ]">
               <a-input v-model:value="formState.soDienThoai" placeholder="Nhập số điện thoại" />
             </a-form-item>
 
-            <a-form-item
-              label="Email"
-              name="email"
-              class="md:col-span-1"
-              :rules="[
-                { required: true, message: 'Vui lòng nhập email' },
-                { type: 'email', message: 'Email không hợp lệ' },
-              ]"
-            >
+            <a-form-item label="Email" name="email" class="md:col-span-1" :rules="[
+              { required: true, message: 'Vui lòng nhập email' },
+              { type: 'email', message: 'Email không hợp lệ' },
+            ]">
               <a-input v-model:value="formState.email" placeholder="Nhập email" />
             </a-form-item>
 
@@ -73,7 +63,9 @@
               <div v-else class="flex flex-col items-center">
                 <img :src="formState.logoimg" class="w-auto max-h-60 object-contain border rounded cursor-pointer mb-2" @click="triggerUpload" />
                 <a-button type="link" @click="triggerUpload" class="text-blue-500">
-                  <template #icon><EditOutlined /></template>
+                  <template #icon>
+                    <EditOutlined />
+                  </template>
                   Thay đổi logo
                 </a-button>
               </div>
@@ -119,9 +111,9 @@
               <template v-if="column.key === 'urlImg'">
                 <img :src="record.urlImg" alt="img" class="w-20 h-14 object-cover rounded" />
               </template>
-               <template v-if="column.key === 'moTa'">
-                <span v-html="record.moTa"/>
-               </template>
+              <template v-if="column.key === 'moTa'">
+                <span v-html="record.moTa" />
+              </template>
               <template v-else-if="column.key === 'active'">
                 <span :class="record.active ? 'text-green-600' : 'text-red-500'">
                   {{ record.active ? "Hoạt động" : "Tạm ẩn" }}
@@ -149,7 +141,7 @@
 
             <a-form-item label="Mô tả" name="moTa">
               <!-- <a-textarea v-model:value="formData.moTa" :rows="4" /> -->
-              <TinyMCE v-model="formData.moTa" />
+              <TinyMCE v-model="formData.moTa" ref="roleFormRef" />
             </a-form-item>
 
             <a-form-item label="Hình ảnh (URL)" name="urlImg">
@@ -177,7 +169,7 @@
 </template>
 <script setup>
 const { RestApi } = useApi();
-
+const roleFormRef = ref();
 const activeKey = ref("info");
 const loading = ref(false);
 const inputFileUpload = ref(null);
@@ -414,6 +406,7 @@ const showAddModal = () => {
     moTa: "",
     urlImg: "",
     active: true,
+    thutuhienthi:""
   });
   isModalVisible.value = true;
 };
@@ -464,6 +457,8 @@ const handleModalSubmit = async () => {
 };
 
 const handleModalCancel = () => {
+  roleFormRef.value?.destroyEditor?.();
+  //  roleFormRef.value?.initEditor?.();
   isModalVisible.value = false;
 };
 
@@ -531,7 +526,7 @@ onMounted(() => {
     margin-bottom: 16px;
   }
 
-  .ant-form-item-label > label {
+  .ant-form-item-label>label {
     font-size: 14px;
     font-weight: 500;
   }
@@ -542,6 +537,7 @@ onMounted(() => {
     font-size: 14px;
   }
 }
+
 @media (max-width: 768px) {
   .ant-table {
     width: 100%;
@@ -549,8 +545,8 @@ onMounted(() => {
     display: block;
   }
 
-  .ant-table-thead > tr > th,
-  .ant-table-tbody > tr > td {
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>tr>td {
     white-space: nowrap;
     padding: 8px 12px;
   }

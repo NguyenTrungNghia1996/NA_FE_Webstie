@@ -73,6 +73,7 @@ onMounted(() => {
       skin_url: "/tinymce/skins/ui/oxide",
       content_css: "/tinymce/skins/content/default/content.min.css",
       file_picker_types: "image",
+      toolbar_mode: 'sliding',
       // images_upload_handler: imagesUploadHandler,
       // images_upload_url: false,
       // file_picker_types: "image",
