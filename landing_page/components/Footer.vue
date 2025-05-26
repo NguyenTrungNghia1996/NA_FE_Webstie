@@ -33,18 +33,18 @@
           <h3 class="font-roboto font-bold text-base sm:text-lg mb-2 sm:mb-4">{{ settingStore.info.name }}</h3>
           <ul class="space-y-1 sm:space-y-2 text-sm sm:text-base">
             <li class="font-roboto flex flex-col sm:flex-row sm:items-start gap-1">
-              <div class="flex items-start">
+              <div class="flex items-center">
                 <Icon name="mdi:map-marker" class="text-base mt-0.5 mr-1 flex-shrink-0" />
                 <span class="font-bold">Trụ sở chính: </span>
               </div>
               <span>{{ settingStore.info.address }}</span>
             </li>
             <li class="flex-col grid grid-cols-1 md:grid-cols-2 sm:flex-row sm:items-center gap-1 sm:gap-2">
-              <div class="">
+              <div class="flex items-center">
                 <Icon name="mdi:phone" class="text-base mr-1 flex-shrink-0" />
                 <span>Điện thoại: {{ settingStore.info.phone }}</span>
               </div>
-              <div class="">
+              <div class="flex items-center">
                 <Icon name="mdi:email" class="text-base mr-1 flex-shrink-0" />
                 <span>Email: {{ settingStore.info.email }}</span>
               </div>

@@ -46,24 +46,24 @@
 
     <!-- Modal Thêm/Sửa -->
     <a-modal v-model:open="isModalOpen" :title="isEditMode ? 'Chỉnh sửa Dịch Vụ' : 'Thêm Dịch Vụ'" @ok="handleOk" @cancel="handleCancel" :confirm-loading="modalLoading" :width="700" :body-style="{ maxHeight: '90vh', overflowY: 'auto' }">
-      <a-form :model="modalForm" layout="vertical">
+      <a-form :model="modalForm" layout="vertical" ref="modalFormRef" :rules="rules">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a-form-item label="Tiêu đề" name="name">
-            <a-input v-model:value="modalForm.name" />
+          <a-form-item label="Tiêu đề" name="name" required>
+            <a-input v-model:value="modalForm.name" placeholder="Nhập tiêu đề dịch vụ" />
           </a-form-item>
-          <a-form-item label="Mô tả ngắn" name="description">
-            <a-input v-model:value="modalForm.description" />
+          <a-form-item label="Mô tả ngắn" name="description" required>
+            <a-input v-model:value="modalForm.description" placeholder="Nhập mô tả ngắn" />
           </a-form-item>
 
-          <a-form-item label="Thứ tự" name="order">
-            <a-input-number v-model:value="modalForm.order" class="w-full" />
+          <a-form-item label="Thứ tự" name="order" required>
+            <a-input-number v-model:value="modalForm.order" class="w-full" :min="0" />
           </a-form-item>
           <a-form-item label="Trạng thái" name="status">
             <a-switch v-model:checked="modalForm.status" />
           </a-form-item>
 
           <!-- Placeholder image, click to upload -->
-          <a-form-item label="Hình ảnh" class="col-span-full">
+          <a-form-item label="Hình ảnh" name="image" class="col-span-full" required>
             <div v-if="!modalForm.image" class="flex justify-center items-center h-32 border-dashed border-2 border-gray-400 rounded cursor-pointer" @click="triggerUpload">
               <span class="text-gray-500">Chưa có ảnh</span>
             </div>
@@ -76,7 +76,7 @@
 
         <!-- Nội dung chiếm nguyên hàng -->
         <div class="mt-4">
-          <a-form-item label="Nội dung" name="content" class="col-span-full">
+          <a-form-item label="Nội dung" name="content" class="col-span-full" required>
             <TinyMCE v-model="modalForm.content" />
           </a-form-item>
         </div>
@@ -139,6 +139,29 @@ const convert_data = data => {
 
 const modelRef = reactive({ name: "" });
 const formRef = ref();
+const modalFormRef = ref();
+
+// Validation rules for the modal form
+const rules = {
+  name: [
+    { required: true, message: 'Vui lòng nhập tiêu đề', trigger: 'blur' },
+    { max: 255, message: 'Tiêu đề không được quá 255 ký tự', trigger: 'blur' }
+  ],
+  description: [
+    { required: true, message: 'Vui lòng nhập mô tả ngắn', trigger: 'blur' },
+    { max: 500, message: 'Mô tả không được quá 500 ký tự', trigger: 'blur' }
+  ],
+  content: [
+    { required: true, message: 'Vui lòng nhập nội dung', trigger: 'blur' }
+  ],
+  order: [
+    { required: true, message: 'Vui lòng nhập thứ tự', trigger: 'blur' },
+    { type: 'number', min: 0, message: 'Thứ tự phải là số lớn hơn hoặc bằng 0', trigger: 'blur' }
+  ],
+  image: [
+    { required: true, message: 'Vui lòng tải lên hình ảnh', trigger: 'change' }
+  ]
+};
 
 const param = ref({ search: "", PageIndex: 1, PageSize: 10 });
 
@@ -198,6 +221,12 @@ const showModal = () => {
   if (inputFileUpload.value) {
     inputFileUpload.value.value = null;
   }
+  // Reset validation when showing modal
+  nextTick(() => {
+    if (modalFormRef.value) {
+      modalFormRef.value.clearValidate();
+    }
+  });
   isModalOpen.value = true;
 };
 
@@ -207,6 +236,12 @@ const editRecord = record => {
   if (inputFileUpload.value) {
     inputFileUpload.value.value = null;
   }
+  // Reset validation when editing
+  nextTick(() => {
+    if (modalFormRef.value) {
+      modalFormRef.value.clearValidate();
+    }
+  });
   isModalOpen.value = true;
 };
 
@@ -222,10 +257,12 @@ function transformData(input) {
 }
 
 const handleOk = async () => {
-  modalLoading.value = true;
   try {
+    // Validate form before submitting
+    await modalFormRef.value.validate();
+    
+    modalLoading.value = true;
     if (modalForm.id) {
-      // await RestApi.service.update(modalForm.id, modalForm);
       const updateBody = {
         id: modalForm.id,
         tieuDe: modalForm.name || "",
@@ -234,8 +271,8 @@ const handleOk = async () => {
         urlImg: modalForm.image || "",
         active: modalForm.status || false,
         thutuhienthi: modalForm.order || 0,
-        ngayTao: modalForm.create_date || "", // Thêm create_date
-        nguoiTao: modalForm.user_create || "", // Thêm user_create
+        ngayTao: modalForm.create_date || "",
+        nguoiTao: modalForm.user_create || "",
       };
       const { data, status } = await RestApi.service.update({ body: JSON.stringify(updateBody) });
       if (status.value === "success") {
@@ -245,7 +282,6 @@ const handleOk = async () => {
       } else {
         message.error("Cập nhật không thành công");
       }
-      message.success("Cập nhật thành công");
     } else {
       const { data, status } = await RestApi.service.create({ body: JSON.stringify(transformData(modalForm)) });
       if (status.value === "success") {
@@ -256,8 +292,9 @@ const handleOk = async () => {
         message.error("Thêm mới không thành công");
       }
     }
-  } catch (e) {
-    message.error("Đã có lỗi xảy ra");
+  } catch (error) {
+    // Validation errors will be shown automatically by the form
+    console.error("Validation failed:", error);
   } finally {
     modalLoading.value = false;
   }
@@ -322,8 +359,11 @@ const onFilesChange = async e => {
       bucket: "website",
     });
 
-    // console.log("Uploaded image URL:", uploadedUrl);s
     modalForm.image = uploadedUrl;
+    // Trigger validation after image upload
+    if (modalFormRef.value) {
+      modalFormRef.value.validateFields(['image']);
+    }
     e.target.value = null;
   } catch (error) {
     console.error("Upload lỗi:", error);
@@ -333,7 +373,6 @@ const onFilesChange = async e => {
 };
 const inputFileUpload = ref(null);
 const triggerUpload = () => {
-  // Mở file dialog khi click vào ảnh để người dùng chọn ảnh mới
   inputFileUpload.value.click();
 };
 
