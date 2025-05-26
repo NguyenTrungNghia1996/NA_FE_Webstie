@@ -1,6 +1,7 @@
 <template>
   <div class="w-screen">
     <div class="w-screen">
+      <PageSlidesBanner/>
       <AboutSection v-for="(item, index) in data" :color="true" :key="index" :title="item.title" :description="item.description" :imageSrc="item.imageSrc" :reverse="index % 2 !== 0"/>
     </div>
     <div class="w-screen container mx-auto grid grid-cols-1 gap-3">
