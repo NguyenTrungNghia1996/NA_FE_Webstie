@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col gap-3">
     <!-- Hero Section -->
+     <PageSlidesBanner/>
     <div class="flex-col lg:flex-row gap-6 md:gap-8 flex container mx-auto py-5">
       <SlideWrapper_2D class="flex-1">
         <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">

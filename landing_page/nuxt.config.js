@@ -3,7 +3,7 @@ const isDev = process.env.NODE_ENV === "development";
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "Nguyên Anh EST",
+      // title: "Nguyên Anh EST",
       link: [
         {
           rel: 'stylesheet',
