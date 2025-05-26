@@ -179,6 +179,9 @@ const handleDelete = async record => {
 const closeModal = () => {
   modalVisible.value = false;
   formState.value = resetFormState();
+  if (modalFormRef.value) {
+    modalFormRef.value.resetFields();
+  }
 };
 
 const showModal = () => {
@@ -221,7 +224,7 @@ const handleSave = async () => {
       message.error("Lỗi xử lý");
     }
   } catch (error) {
-    message.error("Validation Failed:", error);
+    console.error("Validation Failed:", error);
   }
 };
 

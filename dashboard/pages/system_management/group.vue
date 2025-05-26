@@ -22,13 +22,14 @@
       </ClientOnly>
     </div>
     <a-modal width="100%" v-model:open="isModalVisible" :title="isEditMode ? 'Chỉnh sửa nhóm quyền' : 'Thêm nhóm quyền'" @ok="handleSave" @cancel="handleCancel">
-      <RolePermissionTable :roleData="modalRule" :availablePermissions="availablePermissions" @update:roleData="updateRoleData" />
+      <RolePermissionTable :roleData="modalRule" :availablePermissions="availablePermissions" @update:roleData="updateRoleData" ref="roleFormRef" />
     </a-modal>
   </div>
 </template>
 
 <script setup>
 const { RestApi } = useApi();
+const roleFormRef = ref();
 const dataSource = ref([]);
 const isEditMode = ref(false);
 const isModalVisible = ref(false);
@@ -104,7 +105,7 @@ function convertMenuToRolePermission(inputData, roleGroupName = "", moTa = "") {
 }
 const roleSource = ref({});
 const { data, status } = await RestApi.menu_backend.list_all();
-if (status.value === "success") { 
+if (status.value === "success") {
   roleSource.value = convertMenuToRolePermission(data.value);
 } else {
   message.error("Lỗi lấy dữ liệu phần quyền")
@@ -116,8 +117,10 @@ const availablePermissions = ref([
   { id: 3, permissionName: "Sửa" },
   { id: 4, permissionName: "Xóa" },
 ]);
-const showModal = () => {
+const showModal = async () => {
   isEditMode.value = false;
+  await nextTick(); // Đảm bảo roleFormRef sẵn sàng
+  roleFormRef.value?.resetForm?.();
   Object.assign(modalRule.value, roleSource.value);
   isModalVisible.value = true;
 };
@@ -146,10 +149,16 @@ const handleDelete = async record => {
 //all
 const handleCancel = () => {
   isModalVisible.value = false;
+  nextTick(() => {
+    roleFormRef.value?.resetForm?.();
+  });
 };
 
 const handleSave = async () => {
-  try {
+   try {
+    const valid = await roleFormRef.value?.validateForm?.();
+    if (!valid) return;
+
     const action = isEditMode.value ? "update" : "create";
     const successMessage = isEditMode.value ? "Cập nhật nhóm quyền thành công!" : "Thêm mới nhóm quyền thành công!";
     const errorMessage = isEditMode.value ? "Cập nhật nhóm quyền không thành công!" : "Thêm mới nhóm quyền không thành công!";
@@ -162,13 +171,17 @@ const handleSave = async () => {
       message.success(successMessage);
     } else {
       message.error(errorMessage);
+      return;
     }
+
+    // ✅ Thành công thì reset form và đóng modal
+    await loadData({ ...param.value });
+    roleFormRef.value?.resetForm?.();
+    isModalVisible.value = false;
+
   } catch (error) {
     console.error("Lỗi xử lý nhóm quyền:", error);
     message.error("Đã xảy ra lỗi. Vui lòng thử lại sau!");
-  } finally {
-    await loadData({ ...param.value });
-    isModalVisible.value = false;
   }
 };
 onMounted(() => {

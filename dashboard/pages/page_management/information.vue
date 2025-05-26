@@ -119,7 +119,9 @@
               <template v-if="column.key === 'urlImg'">
                 <img :src="record.urlImg" alt="img" class="w-20 h-14 object-cover rounded" />
               </template>
-
+               <template v-if="column.key === 'moTa'">
+                <span v-html="record.moTa"/>
+               </template>
               <template v-else-if="column.key === 'active'">
                 <span :class="record.active ? 'text-green-600' : 'text-red-500'">
                   {{ record.active ? "Hoạt động" : "Tạm ẩn" }}

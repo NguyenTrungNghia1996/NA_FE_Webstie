@@ -1,20 +1,29 @@
 <template>
   <div class="p-4 sm:p-6">
-    <!-- Tên nhóm quyền và mô tả -->
-    <div class="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div>
-        <label for="roleName" class="block text-sm font-medium text-gray-700">Tên nhóm quyền</label>
-        <a-input v-model:value="localRoleData.roleGroupName" placeholder="Tên quyền" @blur="handleRoleNameChange" />
+    <!-- Form dùng để validate -->
+    <a-form :model="localRoleData" :rules="formRules" ref="formRef" layout="vertical">
+      <div class="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Tên nhóm quyền -->
+        <a-form-item label="Tên nhóm quyền" name="roleGroupName">
+          <a-input v-model:value="localRoleData.roleGroupName" placeholder="Tên quyền" />
+        </a-form-item>
+
+        <!-- Mô tả -->
+        <a-form-item label="Mô tả" name="moTa">
+          <a-input v-model:value="localRoleData.moTa" placeholder="Mô tả" />
+        </a-form-item>
+
+        <!-- Tìm kiếm -->
+        <!-- <div>
+          <label for="search" class="block text-sm font-medium text-gray-700">Tìm kiếm</label>
+          <a-input v-model:value="searchTerm" placeholder="Tìm chức năng..." allow-clear />
+        </div> -->
+        <a-form-item label="Tìm kiếm">
+          <a-input v-model:value="searchTerm" placeholder="Tìm chức năng..." allow-clear />
+        </a-form-item>
       </div>
-      <div>
-        <label for="moTa" class="block text-sm font-medium text-gray-700">Mô tả</label>
-        <a-input v-model:value="localRoleData.moTa" placeholder="Mô tả" @blur="handleMoTaChange" />
-      </div>
-      <div>
-        <label for="search" class="block text-sm font-medium text-gray-700">Tìm kiếm</label>
-        <a-input v-model:value="searchTerm" placeholder="Tìm chức năng..." allow-clear />
-      </div>
-    </div>
+    </a-form>
+
     <!-- Bảng quyền -->
     <a-table :columns="tableColumns" :dataSource="filteredFunctions" :pagination="false" rowKey="id" :scroll="{ x: 500, y: 500 }">
       <template #bodyCell="{ column, record, index }">
@@ -31,14 +40,17 @@
     </a-table>
   </div>
 </template>
-
 <script setup>
+import { ref, computed, watch } from "vue";
+import { message } from "ant-design-vue";
+
 const props = defineProps({
   roleData: Object,
   availablePermissions: Array,
 });
-
 const emit = defineEmits(["update:roleData"]);
+
+const formRef = ref(); // Dùng để validate
 
 const localRoleData = ref(JSON.parse(JSON.stringify(props.roleData)));
 const searchTerm = ref("");
@@ -48,8 +60,14 @@ watch(
   newData => {
     localRoleData.value = JSON.parse(JSON.stringify(newData));
   },
-  { deep: true },
+  { deep: true }
 );
+
+// Validate rules
+const formRules = {
+  roleGroupName: [{ required: true, message: "Vui lòng nhập tên nhóm quyền", trigger: "blur" }],
+  moTa: [{ required: true, message: "Vui lòng nhập mô tả", trigger: "blur" }],
+};
 
 const hasPermission = (func, permissionId) => {
   return func.dataPermission?.includes(permissionId);
@@ -72,16 +90,10 @@ const handlePermissionChange = (func, permission, checked) => {
   emit("update:roleData", localRoleData.value);
 };
 
-const handleRoleNameChange = () => {
-  emit("update:roleData", localRoleData.value);
-};
-
-const handleMoTaChange = () => {
-  emit("update:roleData", localRoleData.value);
-};
-
 const filteredFunctions = computed(() => {
-  return localRoleData.value.dataPhanQuyen.filter(func => func.functionName.toLowerCase().includes(searchTerm.value.toLowerCase()));
+  return localRoleData.value.dataPhanQuyen.filter(func =>
+    func.functionName.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
 });
 
 const tableColumns = computed(() => [
@@ -103,8 +115,20 @@ const tableColumns = computed(() => [
     align: "center",
   })),
 ]);
-</script>
 
-<style scoped>
-/* Optional style tweak */
-</style>
+// 🎯 Hàm validate trước khi submit
+
+const resetForm = async () => {
+  localRoleData.value = {
+    roleGroupName: "",
+    moTa: "",
+    dataPhanQuyen: props.roleData?.dataPhanQuyen?.map(item => ({
+      ...item,
+      dataPermission: [],
+    })) || [],
+  };
+  await nextTick();
+  formRef.value?.resetFields?.();
+};
+defineExpose({ validateForm: () => formRef.value?.validate(), resetForm });
+</script>
