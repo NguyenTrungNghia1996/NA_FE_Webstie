@@ -10,18 +10,13 @@ const { RestApi } = useApi();
 const t = nuxtApp.$i18n.t;
 const settingStore = useSettingStore();
 
-const { data: data_menu, status } = await RestApi.menu_backend.list_full_detail({
-      body: JSON.stringify({
-        pageIndex: "1",
-        pageSize: "100",
-      }),
-    });
-    if (status.value === "success") {
-      settingStore.setMenu(data_menu.value.menu);
-    }
-onMounted(() => {
+
+onMounted(async () => {
   ////////////////////////////////Breadcrumb
- 
+  const { data: data_menu, status } = await RestApi.menu_backend.menu_by_user();
+  if (status.value === "success") {
+    settingStore.setMenu(data_menu.value.menu);
+  }
   const tempBreadcrumb = computed(() => {
     return [
       { url: "/dashboard", title: t("dashboard") },

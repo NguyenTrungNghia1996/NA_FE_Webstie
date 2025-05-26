@@ -34,6 +34,7 @@ let ENDPOINTS = {
   GET_ALL_MENU: "/api/backend/Menu/GetallFunction",
   GET_DETAIL_FULL_MENU: "/api/backend/Menu/GetlistallMenu_Paging",
   MENU_BACKEND: "/api/backend/Menu/function",
+  MENU_BY_USER:"/api/backend/Menu/GetlistLeftMenuByUser",
   //customer 
   CUSTOMERS_LIST: "/api/backend/Khachhangtieubieu/Getlist_Pagging",
   CUSTOMERS: "/api/backend/Khachhangtieubieu/Khachhang",
@@ -353,6 +354,9 @@ class Menu_backend {
   }
   async list_all(data) {
     return await this.request.get(ENDPOINTS.GET_ALL_MENU, data);
+  }
+  async menu_by_user(data) {
+    return await this.request.get(ENDPOINTS.MENU_BY_USER, data);
   }
   async list_full_detail(data) {
     return await this.request.post(ENDPOINTS.GET_DETAIL_FULL_MENU, data);

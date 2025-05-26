@@ -123,6 +123,9 @@ const resetForm = () => {
     newPassword: "",
     confirmPassword: "",
   };
+  if (passwordFormRef.value) {
+    passwordFormRef.value.clearValidate();
+  }
 };
 
 const signOut = async () => {

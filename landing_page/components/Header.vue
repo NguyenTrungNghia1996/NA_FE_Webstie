@@ -164,33 +164,56 @@ const submenuLeave = (el, done) => {
   el.addEventListener("transitionend", done, { once: true });
 };
 
-const convertMenu = originalMenu => {
-  const mainMenu = originalMenu
-    .filter(item => item.idMenuCha === null)
-    .map(item => ({
-      id: item.id,
-      label: item.ten,
-      url: item.url.trim(),
-      children: [],
-    }))
-    .sort((a, b) => a.thutu - b.thutu);
+const convertMenu = data => {
+  // const mainMenu = originalMenu
+  //   .filter(item => item.idMenuCha === null)
+  //   .map(item => ({
+  //     id: item.id,
+  //     label: item.ten,
+  //     url: item.url.trim(),
+  //     children: [],
+  //   }))
+  //   .sort((a, b) => a.thutu - b.thutu);
 
-  originalMenu.forEach(item => {
-    if (item.idMenuCha !== null) {
-      const parentMenu = mainMenu.find(menu => menu.id === item.idMenuCha);
-      if (parentMenu) {
-        parentMenu.children.push({
-          label: item.ten,
-          url: item.url.trim(),
-        });
-      }
+  // originalMenu.forEach(item => {
+  //   if (item.idMenuCha !== null) {
+  //     const parentMenu = mainMenu.find(menu => menu.id === item.idMenuCha);
+  //     if (parentMenu) {
+  //       parentMenu.children.push({
+  //         label: item.ten,
+  //         url: item.url.trim(),
+  //       });
+  //     }
+  //   }
+  // });
+
+  // return mainMenu.map(menu => {
+  //   const { id, ...rest } = menu;
+  //   return rest;
+  // });
+    const map = {};
+  const tree = [];
+
+  // Bước 1: Tạo bản đồ id -> node
+  data.forEach(item => {
+    map[item.id] = {
+      label: item.ten,
+      url: item.url,
+      children: []
+    };
+  });
+
+  // Bước 2: Gắn node con vào cha
+  data.forEach(item => {
+    const parentId = item.idMenuCha;
+    if (parentId === null || parentId === 0) {
+      tree.push(map[item.id]); // menu gốc
+    } else if (map[parentId]) {
+      map[parentId].children.push(map[item.id]);
     }
   });
 
-  return mainMenu.map(menu => {
-    const { id, ...rest } = menu;
-    return rest;
-  });
+  return tree;
 };
 
 const mainMenuItems = ref([]);
@@ -199,6 +222,7 @@ const { data, status, error } = await RestApi.view.menu();
 
 if (status.value == "success") {
   mainMenuItems.value = convertMenu(data.value);
+  console.log("error:", data.value);
 } else {
   console.log("error:", error);
 }

@@ -29,7 +29,7 @@
     </div>
 
     <a-modal v-model:open="isModalVisible" :title="isEditMode ? 'Sửa người dùng' : 'Thêm người dùng'" @ok="handleSubmit" @cancel="handleCancel" :confirm-loading="submitLoading">
-      <a-form class="grid grid-cols-2 gap-2" :model="formState" layout="vertical">
+      <a-form class="grid grid-cols-2 gap-2" :model="formState" layout="vertical" :rules="formRules" ref="formRef">
         <a-form-item label="Tên tài khoản" name="userName">
           <a-input v-model:value="formState.userName" placeholder="Nhập tên tài khoản" />
         </a-form-item>
@@ -51,6 +51,7 @@
     </a-modal>
   </div>
 </template>
+
 <script setup>
 const { RestApi } = useApi();
 const dataSource = ref([]);
@@ -61,6 +62,7 @@ const group_data = ref([]);
 const staff_data = ref([]);
 const editLoading = ref({});
 const submitLoading = ref(false);
+const formRef = ref();
 
 const pagination = reactive({
   current: 1,
@@ -79,9 +81,35 @@ const columns = [
 
 const formState = reactive({
   userName: "",
-  idUserInfo: 0,
+  idUserInfo: null,
   idRoles: [],
 });
+
+const formRules = {
+  userName: [
+    { required: true, message: 'Vui lòng nhập tên tài khoản' },
+    { 
+      validator: (_, value) => {
+        if (!value || value.trim() === '') {
+          return Promise.reject('Tên tài khoản không được để trống');
+        }
+        if (/\s/.test(value)) {
+          return Promise.reject('Tên tài khoản không được chứa khoảng trắng');
+        }
+        if (/[^a-zA-Z0-9_\-.]/.test(value)) {
+          return Promise.reject('Tên tài khoản chỉ được chứa chữ cái, số và các ký tự _ - .');
+        }
+        return Promise.resolve();
+      }
+    }
+  ],
+  idUserInfo: [
+    { required: true, message: 'Vui lòng chọn nhân viên' }
+  ],
+  idRoles: [
+    { required: true, message: 'Vui lòng chọn ít nhất một nhóm quyền' }
+  ]
+};
 
 const groupOptions = computed(() => group_data.value);
 
@@ -133,6 +161,7 @@ const get_data_select = async () => {
     staff_data.value = data_staff.value.data;
   }
 };
+
 await loadData({ ...param.value });
 
 const handleDelete = async id => {
@@ -149,6 +178,7 @@ const handleDelete = async id => {
     message.error("Đã xảy ra lỗi khi xoá người dùng");
   }
 };
+
 const handleReset = async id => {
   try {
     const { status } = await RestApi.user.reset_password({ params: { userId: id } });
@@ -172,6 +202,11 @@ const showModal = () => {
     idUserInfo: null,
     idRoles: [],
   });
+  nextTick(() => {
+    if (formRef.value) {
+      formRef.value.clearValidate();
+    }
+  });
   isModalVisible.value = true;
 };
 
@@ -184,6 +219,11 @@ const handleEdit = async record => {
     if (status.value === "success") {
       const user = data.value.data;
       Object.assign(formState, { ...user, idUserInfo: user.idUserInfo || null });
+      nextTick(() => {
+        if (formRef.value) {
+          formRef.value.clearValidate();
+        }
+      });
       isModalVisible.value = true;
     } else {
       message.error("Lỗi lấy dữ liệu");
@@ -198,6 +238,8 @@ const handleEdit = async record => {
 
 const handleSubmit = async () => {
   try {
+    await formRef.value.validate();
+    
     submitLoading.value = true;
     let st = "";
     if (isEditMode.value) {
@@ -211,24 +253,31 @@ const handleSubmit = async () => {
       });
       st = status.value;
     }
-    console.log(">>>>>>>", st);
+    
     if (st === "success") {
       message.success(isEditMode.value ? "Cập nhật người dùng thành công!" : "Thêm mới người dùng thành công!");
     } else {
       message.error(isEditMode.value ? "Cập nhật người dùng không thành công!" : "Thêm mới người dùng không thành công!");
     }
   } catch (error) {
-    console.error("Lỗi xử lý người dùng:", error);
-    message.error("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+    if (error.errorFields) {
+      message.error('Vui lòng kiểm tra lại thông tin nhập vào');
+    } else {
+      console.error("Lỗi xử lý người dùng:", error);
+      message.error("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+    }
   } finally {
     await loadData({ ...param.value });
-    isModalVisible.value = false;
+    // isModalVisible.value = false;
     submitLoading.value = false;
   }
 };
 
 const handleCancel = () => {
   isModalVisible.value = false;
+  if (formRef.value) {
+    formRef.value.clearValidate();
+  }
 };
 
 onMounted(() => {
