@@ -2,6 +2,7 @@
   <div class="flex flex-col gap-3 w-full overflow-x-hidden">
     <!-- Hero Section -->
     <PageSlidesBanner/>
+    <PageBreadcrumb :data="data_breadcrumb" />
     <div class="flex-col lg:flex-row gap-6 md:gap-8 flex container mx-auto py-5 w-full px-2 sm:px-4">
       <SlideWrapper_2D class="flex-1 w-full">
         <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">
@@ -107,6 +108,16 @@
 </template>
 
 <script setup>
+const data_breadcrumb = ref([
+  {
+    url: "/",
+    label: "Trang chủ",
+  },
+  {
+    url: "/dichvu",
+    label: "Sản phẩm",
+  },
+]);
 const benefitsData = [
   {
     title: "Lợi ích về mặt nghiệp vụ",
