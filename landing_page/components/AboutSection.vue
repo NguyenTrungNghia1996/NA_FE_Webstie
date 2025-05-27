@@ -5,7 +5,7 @@
         <NuxtImg :src="imageSrc" :alt="imageSrc" placeholder="/placeholder.png" class="w-full h-auto rounded-xl shadow-lg" />
       </div>
       <div class="w-full lg:w-1/2 text-left transform transition-all duration-700 ease-out delay-100" :class="[visible ? 'opacity-100 scale-100 translate-x-0' : reverse ? 'opacity-0 scale-95 -translate-x-20' : 'opacity-0 scale-95 translate-x-20']">
-        <h2 class="text-2xl sm:text-3xl font-bold text-black mb-4">{{ title }}</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">{{ title }}</h2>
         <div class="text-gray-700 text-base sm:text-lg leading-relaxed prose" v-html="description"></div>
       </div>
     </div>

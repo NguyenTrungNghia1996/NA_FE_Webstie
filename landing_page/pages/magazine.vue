@@ -2,6 +2,7 @@
   <div class="w-full overflow-x-hidden">
     <div class="w-full">
       <PageSlidesBanner />
+      <PageBreadcrumb :data="data_breadcrumb" />
       <AboutSection v-for="(item, index) in data" :color="true" :key="index" 
                    :title="item.title" :description="item.description" 
                    :imageSrc="item.imageSrc" :reverse="index % 2 !== 0" />
@@ -31,6 +32,16 @@
 </template>
 
 <script setup>
+const data_breadcrumb = ref([
+  {
+    url: "/",
+    label: "Trang chủ",
+  },
+  {
+    url: "/dichvu",
+    label: "Sản phẩm",
+  },
+]);
 const data = ref([
   {
     title: "Giới thiệu chung",
