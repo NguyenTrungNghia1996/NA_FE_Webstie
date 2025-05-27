@@ -19,7 +19,7 @@
           </div>
 
           <!-- Featured Image (optional) -->
-          <NuxtImg v-if="props.data.image" :src="props.data.image" :alt="props.data.title" placeholder="/placeholder.png" class="w-full h-80 sm:h-85 object-fill items-center p-5" />
+          <NuxtImg v-if="props.data.image" :src="props.data.image" :alt="props.data.title" placeholder="/placeholder.png" class="w-full object-fill items-center p-5" />
           <!-- Article Content -->
           <div class="px-6 sm:px-8 pb-8 prose prose-lg max-w-none prose-headings:text-gray-900  prose-p:text-gray-700  prose-a:text-blue-600  prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal ">
             <div v-html="props.data.description"></div>
