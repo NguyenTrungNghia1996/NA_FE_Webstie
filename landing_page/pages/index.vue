@@ -43,7 +43,7 @@ const data_info = ref({
   title: "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ GIÁO DỤC NGUYÊN ANH",
   description: "Công ty TNHH thương mại dịch vụ giáo dục Nguyên Anh là doanh nghiệp chuyên cung cấp, xây dựng các giải pháp phần mềm, phần cứng trong nhiều lĩnh vực hàng đầu tại Việt Nam. Với đội ngũ nhân viên dày dạn kinh nghiệm phát triển các sản phẩm và dịch vụ chúng tôi tự tin đem tới trải nhiệm tuyệt vời nhất cho khách hàng...",
   description2: '"Với lực lượng nhân sự trẻ trung, năng động, đam mê công nghệ, chúng tôi tự tin để thực hiện các dự án công nghệ thông tin của khách hàng với chất lượng tốt nhất và chi phí hợp lý nhất."',
-  image: "https://nguyenanh-est.com/Image/nguyenanh.png",
+  image: "https://image.nguyenanh-est.com/website/1748314853946_nguyenanh.png",
   url: "#",
 });
 const viewStore = useViewStore();
