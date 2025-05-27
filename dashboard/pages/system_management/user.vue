@@ -90,9 +90,6 @@ const formRules = {
     { required: true, message: 'Vui lòng nhập tên tài khoản' },
     { 
       validator: (_, value) => {
-        if (!value || value.trim() === '') {
-          return Promise.reject('Tên tài khoản không được để trống');
-        }
         if (/\s/.test(value)) {
           return Promise.reject('Tên tài khoản không được chứa khoảng trắng');
         }

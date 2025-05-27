@@ -106,8 +106,8 @@ const handleChangePassword = async () => {
   } catch (error) {
     message.error(error.response?.data?.message || "Thay đổi mật khẩu thất bại");
   } finally {
-    resetForm();
-    changePasswordModalVisible.value = false;
+    // resetForm();
+    // changePasswordModalVisible.value = false;
     confirmLoading.value = false;
   }
 };
