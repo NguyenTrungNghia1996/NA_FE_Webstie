@@ -37,7 +37,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 w-full h-full m-auto flex-1 bg-white rounded-lg transition-all md:rounded-xl shadow-sm md:shadow-md duration-300 overflow-hidden">
               <div class="p-2 flex items-center justify-center">
                 <NuxtImg placeholder="/placeholder.png" :src="benefit.image" :alt="`${benefit.title} demo`" 
-                         class="w-full h-32 md:h-40 object-cover rounded-lg" />
+                         class="w-full h-50 md:h-40 object-fill rounded-lg" />
               </div>
               <div class="p-4 md:p-6 col-span-2">
                 <div class="flex items-center mb-2 md:mb-4">
