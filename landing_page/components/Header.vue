@@ -2,33 +2,24 @@
   <div class="h-[70px] md:h-[80px] w-full bg-white z-[10] border-b border-gray-300 fixed">
     <div class="container mx-auto h-full flex justify-between items-center px-4">
       <!-- Logo -->
-       <nuxt-link to="/" class="m-3">
-        <NuxtImg :src="settingStore.info.logo" :alt="settingStore.info.logo" placeholder="/placeholder.png" class="h-16 md:h-20 w-full" />
-       </nuxt-link>
+      <nuxt-link to="/" class="m-3 inline-block">
+        <NuxtImg :src="settingStore.info.logo" :alt="settingStore.info.logo" placeholder="/placeholder.png" class="h-16 md:h-20 w-auto max-w-[150px] md:max-w-[200px]" width="200" height="80" sizes="sm:150px md:200px" />
+      </nuxt-link>
       <!-- Mobile Menu Button -->
       <button @click="toggleMobileMenu" class="md:hidden p-2 focus:outline-none transition-all duration-300" aria-label="Menu mobile">
         <div class="w-6 h-6 relative">
-          <span
-            class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out"
-            :class="{
-              'rotate-45 top-1/2 -translate-y-1/2': isMobileMenuOpen,
-              'top-1': !isMobileMenuOpen,
-            }"
-          ></span>
-          <span
-            class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out"
-            :class="{
-              'opacity-0': isMobileMenuOpen,
-              'top-1/2 -translate-y-1/2': !isMobileMenuOpen,
-            }"
-          ></span>
-          <span
-            class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out"
-            :class="{
-              '-rotate-45 top-1/2 -translate-y-1/2': isMobileMenuOpen,
-              'bottom-1': !isMobileMenuOpen,
-            }"
-          ></span>
+          <span class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out" :class="{
+            'rotate-45 top-1/2 -translate-y-1/2': isMobileMenuOpen,
+            'top-1': !isMobileMenuOpen,
+          }"></span>
+          <span class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out" :class="{
+            'opacity-0': isMobileMenuOpen,
+            'top-1/2 -translate-y-1/2': !isMobileMenuOpen,
+          }"></span>
+          <span class="block absolute h-0.5 w-full bg-gray-800 rounded-full transition-all duration-300 ease-out" :class="{
+            '-rotate-45 top-1/2 -translate-y-1/2': isMobileMenuOpen,
+            'bottom-1': !isMobileMenuOpen,
+          }"></span>
         </div>
       </button>
 
@@ -60,7 +51,7 @@
             </svg>
           </button>
         </div>
-        <Translate class="mx-3"/>
+        <Translate class="mx-3" />
       </div>
     </div>
     <!-- Mobile Menu -->
@@ -76,7 +67,7 @@
               </svg>
             </button>
           </div>
-          <Translate class="mx-3"/>
+          <Translate class="mx-3" />
         </div>
 
         <ul class="py-2">
@@ -104,7 +95,7 @@
             </transition>
           </li>
         </ul>
-        
+
       </div>
     </transition>
   </div>
@@ -190,7 +181,7 @@ const convertMenu = data => {
   //   const { id, ...rest } = menu;
   //   return rest;
   // });
-    const map = {};
+  const map = {};
   const tree = [];
 
   // Bước 1: Tạo bản đồ id -> node
