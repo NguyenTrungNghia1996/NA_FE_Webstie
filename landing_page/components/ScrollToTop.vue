@@ -193,6 +193,9 @@ const rules = ref({
   message: [
     { required: true, message: "Bạn cần nhập nội dung", trigger: "change" },
   ],
+  subject: [
+    { required: true, message: "Bạn cần nhập chủ đề", trigger: "change" },
+  ],
 });
 
 const dialogVisible = ref(false);
