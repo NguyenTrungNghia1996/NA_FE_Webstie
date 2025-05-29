@@ -42,8 +42,8 @@ const { RestApi } = useApi();
 const userStore = useUserStore();
 
 const form = reactive({
-  username: "admin",
-  password: "Mi@2023",
+  username: "",
+  password: "",
 });
 
 const rememberMe = ref(false);
